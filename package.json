@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "An Electron based Music Player",
   "main": "main.js",
-  "dependencies": {
+  "devDependencies": {
     "electron": "^1.4.13"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
