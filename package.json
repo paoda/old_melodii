@@ -1,0 +1,24 @@
+{
+  "name": "melody-music-player",
+  "version": "1.0.0",
+  "description": "An Electron based Music Player",
+  "main": "main.js",
+  "dependencies": {
+    "electron": "^1.4.13"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Paoda/melody.git"
+  },
+  "keywords": ["music", "mp3", "wav", "ogg", "player"],
+  "author": "Paoda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Paoda/melody/issues"
+  },
+  "homepage": "https://github.com/Paoda/melody#readme"
+}
