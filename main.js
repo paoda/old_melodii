@@ -8,7 +8,10 @@ const BrowserWindow = electron.BrowserWindow;
 let mainWindow
 
 function createWindow() {
-  mainWindow = new BrowserWindow({width: 640, height: 360})
+  mainWindow = new BrowserWindow({
+    width: 640,
+    height: 360
+  })
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
@@ -29,6 +32,6 @@ app.on('window-all-closed', function () {
 //For OSX
 app.on('activate', function() {
   if (mainWindow == null) {
-    creteWindow();
+    createWindow();
   }
 })
