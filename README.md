@@ -1,8 +1,8 @@
-# Melody Music Player
+# Melodii Music Player
 ### An Electron Based Music Player
 
 
-## Why Was Melody Music Player Made?
+## Why Was Melodii Music Player Made?
 MMP was created as a long term project to introduce me to electron and more complicated programming in general. 
 Before this project I had worked on small projects that never took more than an hour. After seing a friend create a videogame
 in Java, I felt the need to challenge myself as well...
@@ -38,3 +38,4 @@ Damn This is very ambitous for a beginner like me...
 * Sorting of albums
 * Searching of albums
 * [last.fm](http://last.fm) scrobbling.
+* Visualizer
