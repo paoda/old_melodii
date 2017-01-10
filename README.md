@@ -13,3 +13,4 @@ Real talk, this is nothing more than a little project to enhance my quite rudime
 * Audio Playback
 * Sorting
 * Searching
+* [last.fm](http://last.fm) scrobbling.
