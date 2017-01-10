@@ -13,11 +13,20 @@
     "type": "git",
     "url": "git+https://github.com/Paoda/melody.git"
   },
-  "keywords": ["music", "mp3", "wav", "ogg", "player"],
+  "keywords": [
+    "music",
+    "mp3",
+    "wav",
+    "ogg",
+    "player"
+  ],
   "author": "Paoda",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Paoda/melody/issues"
   },
-  "homepage": "https://github.com/Paoda/melody#readme"
+  "homepage": "https://github.com/Paoda/melody#readme",
+  "dependencies": {
+    "fs-web": "^1.0.1"
+  }
 }
