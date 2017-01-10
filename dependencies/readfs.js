@@ -1,7 +1,7 @@
-var fsw = require('fs-web');
-var path = require('path');
-var directoryList = new Array();
-
-function pleaseWork() {
-    directoryList = fsw.readdir(directory);
+function readDirectory(dir) {
+    fs.readdir(directory, (err, files) => {
+        files.forEach(file => {
+            console.log(file);
+        })
+    })
 }
