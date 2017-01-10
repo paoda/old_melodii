@@ -8,7 +8,7 @@ const url = require('url');
 let mainWindow;
 
 function createWindow() {
-    mainWindow = new BrowserWindow({width:500, height: 600});
+    mainWindow = new BrowserWindow({width:500, height: 500});
 
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
@@ -16,7 +16,7 @@ function createWindow() {
         slashes: true
     }))
 
-    mainWindow.webContents.openDevTools();
+   // mainWindow.webContents.openDevTools();
 
     mainWindow.on('closed', function() {
         mainWindow = null;

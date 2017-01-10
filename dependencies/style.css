@@ -1,3 +1,14 @@
+html{
+     background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+     font-family: Arial, sans-serif;
+}
 #dirBtn{
     text-decoration: none;
+    border-style: solid;
+    border-width: 3px;
+    border-color: white;
+    color: white;
+    border-radius: 2px;
+    padding: 2px;
+
 }
