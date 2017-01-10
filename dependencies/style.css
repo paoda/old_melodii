@@ -1,8 +1,12 @@
-html{
-     background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+html, body{
+     /* background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); */
+     background: rebeccapurple;
      font-family: Arial, sans-serif;
+     margin: 0; 
 }
 #dirBtn{
+
+    /* Fancifying element */
     text-decoration: none;
     border-style: solid;
     border-width: 3px;
@@ -11,4 +15,12 @@ html{
     border-radius: 2px;
     padding: 2px;
 
+    
+}
+
+#container {
+    height: 25vh;  
+    width: 100vw;
+    text-align: center;
+    z-index: -1;
 }
