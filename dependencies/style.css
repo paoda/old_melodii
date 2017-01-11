@@ -1,9 +1,14 @@
+@font-face {
+    font-family: Roboto;
+    src: url('fonts/roboto/Roboto-Regular.ttf');
+}
 body {
     margin: 0;
     padding: 0;
     -webkit-app-region: drag;
     height: 100vh;
     width: 100vw;
+    font-family: Roboto; 
 }
 
 .control-icons {
@@ -11,16 +16,28 @@ body {
     right: 0;
     height: 20px;
     background-color: darkslategray;
-    text-align: right;
 }
 .control-icons a {
     -webkit-app-region:  no-drag;
     color: white;
     padding-left: 3px;
+    float: right;
+}
+.control-icons p {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    line-height: 20px;
+    font-size: 20px;
+    float: left;
+    color: white;
 }
 #minimize {
-    font-size: 15   px;
+    font-size: 15px;
 }
 #close {
     font-size: 20px;
+}   
+#dirBtn {
+    -webkit-app-region: no-drag;
 }
