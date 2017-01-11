@@ -1,6 +1,9 @@
 body {
     margin: 0;
     padding: 0;
+    -webkit-app-region: drag;
+    height: 100vh;
+    width: 100vw;
 }
 
 #control-icons {
@@ -9,8 +12,11 @@ body {
     background-color: darkslategray;
 }
 #control-icons a {
-    width: 10%;
+    -webkit-app-region: no-drag;
+    width: 5%;
     display: inline-block;
     color: white;
     font-size: 10px;
+    top: 0;
+    right: 0;
 }
