@@ -6,14 +6,21 @@ body {
     width: 100vw;
 }
 
-#control-icons {
+.control-icons {
     top: 0;
     right: 0;
     height: 20px;
     background-color: darkslategray;
     text-align: right;
 }
-#control-icons a {
+.control-icons a {
     -webkit-app-region:  no-drag;
     color: white;
+    padding-left: 3px;
+}
+#minimize {
+    font-size: 15   px;
+}
+#close {
+    font-size: 20px;
 }
