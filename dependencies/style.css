@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#control-icons {
+    width: 100%;
+    text-align: right;
+    background-color: darkslategray;
+}
+#control-icons a {
+    width: 10%;
+    display: inline-block;
+    color: white;
+    font-size: 10px;
+}

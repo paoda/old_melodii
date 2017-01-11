@@ -1,6 +1,6 @@
 //Beta Dialog Box
 function dirBtn() {
-     directory = dialog.showOpenDialog({properties: ['openFile', 'openDirectory']});
+     directory = dialog.showOpenDialog({properties: ['openDirectory']});
      directory = directory.toString();  
 }
 //Rather dissapointing crawler for files. 

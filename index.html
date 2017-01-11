@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="dependencies/style.css">
-    <script src='dependencies/init.js' async></script>
-    <title>Melody Music Player</title>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Melodii Music Player</title>
+    <link rel='stylesheet'' href='dependencies/style.css'' \>
+    <link rel='stylesheet'' href='node_modules/font-awesome/css/font-awesome.min.css'' \>
 </head>
 <body>
-    <div id='controls'>       
-        <div class='control' id='close'></div>
-        <div class='control' id='minimize'></div>
+    <div id='control-icons'>
+    <a href='#'><i class='fa fa-window-minimize' aria-hidden='true' onclick='minimize()'></i></a>
+    <a href='#'><i class='fa fa-times' aria-hidden='true' onclick='quit()'></i></a>
     </div>
-    <div id='container'>
-        <a id='dirBtn' href='#' onclick='dirBtn()'>Select Music Folder</a>
-    </div>
+
+    <a id='dirBtn' href='#' onclick='dirBtn()'>Select Music Directory</a>
+    
     <!-- Javascript -->
-    <script src="dependencies/musicDirectory.js"></script>
+    <script src='dependencies/init.js'></script>
+    <script src='dependencies/musicDirectory.js'></script>
+    <script src="dependencies/windowControl.js"></script>
 </body>
 </html>

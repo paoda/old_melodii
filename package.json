@@ -27,5 +27,6 @@
   },
   "homepage": "https://github.com/Paoda/melody#readme",
   "dependencies": {
+    "font-awesome": "^4.7.0"
   }
 }
