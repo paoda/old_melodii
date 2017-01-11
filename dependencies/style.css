@@ -7,16 +7,13 @@ body {
 }
 
 #control-icons {
-    width: 100%;
-    text-align: right;
-    background-color: darkslategray;
-}
-#control-icons a {
-    -webkit-app-region: no-drag;
-    width: 5%;
-    display: inline-block;
-    color: white;
-    font-size: 10px;
     top: 0;
     right: 0;
+    height: 20px;
+    background-color: darkslategray;
+    text-align: right;
+}
+#control-icons a {
+    -webkit-app-region:  no-drag;
+    color: white;
 }
