@@ -14,7 +14,7 @@ body {
 .control-icons {
     top: 0;
     right: 0;
-    height: 20px;
+    height: 25px;
     background-color: darkslategray;
 }
 .control-icons a {
@@ -26,8 +26,8 @@ body {
 .control-icons p {
     margin: 0;
     padding: 0;
-    vertical-align: middle;
-    line-height: 20px;
+    vertical-align: middle; 
+    line-height: 25px;
     font-size: 20px;
     float: left;
     color: white;
