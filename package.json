@@ -27,6 +27,8 @@
   },
   "homepage": "https://github.com/Paoda/melody#readme",
   "dependencies": {
+    "av": "^0.4.9",
+    "browserify": "^13.3.0",
     "font-awesome": "^4.7.0"
   }
 }
