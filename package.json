@@ -29,6 +29,8 @@
   "dependencies": {
     "av": "^0.4.9",
     "browserify": "^13.3.0",
-    "font-awesome": "^4.7.0"
+    "flac.js": "^0.2.1",
+    "font-awesome": "^4.7.0",
+    "mp3.js": "^0.2.0"
   }
 }

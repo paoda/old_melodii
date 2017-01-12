@@ -6,11 +6,11 @@ const fs = require('fs');
 const process = require('os');
 
 //All Aurora.js libraries
-const av = require('./aurora.js/aurora.js');
-    require('./aurora.js/aac.js');
-    require('./aurora.js/alac.js');
-    require('./aurora.js/flac.js');
-    require('./aurora.js/mp3.js');
+const av = require('av');
+    require('flac.js');
+    require('alac.js');
+    require('mp3.js');
+    require('aac.js');
 
 var userOS = process.platform();
 console.log('Client OS = ' + userOS);
