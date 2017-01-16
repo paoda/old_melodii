@@ -1,3 +1,6 @@
+var player;
+
 function music(){
-    var player = av.player.fromFile(directory);
+    player = AV.Player.fromFile('C:\\Users\\Rekai\\Google Drive\\Music\\supercell\\[ASL] supercell - Today Is A Beautiful Day [FLAC] [w Scans]\\09 Hoshi ga Matataku Konna Yoru ni.flac');
+    player.play();
 }
