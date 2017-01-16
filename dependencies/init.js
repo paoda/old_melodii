@@ -3,11 +3,12 @@ const dialog = remote.dialog;
 const app = remote.app;
 const browserWindow = remote.BrowserWindow;
 const fs = require('fs');
-const process = require('os');
+const os = require('os');
 
 //All Aurora.js libraries
 
-var userOS = process.platform();
+var userOS = os.platform();
 console.log('Client OS = ' + userOS);
 
 var directory;
+var songs;

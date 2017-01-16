@@ -13,6 +13,6 @@ var minimize = document.getElementById('minimize');
 quit.addEventListener('click', () => {
 	app.quit();
 })
-minimize.addEventListner('click', () => {
+minimize.addEventListener('click', () => {
 	browserWindow.getFocusedWindow().minimize();
 })

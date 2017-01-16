@@ -1,12 +1,21 @@
 //Beta Dialog Box
-function dirBtn() {
+var dirBtn = document.getElementById('dirBtn');
+dirBtn.addEventListener('click', () => {
     directory = dialog.showOpenDialog({
-        properties: ['openDirectory']
+        properties: ['openDirectory', 'openFile']
     });
-    directory = directory.toString();
-}
 
-// http://stackoverflow.com/questions/10049557/reading-all-files-in-a-directory-store-them-in-objects-and-send-the-object
+    if (directory !== 'undefined') {
+        directory = directory.toString();
+        
+        scanDirectory(directory, (err, results) =>{
+            if (err) throw err;
+            songs = results;
+        })
+    }   
+})
+
+//http://stackoverflow.com/questions/5827612/node-js-fs-readdir-recursive-directory-search
 var scanDirectory = (dir, done) => {
     var results = [];
     fs.readdir(dir, (err, list) => {
@@ -15,7 +24,11 @@ var scanDirectory = (dir, done) => {
         (function next() {
             var file = list[i++];
             if (!file) return done(null, results);
-            file = dir + '/' + file;
+            if (os.platform() !== 'win32'){
+                file = dir + '/' + file;
+            }else {
+                file = dir + '\\' + file;
+            }
             fs.stat(file, (err, stat) => {
                 if (stat && stat.isDirectory()) {
                     scanDirectory(file, (err, res) => {
