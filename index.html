@@ -13,13 +13,40 @@
         <a href='#'><i class='fa fa-times fa-fw' id='close' aria-hidden='true'></i></a>
         <a href='#'><i class='fa fa-window-minimize fa-fw' id='minimize' aria-hidden='true'></i></a>
     </div>
-
-    <a id='dirBtn' href='#'>Select Music Directory</a>
+    <div>
+        <a id='dirBtn' href='#'>Select Music Directory</a>
+    </div>
+    <div>
+        <table id='songTable'>
+            <tr>
+                <th>Artist</th>
+                <th>Title</th>
+                <th>Album</th>
+                <th>Year</th>
+                <th>Genre</th>
+                <th>Time</th>
+            </tr>
+            <tr>
+                <td>Moe Shop</td>
+                <td>You Look so Good</td>
+                <td>Pure Pure</td>
+                <td>2015</td>
+                <td>Funk</td>
+                <td>3:29</td>
+            </tr>
+        </table>
+    </div>
+    <div id='mediaControls'>
+        <a href="#"><i class='fa fa-step-backward' aria-hidden='true'></i></a>
+        <a href="#"><i class='fa fa-play' aria-hidden='true'></i></a>
+        <a href="#"><i class='fa fa-step-forward' aria-hidden='true'></i></a>
+    </div>
     
     <!-- Javascript -->
     <script src='dependencies/init.js'></script>
-    <script src='dependencies/musicPlayer.js'></script>
     <script src='dependencies/musicDirectory.js'></script>
+    <script src='dependencies/tableGen.js'></script>
+    <script src='dependencies/musicPlayer.js'></script>
     <script src='dependencies/windowControl.js'></script>
 </body>
 </html>

@@ -41,3 +41,7 @@ body {
 #dirBtn {
     -webkit-app-region: no-drag;
 }
+
+#songTable {
+    width: 100%;
+}
