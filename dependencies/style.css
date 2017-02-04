@@ -45,3 +45,6 @@ body {
 #songTable {
     width: 100%;
 }
+#mediaControls {
+    -webkit-app-region: no-drag;
+}
