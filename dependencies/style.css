@@ -57,7 +57,10 @@ body {
 #mediaControls i {
     vertical-align: middle;
 }
-
+#mediaControls input {
+    -webkit-app-region: no-drag;
+    vertical-align: middle;
+}
 #footer {
     position: absolute;
     bottom: 0;
