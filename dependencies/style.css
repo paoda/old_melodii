@@ -45,6 +45,25 @@ body {
 #songTable {
     width: 100%;
 }
-#mediaControls {
+
+#mediaControls a {
     -webkit-app-region: no-drag;
+    font-size: 5vh;
+    color: white;
+    text-decoration: none;
+    padding-left: 1vh;
+}
+
+#mediaControls i {
+    vertical-align: middle;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 7%;
+    background-color: darkslategray;
+    text-align: center;
 }

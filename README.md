@@ -30,13 +30,12 @@ Damn This is very ambitous for a beginner like me...
 * Audio Playback
   * Support for:
     * FLAC
-    
-    * MP4
-    * MP3
+    * ~~MP4~~
+    * ~~MP3~~
     * M4a
     * AAC
-    * WAV
-    * Ogg
+    * ~~WAV~~
+    * ~~Ogg~~
 * Sorting of albums
 * Searching of albums
 * [last.fm](http://last.fm) scrobbling.
