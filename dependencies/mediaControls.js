@@ -5,6 +5,9 @@ var volDown = document.getElementById('volDown');
 var volUp = document.getElementById('volUp');
 var volRange = document.getElementById('volRange');
 
+volRange.value = musicPlayer.volume;
+console.log("Initial Volume :" + musicPlayer.volume);
+
 //Event Listeners
 
 backward.addEventListener('click', () => {
@@ -19,7 +22,14 @@ forward.addEventListener('click', () => {
 })
 volDown.addEventListener('click', () => {
     musicPlayer.volume -= 0.02;
+    volRange.value = musicPlayer.volume;
+
 })
 volUp.addEventListener('click', () => {
     musicPlayer.volume += 0.02;
-})
+    volRange.value = musicPlayer.volume;
+});
+
+function updateVolume() {
+    musicPlayer.volume = volRange.value;
+}
