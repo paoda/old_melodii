@@ -39,11 +39,10 @@
     <div id='footer'>
         <div id='mediaControls'>
             <a href="#" id='backward'><i class='fa fa-step-backward' aria-hidden='true'></i></a>
-            <a href="#" id='play'><i class='fa fa-play' aria-hidden='true'></i></a>
+            <a href="#" id='toggle'><i class='fa fa-play' aria-hidden='true'></i></a>
             <a href="#" id='forward'><i class='fa fa-step-forward' aria-hidden='true'></i></a>
             <a href='#' id='volDown'><i class='fa fa-volume-down' aria-hidden='true'></i></a>
-            <input id='volRange'type='range' min='0' max='1' step='0.02' oninput='updateVolume(value)'>
-            <output for='volRange' id='volOutput'></output>
+            <input id='volRange'type='range' min='0' max='1' step='0.02' oninput='updateVolume()'>
             <a href='#' id='volUp'><i class='fa fa-volume-up' aria-hidden='true'></i></a>     
         </div>
     </div>
