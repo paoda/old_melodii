@@ -1,27 +1,10 @@
-var backward = document.getElementById('backward');
-var toggle = document.getElementById('toggle');
-var mediaControls = document.getElementById('mediaControls');
-var forward = document.getElementById('forward');
-var volDown = document.getElementById('volDown');
-var volUp = document.getElementById('volUp');
-var volRange = document.getElementById('volRange');
-var toggleIcon = document.getElementById('toggleIcon');
-var pause = false;
-
-volRange.value = musicPlayer.volume;
+volRange.value = musicPlayer.volume; //Loading Volume the first time.
 console.log("Initial Volume : " + musicPlayer.volume);
 
 //Event Listeners
-
-backward.addEventListener('click', () => {
-    alert('Not Supported');
-})
-toggle.addEventListener('click', () => {
-    playPause();
-})
-forward.addEventListener('click', () => {
-    alert('not Supported');
-})
+backward.addEventListener('click', () => {alert('Not Supported');})
+toggle.addEventListener('click', () => {playPause();})
+forward.addEventListener('click', () => {alert('not Supported');})
 volDown.addEventListener('click', () => {
     musicPlayer.volume -= 0.02;
     volRange.value = musicPlayer.volume;
@@ -39,7 +22,6 @@ function updateVolume() {
 }
 
 function playPause() {
-    
     if (pause == false){
         musicPlayer.play();
 
@@ -48,7 +30,7 @@ function playPause() {
             toggleIcon.className = 'fa fa-pause';
             toggleIcon.id = 'toggleIcon';
             toggleIcon.setAttribute("aria-hidden", true);
-            toggle.appendChild(toggleIcon);
+        toggle.appendChild(toggleIcon);
        
         pause = true;
         volRange.value = musicPlayer.volume; //Just so Everythingis in Sync

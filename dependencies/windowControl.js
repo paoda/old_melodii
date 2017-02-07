@@ -7,8 +7,6 @@ function minimize() {
 */
 // Don't comment on this. Just let it be please.
 
-var quit = document.getElementById('close');
-var minimize = document.getElementById('minimize');
 
 quit.addEventListener('click', () => {
 	app.quit();

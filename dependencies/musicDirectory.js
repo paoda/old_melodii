@@ -1,5 +1,4 @@
 //Beta Dialog Box
-var dirBtn = document.getElementById('dirBtn');
 dirBtn.addEventListener('click', () => {
     directory = dialog.showOpenDialog({
         properties: ['openDirectory', 'openFile']
@@ -8,6 +7,8 @@ dirBtn.addEventListener('click', () => {
     if (directory !== 'undefined') {
         directory = directory.toString();
         
+        console.log('Chosen Directory: '+ directory)
+
         scanDirectory(directory, (err, results) =>{
             if (err) throw err;
             songs = results;
@@ -15,7 +16,7 @@ dirBtn.addEventListener('click', () => {
     }   
 })
 
-//http://stackoverflow.com/questions/5827612/node-js-fs-readdir-recursive-directory-search
+//http://stackoverflow.com/questions/5827612/node-js-fs-readdir-recursive-directory-search - Recursive directory scanning.
 var scanDirectory = (dir, done) => {
     var results = [];
     fs.readdir(dir, (err, list) => {

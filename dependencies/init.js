@@ -5,15 +5,31 @@ const browserWindow = remote.BrowserWindow;
 const fs = require('fs');
 const os = require('os');
 
-//All Aurora.js libraries
-const AV = require('av');
-    require('mp3');
-    require('flac.js');
-    require('alac');
-    require('aac');
-    require('ogg.js');
 var userOS = os.platform();
 console.log('Client OS = ' + userOS);
 
-var directory;
-var songs;
+var directory; //Contains user specified directory
+var songs; //Used for Array of every song in directory.
+var pause = false; //This controls the toggle for play and pause in mediaControls.js
+
+//Assigning Variables to Elements
+
+    //windowControl.js
+var quit = document.getElementById('close');
+var minimize = document.getElementById('minimize');
+
+    //mediaControls.js
+var backward = document.getElementById('backward');
+var toggle = document.getElementById('toggle');
+var mediaControls = document.getElementById('mediaControls');
+var forward = document.getElementById('forward');
+var volDown = document.getElementById('volDown');
+var volUp = document.getElementById('volUp');
+var volRange = document.getElementById('volRange');
+var toggleIcon = document.getElementById('toggleIcon');
+
+    //TableGen.js
+var table = document.getElementById('songTable');
+
+    //musicDirectory.js
+var dirBtn = document.getElementById('dirBtn');
