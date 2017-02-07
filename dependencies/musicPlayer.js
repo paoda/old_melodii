@@ -1,6 +1,6 @@
 var musicPlayer = new Audio()
 function works() {
-    musicPlayer.src = 'C:\\Users\\musuk\\Google Drive\\Music\\Panda Eyes & Teminite\\Highscore\\Teminite & Panda Eyes - Highscore.mp3';
+    musicPlayer.src = 'C:\\Users\\musuk\\Google Drive\\Music\\Mikuni Shimokawa\\Tomorrow\\02. Karenai Hana.mp3';
     musicPlayer.volume = 0.5;
     musicPlayer.load();
 }
