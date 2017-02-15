@@ -2,9 +2,9 @@ volRange.value = musicPlayer.volume; //Loading Volume the first time.
 console.log("Initial Volume : " + musicPlayer.volume);
 
 //Event Listeners
-backward.addEventListener('click', () => {alert('Not Supported');})
+backward.addEventListener('click', () => {previousSong();})
 toggle.addEventListener('click', () => {playPause();})
-forward.addEventListener('click', () => {alert('not Supported');})
+forward.addEventListener('click', () => {nextSong();})
 volDown.addEventListener('click', () => {
     musicPlayer.volume -= 0.02;
     volRange.value = musicPlayer.volume;
@@ -17,7 +17,7 @@ volUp.addEventListener('click', () => {
 });
 
 function updateVolume() {
-    musicPlayer.volume = volRange.value;
+    musicPlayer.volume = volRange.value; 
     console.log('Slider Moved. New Vol: ' + musicPlayer.volume); //Debugging Purposes
 }
 

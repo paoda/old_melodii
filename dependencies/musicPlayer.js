@@ -9,3 +9,7 @@ function broken() {
     var playdough = AV.Player.fromURL('C:\\Users\\Rekai\\Google Drive\\Music\\Aimer\\Ninelie\\01 ninelie.mp3');
     playdough.play();
 }
+
+musicPlayer.addEventListener('ended', () => {
+    musicPlayer.src = nextSong();
+})

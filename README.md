@@ -25,8 +25,10 @@ Damn This is very ambitous for a beginner like me...
   * Design
     * HTML, CSS Written
   * ~~Choose Music From Directory~~
-    * Read Files from directory
+    * ~~Read Files from directory~~
     * Pull Metadata from music fils.
+    * Media Controls 
+    *Audio Seeking
 * Audio Playback
   * Support for:
     * FLAC
