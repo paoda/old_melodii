@@ -6,17 +6,18 @@ dirBtn.addEventListener('click', () => {
 
     if (directory !== 'undefined') {
         directory = directory.toString();
-        
-        console.log('Chosen Directory: '+ directory)
 
-        scanDirectory(directory, (err, results) =>{
+        console.log('Chosen Directory: ' + directory)
+
+        scanDirectory(directory, (err, results) => {
             if (err) throw err;
             songs = results;
         })
-    }   
+    }
 })
 
 //http://stackoverflow.com/questions/5827612/node-js-fs-readdir-recursive-directory-search - Recursive directory scanning.
+//File type regex: /^.*\.(flac|mp4|mp3|m4a|aac|wav|ogg)$/gi
 var scanDirectory = (dir, done) => {
     var results = [];
     fs.readdir(dir, (err, list) => {
@@ -25,9 +26,9 @@ var scanDirectory = (dir, done) => {
         (function next() {
             var file = list[i++];
             if (!file) return done(null, results);
-            if (os.platform() !== 'win32'){
+            if (os.platform() !== 'win32') {
                 file = dir + '/' + file;
-            }else {
+            } else {
                 file = dir + '\\' + file;
             }
             fs.stat(file, (err, stat) => {
@@ -44,3 +45,14 @@ var scanDirectory = (dir, done) => {
         })();
     });
 };
+
+songs = songs.filter(fileCheckFunc())
+function fileCheckFunc(arg) {
+    if (arg.match(/^.*\.(flac|mp4|mp3|m4a|aac|wav|ogg)$/gi) != null) {
+       return true; 
+    } else {
+        return false; 
+    }
+}
+
+console.log(songs);

@@ -11,6 +11,7 @@ console.log('Client OS = ' + userOS);
 var directory; //Contains user specified directory
 var songs; //Used for Array of every song in directory.
 var pause = false; //This controls the toggle for play and pause in mediaControls.js
+const fileCheck = /^.*\.(flac|mp4|mp3|m4a|aac|wav|ogg)$/gi; //Regular expression for checking filetypes.
 
 //Assigning Variables to Elements
 

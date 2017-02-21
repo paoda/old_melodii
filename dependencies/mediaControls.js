@@ -2,9 +2,9 @@ volRange.value = musicPlayer.volume; //Loading Volume the first time.
 console.log("Initial Volume : " + musicPlayer.volume);
 
 //Event Listeners
-backward.addEventListener('click', () => {previousSong();})
-toggle.addEventListener('click', () => {playPause();})
-forward.addEventListener('click', () => {nextSong();})
+backward.addEventListener('click', () => {previousSong()})
+toggle.addEventListener('click', () => {playPause()})
+forward.addEventListener('click', () => {nextSong()})
 volDown.addEventListener('click', () => {
     musicPlayer.volume -= 0.02;
     volRange.value = musicPlayer.volume;
