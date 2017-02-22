@@ -6,6 +6,17 @@ function works() {
 }
 
 function broken() {
-    var playdough = AV.Player.fromURL('C:\\Users\\Rekai\\Google Drive\\Music\\Aimer\\Ninelie\\01 ninelie.mp3');
-    playdough.play();
+   var readStream = fs.createReadStream('./example.flac')
+   var result;
+   readStream.on('open', () => {
+       readStream.pipe(result);
+   })
+   console.log(result);
+    var playdough = AV.Player.fromBuffer(result);
+    playdough.preload();
+
+    playdough.on('ready', () => {
+        console.log('Aurora.js Ready');
+        playdough.play();
+    })
 }
