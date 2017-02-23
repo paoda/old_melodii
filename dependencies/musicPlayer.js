@@ -1,11 +1,4 @@
-var musicPlayer = new Audio()
-function works() {
-    musicPlayer.src = playlist.songs[0].directory;
-    musicPlayer.volume = 0.5;
-    musicPlayer.load();
-}
-
-function broken() {
+/*function broken() {
    var readStream = fs.createReadStream('./example.flac')
    var result;
    readStream.on('open', () => {
@@ -19,4 +12,10 @@ function broken() {
         console.log('Aurora.js Ready');
         playdough.play();
     })
+} */
+createMusicPlayer(); //Assigns Default stuffs to musicPlayer
+function createMusicPlayer() {
+    musicPlayer.src = playlist.songs[0].directory; //Loads First song in .json file;
+    musicPlayer.volume = 0.5;
+    musicPlayer.load();
 }

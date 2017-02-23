@@ -4,9 +4,14 @@ const app = remote.app;
 const browserWindow = remote.BrowserWindow;
 const fs = require('fs');
 const os = require('os');
+const mm = require('musicmetadata');
 
 var userOS = os.platform();
 console.log('Client OS = ' + userOS);
+
+//Make Media Function
+var musicPlayer = new Audio();
+var playlist = require('./playlist.json'); //locaiton of Playlist.
 
 var directory; //Contains user specified directory
 var songs; //Used for Array of every song in directory.
@@ -34,3 +39,4 @@ var table = document.getElementById('songTable');
 
     //musicDirectory.js
 var dirBtn = document.getElementById('dirBtn');
+
