@@ -4,7 +4,7 @@
   "description": "An Electron based Music Player",
   "main": "main.js",
   "devDependencies": {
-    "electron": "^1.4.13",
+    "electron": "^1.4.13"
   },
   "scripts": {
     "start": "electron ."
@@ -32,6 +32,6 @@
   "homepage": "https://github.com/Paoda/melodii#readme",
   "dependencies": {
     "font-awesome": "^4.7.0",
-    "musicmetadata": "^2.0.5",
+    "musicmetadata": "^2.0.5"
   }
 }

@@ -56,13 +56,12 @@ function fileCheckFunc(arg) {
         return false;
     }
 }
-var newSongs = [];
 
 console.log(songs);
 
 function directoryConvert(arg) {
 	arg.forEach((value) => {
         value = value.replace(/\\/gi, "/");
-		newSongs.push(value);
+		fixedSongs.push(value);
     })
 }

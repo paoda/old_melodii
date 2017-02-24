@@ -1,7 +1,4 @@
 //Debugging 
-   for (let i = 0; i <= playlist.songs.length; i++) {
-    console.log(playlist.songs[i]);
-}
 var playlistIndex = 0;
 
 /*musicPlayer.onended = () => {
