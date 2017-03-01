@@ -26,7 +26,7 @@
              var url = URL.createObjectURL(new Blob([picture.data], {
                  'type': 'image/' + picture.format
              }));
-             var image = document.getElementById('myimg');
+             var image = document.getElementById('albumImg');
              image.src = url;
          }
 
