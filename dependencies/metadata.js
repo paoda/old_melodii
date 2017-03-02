@@ -12,8 +12,6 @@
      musicFileStream.close();
  } */
 
-
-
  function parseMetadata(insertArgHere) {
      let musicFileStream = fs.createReadStream(insertArgHere);
      let metadataParser = mm(musicFileStream, (err, metadata) => {
