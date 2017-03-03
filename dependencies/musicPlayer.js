@@ -19,3 +19,14 @@ function createMusicPlayer() {
     musicPlayer.volume = 0.5;
     musicPlayer.load();
 }
+var auroraPlayer;
+
+function aurora() {
+     fs.readFile('./example.flac', (err, rekai) => {
+        if (err) throw err;
+        console.log(rekai);
+        auroraPlayer = AV.Player.fromBuffer(rekai);
+        
+     });
+
+}

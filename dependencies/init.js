@@ -5,6 +5,10 @@ const browserWindow = remote.BrowserWindow;
 const fs = require('fs');
 const os = require('os');
 const mm = require('musicmetadata');
+const AV = require('av');
+    require('flac.js');
+    require('alac');
+    require('aac');
 
 var userOS = os.platform();
 console.log('Client OS = ' + userOS);
