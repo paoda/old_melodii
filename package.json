@@ -1,0 +1,22 @@
+{
+  "name": "melodii",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paoda/melodii.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paoda/melodii/issues"
+  },
+  "homepage": "https://github.com/paoda/melodii#readme",
+  "devDependencies": {
+    "electron": "^1.6.2"
+  }
+}
