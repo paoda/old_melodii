@@ -7,13 +7,12 @@ toggle.addEventListener('click', () => {playPause()})
 forward.addEventListener('click', () => {nextSong()})
 volDown.addEventListener('click', () => { //used for volDown button
     musicPlayer.volume -= 0.02;
-    musicPlayer.volume.toPrecision(4); //TODO MAKE THIS WORK
     volRange.value = musicPlayer.volume;
     console.log('Button Pressed. New Vol: ' + musicPlayer.volume); //Sometimes decimal goes weird TODO Fix
 })
 volUp.addEventListener('click', () => { //Used for volUP button
     musicPlayer.volume += 0.02;
-    musicPlayer.volume.toPrecision(4); //TODO MAKE THIS WORK
+    musicPlayer.volume = Math.round(musicPlyer.volume); //please work
     volRange.value = musicPlayer.volume;
     console.log('Button Pressed. New Vol: ' + musicPlayer.volume); //Somtimes decimal goes weird TODO fix
 });
