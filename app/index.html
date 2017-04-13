@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel='stylesheet' href='./css/melodii.css' />
+    <link rel='stylesheet' href='../node_modules/font-awesome/css/font-awesome.min.css' />
     <title>Melodii Music Player</title>
 </head>
+
 <body>
+    <div class='header'>
+        <p>Melodii</p>
+        <a href='#'><i class='fa fa-times fa-fw' id='close' aria-hidden='true'></i></a>
+        <a href='#'><i class='fa fa-window-minimize fa-fw' id='minimize' aria-hidden='true'></i></a>
+    </div>
     <button id='dirBtn'>Choose Music Directory</button>
 
-    <!-- Javascript --> 
+    <!-- Javascript -->
     <script src='./js/init.js'></script>
     <script src='./js/directory.js'></script>
     <script src='./js/musicPlayer.js'></script>
 </body>
+
 </html>

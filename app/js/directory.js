@@ -16,7 +16,6 @@ dirBtn.addEventListener('click', () => {
     }
 })
 
-//http://stackoverflow.com/questions/5827612/node-js-fs-readdir-recursive-directory-search - Recursive directory scanning.
 //File type regex: /^.*\.(flac|mp4|mp3|m4a|aac|wav|ogg)$/gi
 function scanDirectory(dir, done) {
     var results = [];

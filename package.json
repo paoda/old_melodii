@@ -17,7 +17,11 @@
   },
   "homepage": "https://github.com/paoda/melodii#readme",
   "devDependencies": {
-    "electron": "^1.6.2",
+    "electron": "^1.6.2"
+  },
+  "dependencies": {
+    "roboto-fontface": "^0.7.0",
+    "font-awesome": "^4.7.0",
     "musicmetadata": "^2.0.5"
   }
 }

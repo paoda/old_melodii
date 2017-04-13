@@ -1,0 +1,27 @@
+body {
+    -webkit-app-region: drag;
+}
+.header {
+    top: 0;
+    right: 0;
+    height: 3vh;
+    background-color: darkslategray;
+}
+.header a {
+    -webkit-app-region: no-drag;
+    color: white;
+    padding-left: 1vw;
+    float: right;
+}
+.header p {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    line-height: 2vh;
+    font-size: 3vw;
+    float: left;
+    color: white;
+}
+#dirBtn {
+    -webkit-app-region: no-drag;
+}
