@@ -11,9 +11,7 @@ const ee = require('events');
 class eventClass extends ee {};
 const eventEmitter = new eventClass();
 
-//User Operating Sustem stuffs
-var userOS = os.platform();
-console.log('Client OS = ' + userOS);
+console.log('Client OS = ' + os.platform());
 
 var musicPlayer = new Audio(); //Audio musicPlayer
 
@@ -22,16 +20,13 @@ var directory; //User defined directory;
 
 
 //All assignments of HTML tags to variables
-var dirBtn = document.getElementById('dirBtn');  //Button that opens Dialog Box
+var dirBtn = document.getElementById('dirBtn'); //Button that opens Dialog Box
 var quit = document.getElementById('quit'); //Button that quits melodii
 var minimize = document.getElementById('minimize'); //Button that minimizes melodii
 var volRange = document.getElementById('volRange'); //Range that handles music Volume
-var forward = document.getElementById('forward'); //Button that calls melodii.volUp();
-var backward = document.getElementById('backward');
-var volDown = document.getElementById('volDown');
-var volUp = document.getElementById('volUp');
-
-
-//var forward = document.getElementById('forward');
-
-//var toggleIcon = document.getElementById('toggleIcon');
+var forward = document.getElementById('forward'); //Button that calls melodiiCNTRL.next();
+var backward = document.getElementById('backward'); //Button that calls melodiiCNTRL.previous();
+var volDown = document.getElementById('volDown'); //Button that calls melodiiCNTRL.volDown();
+var volUp = document.getElementById('volUp'); //Button that calss melodiiCNTRL.volUp();
+var toggle = document.getElementById('toggle'); //Element which holds toggleIcon. 
+var toggleIcon = document.getElementById('toggleIcon'); //Button that calls either melodiiCNTRL.play() or .pause();

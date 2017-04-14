@@ -19,6 +19,7 @@
     <div>
         <button id='dirBtn'>Select Music Directory</a>
     </div>
+    
     <div id='footer'>
         <div id='albumContainer'>
             <img id='albumImg'></img>
@@ -28,7 +29,7 @@
             <a href="#" id='toggle'><i class='fa fa-play' aria-hidden='true' id='toggleIcon'></i></a>
             <a href="#" id='forward'><i class='fa fa-step-forward' aria-hidden='true'></i></a>
             <a href='#' id='volDown'><i class='fa fa-volume-down' aria-hidden='true'></i></a>
-            <input id='volRange' type='range' min='0' max='1' step='0.02' oninput='updateVolume()'>
+            <input id='volRange' type='range' min='0' max='1' step='0.02' oninput='melodiiCNTRL.sliderVolume()'>
             <a href='#' id='volUp'><i class='fa fa-volume-up' aria-hidden='true'></i></a>
         </div>
     </div>
@@ -37,7 +38,7 @@
     <script src='./js/init.js'></script>
     <script src='./js/buttons.js'></script>
     <script src='./js/directory.js'></script>
-    <script src='./js/musicPlayer.js'></script>
+    <script src='./js/melodii.js'></script>
 </body>
 
 </html>
