@@ -7,7 +7,7 @@ let win;
 
 function createWindow() {
     //create browser window
-    win = new BrowserWindow({width: 500, height: 500});
+    win = new BrowserWindow({width: 800, height: 600, frame: false});
 
     //load index.html
     win.loadURL(url.format({

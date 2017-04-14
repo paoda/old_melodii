@@ -1,27 +1,92 @@
+@font-face {
+    font-family: Roboto;
+    src: url('../../node_modules/roboto-fontface/fonts/Roboto/Roboto-Regular.ttf');
+}
 body {
-    -webkit-app-region: drag;
-}
-.header {
-    top: 0;
-    right: 0;
-    height: 3vh;
-    background-color: darkslategray;
-}
-.header a {
-    -webkit-app-region: no-drag;
-    color: white;
-    padding-left: 1vw;
-    float: right;
-}
-.header p {
     margin: 0;
     padding: 0;
-    vertical-align: middle;
-    line-height: 2vh;
-    font-size: 3vw;
+    -webkit-app-region: drag;
+    height: 100vh;
+    width: 100vw;
+    font-family: Roboto; 
+}
+
+.control-icons {
+    top: 0;
+    right: 0;
+    height: 25px;
+    background-color: darkslategray;
+}
+.control-icons a {
+    -webkit-app-region:  no-drag;
+    color: white;
+    padding-left: 3px;
+    float: right;
+}
+.control-icons p {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle; 
+    line-height: 25px;
+    font-size: 20px;
     float: left;
     color: white;
 }
+#minimize {
+    font-size: 15px;
+}
+#quit {
+    font-size: 20px;
+}   
 #dirBtn {
     -webkit-app-region: no-drag;
+}
+
+#songTable {
+    width: 100%;
+}
+
+#mediaControls a {
+    -webkit-app-region: no-drag;
+    font-size: 5vh;
+    color: white;
+    text-decoration: none;
+    padding-left: 1vh;
+}
+
+#mediaControls i {
+    vertical-align: middle;
+}
+#mediaControls input {
+    -webkit-app-region: no-drag;
+    vertical-align: middle;
+}
+#footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2.75em;
+    background-color: darkslategray;
+    text-align: center;
+}
+
+#albumContainer {
+    position: absolute;
+    float: left;
+    bottom: 0;
+    left: 0;
+    height: 10em;
+    width: 10em;
+    background-color: darkslategray;
+    z-index: 2;
+}
+#albumContainer:hover {
+    display: none;
+    opacity: 1;
+}
+#albumImg {
+    display: block;
+    width: 100%;
+    height: auto;
 }
