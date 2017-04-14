@@ -3,13 +3,15 @@
     "configurations": [
         {
             "name": "Launch Electron",
+            "request": "launch",
             "type": "node",
             "program": "${workspaceRoot}/main.js", // ensure this is path to main.js file
             "stopOnEntry": false,
             "args": [],
             "cwd": "${workspaceRoot}",
             // as you have noted, this is also important:
-            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron"
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+            "windows": {"runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"}
         }
     ]
 }
