@@ -23,6 +23,7 @@ volUp.addEventListener('click', () => {
 })
 toggle.addEventListener('click', () => {
 	melodiiCNTRL.toggle();
-}) //adding this so i can commit.
+})
+
 
 

@@ -6,12 +6,11 @@ melodiiObj.prototype.parseMetadata = function () {
     let fileStream = fs.createReadStream(this.location);
     console.log('Read Stream Opened.');
     let metadataParser = mm(fileStream, (err, metadata) => {
+        fileStream.close();
+        console.log('Read Stream Closed.');
         if (err) throw err;
         this.metadata = null;
         this.metadata = metadata;
-
-        fileStream.close();
-        console.log('Read Stream Closed.');
     });
 }
 
@@ -39,6 +38,16 @@ melodiiObj.prototype.loadSong = function (location) {
         melodii.getAlbumArt(); //Loads Album art
     });
     melodiiCNTRL.load(); //Loads song to musicPlayer
+}
+melodiiObj.prototype.saveJSON = function(name, location) {
+
+}
+melodiiObj.prototype.loadJSON = function(location) {
+
+}
+melodiiObj.prototype.createWave = function(audioData, sampleRate, channelCount) {
+    const audioFormat = 1;
+    
 }
 
 
@@ -130,11 +139,12 @@ function allMetadata(file) {
     let tableStream = fs.createReadStream(file);
     let metadataParser = mm(tableStream, (err, metadata) => {
         if (err) throw err;
-        if (inc == (songs.length - 1)) {
+        if (inc < songs.length) {
             tableStream.close();
             console.log('Scanned All Metadata');
             return true;
         } else {
+            tableStream.close();
             inc++;
             allMetadata(songs[inc])
         }

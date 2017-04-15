@@ -11,10 +11,9 @@ dirBtn.addEventListener('click', () => {
         scanDirectory(directory, (err, results) => {
             if (err) throw err;
             songs = results.filter(fileCheckFunc);
-
-        })
+        });
     }
-})
+});
 
 //File type regex: /^.*\.(flac|mp4|mp3|m4a|aac|wav|ogg)$/gi
 function scanDirectory(dir, done) {
@@ -39,10 +38,10 @@ function scanDirectory(dir, done) {
             });
         })();
     });
-};
+}
 
 function fileCheckFunc(arg) {
-    if (arg.match(/^.*\.(flac|mp4|mp3|m4a|aac|wav|ogg)$/gi) != null) {
+    if (arg.match(/^.*\.(flac|mp4|mp3|m4a|aac|wav|ogg)$/gi) !== null) {
         return true;
     } else {
         return false;
