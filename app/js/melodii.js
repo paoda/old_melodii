@@ -7,18 +7,15 @@ melodiiObj.prototype.parseMetadata = function () {
     console.log('Read Stream Opened.');
     let metadataParser = mm(fileStream, (err, metadata) => {
         if (err) throw err;
+        this.metadata = null;
         this.metadata = metadata;
-        eventEmitter.emit('metadataDone');
-    });
 
-    eventEmitter.on('metadataDone', () => {
         fileStream.close();
         console.log('Read Stream Closed.');
     });
 }
 
 melodiiObj.prototype.getAlbumArt = function () {
-    console.log(this.metadata);
     if (this.metadata.picture.length > 0) {
         let picture = this.metadata.picture[0];
         let url = URL.createObjectURL(new Blob([picture.data], {
@@ -87,17 +84,59 @@ melodiiCNTRLObj.prototype.toggle = function () {
     }
 }
 
-function melodiiDOM() {};
-melodiiDOM.prototype.getTable = function() {
-    let body = document.getElementsByTagName('body')[0]; //reference for body tag.
+function melodiiDOMObj() {};
+melodiiDOMObj.prototype.getTable = function () {
+    let tableTitle = ["Artist", "Title", "Album", "Year", "Genre", "Time"];
+    let table = document.createElement('table');
+    document.body.insertBefore(table, document.getElementById('footer')) //Creates table Where I want it.
 
     console.log('Started Creation of Table.');
 
-    for (i = 0; i <= songs.length; i++) {
+    //This is to create the Title Row which contains things like song information and such.
+    let titleRow = document.createElement('tr');
+    for (let i = 0; i < 6; i++) {
+        let cellTitle = document.createElement('th');
+        let cellTitleText = document.createTextNode(tableTitle[i]);
 
+        cellTitle.appendChild(cellTitleText);
+        titleRow.appendChild(cellTitle);
     }
+    table.appendChild(titleRow);
 
+    //This is for the song information of each individual song.
+
+
+
+    /*for (let i = 0; i <= songs.length; i++) {
+        let row = document.createElement('tr');
+
+        melodii.location = songs[i];
+        let songInfo = melodii.parseMetadata()
+        eventEmitter.on('metadataDone', () => {
+            console.log(songInfo);
+        })
+    } */
+
+    console.log('Creation of Table Complete');
 }
-
+const melodiiDOM = new melodiiDOMObj();
 const melodiiCNTRL = new melodiiCNTRLObj();
 const melodii = new melodiiObj();
+
+
+var inc = 0;
+
+function allMetadata(file) {
+    let tableStream = fs.createReadStream(file);
+    let metadataParser = mm(tableStream, (err, metadata) => {
+        if (err) throw err;
+        if (inc == (songs.length - 1)) {
+            tableStream.close();
+            console.log('Scanned All Metadata');
+            return true;
+        } else {
+            inc++;
+            allMetadata(songs[inc])
+        }
+    });
+}
