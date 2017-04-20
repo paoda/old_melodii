@@ -1,7 +1,7 @@
 {
   "name": "melodii",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "An Electron Based Music Player.",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -20,8 +20,7 @@
   "homepage": "https://github.com/paoda/melodii#readme",
   "devDependencies": {
     "electron": "^1.6.2",
-    "electron-packager": "^8.6.0",
-    "eslint": "^3.19.0"
+    "electron-packager": "^8.6.0"
   },
   "dependencies": {
     "roboto-fontface": "^0.7.0",
