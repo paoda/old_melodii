@@ -131,10 +131,7 @@ const melodiiDOM = new melodiiDOMObj();
 const melodiiCNTRL = new melodiiCNTRLObj();
 const melodii = new melodiiObj();
 
-
-var inc = 0;
-
-function allMetadata(file) {
+/* function allMetadata(file) {
     let tableStream = fs.createReadStream(file);
     let metadataParser = mm(tableStream, (err, metadata) => {
         if (err) throw err;
@@ -148,4 +145,18 @@ function allMetadata(file) {
             allMetadata(songs[inc])
         }
     });
+} */
+
+var test = [];
+function allMetadata() {
+    let inc = 0;
+    do {
+        let tableStream = fs.createReadStream(songs[inc]);
+        let metadataParser = mm(tableStream, (err, metadata) => {
+            if (err) throw err;
+            test.push(metadata);
+            tableStream.close();
+            inc++;
+        })
+    } while (inc < songs.length);
 }
