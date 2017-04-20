@@ -44,9 +44,33 @@ melodiiObj.prototype.saveJSON = function (name, location) {
 melodiiObj.prototype.loadJSON = function (location) {
 
 }
-melodiiObj.prototype.createWave = function (audioData, sampleRate, channelCount) {
-    const audioFormat = 1;
+melodiiObj.prototype.saveAllMetadata = function () {
+    //Gets All metadata and saves to JSON File
+    let allMetadata = [];
+    let inc = 0;
 
+    do {
+        let tableStream = fs.createReadStream(songs[inc]);
+        let metadataParser = mm(tableStream, (err, metadata) => {
+            if (err) throw err;
+            allMetadata.push(metadata);
+            tableStream.close();
+        })
+        inc++;
+    } while (inc < songs.length);
+
+
+
+    console.log(allMetadata);
+
+    let json = JSON.stringify(allMetadata);
+
+    console.log('JSON: ' + json);
+
+    fs.writeFile('./app/json/metadata.json', json, 'utf8', (err) => {
+        if (err) throw err;
+        console.log('metadata.json Saved.');
+    })
 }
 
 
@@ -130,33 +154,3 @@ melodiiDOMObj.prototype.getTable = function () {
 const melodiiDOM = new melodiiDOMObj();
 const melodiiCNTRL = new melodiiCNTRLObj();
 const melodii = new melodiiObj();
-
-/* function allMetadata(file) {
-    let tableStream = fs.createReadStream(file);
-    let metadataParser = mm(tableStream, (err, metadata) => {
-        if (err) throw err;
-        if (inc < songs.length) {
-            tableStream.close();
-            console.log('Scanned All Metadata');
-            return true;
-        } else {
-            tableStream.close();
-            inc++;
-            allMetadata(songs[inc])
-        }
-    });
-} */
-
-var test = [];
-function allMetadata() {
-    let inc = 0;
-    do {
-        let tableStream = fs.createReadStream(songs[inc]);
-        let metadataParser = mm(tableStream, (err, metadata) => {
-            if (err) throw err;
-            test.push(metadata);
-            tableStream.close();
-            inc++;
-        })
-    } while (inc < songs.length);
-}
