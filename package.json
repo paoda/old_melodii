@@ -4,7 +4,9 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build-all": "electron-packager . melodii --ignore=node_modules/electron-* --all",
+    "build": "electron-packager . melodii --ignore=node_modules/electron-* --platform=win32 --arch=x64"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,7 @@
   "homepage": "https://github.com/paoda/melodii#readme",
   "devDependencies": {
     "electron": "^1.6.2",
+    "electron-packager": "^8.6.0",
     "eslint": "^3.19.0"
   },
   "dependencies": {

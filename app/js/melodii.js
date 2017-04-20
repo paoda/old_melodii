@@ -34,20 +34,19 @@ melodiiObj.prototype.getLocation = function (location) {
 melodiiObj.prototype.loadSong = function (location) {
     melodii.getLocation(location); //Location of file now available to melodii + melodiiCNTRL
     melodii.parseMetadata(); //Loads metadata to property of melodii
-    eventEmitter.on('metadataDone', () => { //We have to wait until metadata is done loading
-        melodii.getAlbumArt(); //Loads Album art
-    });
+
+    melodii.getAlbumArt(); //Loads Album art
     melodiiCNTRL.load(); //Loads song to musicPlayer
 }
-melodiiObj.prototype.saveJSON = function(name, location) {
+melodiiObj.prototype.saveJSON = function (name, location) {
 
 }
-melodiiObj.prototype.loadJSON = function(location) {
+melodiiObj.prototype.loadJSON = function (location) {
 
 }
-melodiiObj.prototype.createWave = function(audioData, sampleRate, channelCount) {
+melodiiObj.prototype.createWave = function (audioData, sampleRate, channelCount) {
     const audioFormat = 1;
-    
+
 }
 
 
