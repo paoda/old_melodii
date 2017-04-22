@@ -25,6 +25,7 @@
   "dependencies": {
     "roboto-fontface": "^0.7.0",
     "font-awesome": "^4.7.0",
-    "musicmetadata": "^2.0.5"
+    "musicmetadata": "^2.0.5",
+    "lastfm": "^0.9.2"
   }
 }
