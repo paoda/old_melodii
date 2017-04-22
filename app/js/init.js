@@ -1,3 +1,5 @@
+'use strict';
+
 const remote = require('electron').remote;
 const dialog = remote.dialog;
 const app = remote.app;

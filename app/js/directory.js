@@ -1,3 +1,5 @@
+'use strict';
+
 dirBtn.addEventListener('click', () => {
     directory = dialog.showOpenDialog({
         properties: ['openDirectory', 'openFile']

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 //Minimize and Close Buttons
 quit.addEventListener('click', () => {

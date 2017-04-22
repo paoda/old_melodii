@@ -74,7 +74,6 @@ melodiiObj.prototype.saveAllMetadata = function () {
 }
 
 
-
 //melodiiCNTRL Object
 function melodiiCNTRLObj() {}
 melodiiCNTRLObj.prototype.load = function () {
