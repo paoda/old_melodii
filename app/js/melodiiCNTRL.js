@@ -1,0 +1,45 @@
+//melodiiCNTRL Class
+
+class MelodiiCNTRLClass {
+    load() {
+        musicPlayer.src = melodii.location;
+    }
+    volUp() {
+        musicPlayer.volume += 0.02;
+        volRange.value = musicPlayer.volume;
+        console.log('New Volume:' + musicPlayer.volume);
+    }
+    volDown() {
+        musicPlayer.volume -= 0.02;
+        volRange.value = musicPlayer.volume;
+        console.log('New Volume:' + musicPlayer.volume);
+    }
+    sliderVolume() { //used for slider control
+        musicPlayer.volume = volRange.value;
+        console.log('new Volume:' + musicPlayer.volume);
+    };
+    toggle() {
+        if (musicPlayer.paused) {
+            musicPlayer.play();
+            toggle.removeChild(toggleIcon);
+            toggleIcon = document.createElement('i'); //Creating Pause Icon
+            toggleIcon.className = 'fa fa-pause';
+            toggleIcon.id = 'toggleIcon';
+            toggleIcon.setAttribute("aria-hidden", true);
+            toggle.appendChild(toggleIcon);
+
+            volRange.value = musicPlayer.volume;
+        } else {
+            musicPlayer.pause();
+            toggle.removeChild(toggleIcon);
+            toggleIcon = document.createElement('i'); //Creating Play Icon
+            toggleIcon.className = 'fa fa-play';
+            toggleIcon.id = 'toggleIcon';
+            toggleIcon.setAttribute('aria-hidden', true);
+            toggle.appendChild(toggleIcon);
+        }
+    }
+
+}
+
+module.exports = melodiiCNTRLClass;
