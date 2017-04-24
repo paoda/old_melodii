@@ -81,10 +81,7 @@ body {
     background-color: darkslategray;
     z-index: 2;
 }
-#albumContainer:hover {
-    display: none;
-    opacity: 1;
-}
+
 #albumImg {
     display: block;
     width: 100%;

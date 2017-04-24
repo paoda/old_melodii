@@ -1,6 +1,6 @@
 //melodiiCNTRL Class
 
-class MelodiiCNTRLClass {
+class melodiiCNTRLClass {
     load() {
         musicPlayer.src = melodii.location;
     }
@@ -42,4 +42,4 @@ class MelodiiCNTRLClass {
 
 }
 
-module.exports = melodiiCNTRLClass;
+const melodiiCNTRL = new melodiiCNTRLClass;

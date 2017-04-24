@@ -4,6 +4,9 @@
 class melodiiClass {
 
     parseMetadata() {
+        /*
+            CHANGE ONCE JSON METADATA STORAGE IS WORKING
+        */
         let fileStream = fs.createReadStream(this.location);
         console.log('Read Stream Opened.');
         let metadataParser = mm(fileStream, (err, metadata) => {
@@ -12,6 +15,7 @@ class melodiiClass {
             if (err) throw err;
             this.metadata = null;
             this.metadata = metadata;
+            eventEmitter.emit('Metadata Done');
         });
     }
 
@@ -37,7 +41,9 @@ class melodiiClass {
         melodii.getLocation(location); //Location of file now available to melodii + melodiiCNTRL
         melodii.parseMetadata(); //Loads metadata to property of melodii
 
-        melodii.getAlbumArt(); //Loads Album art
+        eventEmitter.on('Metadata Done', () => {
+            melodii.getAlbumArt(); //Loads Album art
+        });
         melodiiCNTRL.load(); //Loads song to musicPlayer
     }
     saveJSON() {
@@ -77,14 +83,4 @@ class melodiiClass {
 
 }
 
-function test() {
-    console.log('This is working');
-}
-
-module.exports.test = test;
-
-/*
-const melodiiDOM = new melodiiDOMObj();
-const melodiiCNTRL = new melodiiCNTRLObj();
-const melodii = new melodiiClass
-*/
+const melodii = new melodiiClass;

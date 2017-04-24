@@ -37,3 +37,5 @@ class melodiiDOMClass {
     }
 
 }
+
+const melodiiDOM = new melodiiDOMClass;
