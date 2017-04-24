@@ -31,4 +31,4 @@ var backward = document.getElementById('backward'); //Button that calls melodiiC
 var volDown = document.getElementById('volDown'); //Button that calls melodiiCNTRL.volDown();
 var volUp = document.getElementById('volUp'); //Button that calss melodiiCNTRL.volUp();
 var toggle = document.getElementById('toggle'); //Element which holds toggleIcon. 
-var toggleIcon = document.getElementById('toggleIcon'); //Button that calls either melodiiCNTRL.play() or .pause();
+var toggleIcon = document.getElementById('toggleIcon'); //Button that calls either melodiiCNTRL.play() or .pause()
