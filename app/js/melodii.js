@@ -46,11 +46,19 @@ class melodiiClass {
         });
         melodiiCNTRL.load(); //Loads song to musicPlayer
     }
-    saveJSON() {
+    saveJSON(object, location) {
+        let json = JSON.stringify(object);
 
+        fs.writeFile(location, json, 'utf8', (err) => {
+            if (err) throw err;
+            console.log ('JSON File Saved.')
+        })
     }
-    loadJSON() {
-
+    loadJSON(location) {
+        fs.readFile(location, 'utf8', (err, data) => {
+            if (err) throw err;
+            return data;
+        })
     }
     saveAllMetadata() {
         //Gets All metadata and saves to JSON File
