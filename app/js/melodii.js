@@ -62,33 +62,31 @@ class melodiiClass {
     }
     saveAllMetadata() {
         //Gets All metadata and saves to JSON File
-        let allMetadata = [];
         let inc = 0;
-
         do {
             let tableStream = fs.createReadStream(songs[inc]);
-            let metadataParser = mm(tableStream, (err, metadata) => {
+
+            let metadataParser = mm(tableStream, (err, metadata) => { //This creates a separate thread?
                 if (err) throw err;
-                allMetadata.push(metadata);
+                delete metadata.picture;
+                let json = JSON.stringify(metadata);
+                json = json + ","
+
+                fs.appendFile('./app/json/metadata.json', json, (err) => {
+                    if (err) throw err;
+                    console.log("Saved " + metadata.title);
+                })
                 tableStream.close();
             })
             inc++;
         } while (inc < songs.length);
-
-
-
-        console.log(allMetadata);
-
-        let json = JSON.stringify(allMetadata);
-
-        console.log('JSON: ' + json);
-
-        fs.writeFile('./app/json/metadata.json', json, 'utf8', (err) => {
-            if (err) throw err;
-            console.log('metadata.json Saved.');
-        })
     }
 
 }
 
 const melodii = new melodiiClass;
+
+
+function test() {
+    console.log('Harrison is stupid');
+}
