@@ -85,8 +85,3 @@ class melodiiClass {
 }
 
 const melodii = new melodiiClass;
-
-
-function test() {
-    console.log('Harrison is stupid');
-}
