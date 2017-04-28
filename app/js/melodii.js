@@ -51,7 +51,7 @@ class melodiiClass {
 
         fs.writeFile(location, json, 'utf8', (err) => {
             if (err) throw err;
-            console.log ('JSON File Saved.')
+            console.log('JSON File Saved.')
         })
     }
     loadJSON(location) {
@@ -61,25 +61,47 @@ class melodiiClass {
         })
     }
     saveAllMetadata() {
-        //Gets All metadata and saves to JSON File
-        let inc = 0;
+        let i = 0;
+        let metadataArray = [];
+        console.log('Started Saving All Metadata...');
+
         do {
-            let tableStream = fs.createReadStream(songs[inc]);
+            //Concats all metadata into one large javascript object
+            let stream = fs.createReadStream(songs[i]);
 
-            let metadataParser = mm(tableStream, (err, metadata) => { //This creates a separate thread?
+            let metadataParser = mm(stream, (err, metadata) => {
                 if (err) throw err;
-                delete metadata.picture;
-                let json = JSON.stringify(metadata);
-                json = json + ","
+                stream.close();
 
-                fs.appendFile('./app/json/metadata.json', json, (err) => {
-                    if (err) throw err;
-                    console.log("Saved " + metadata.title);
-                })
-                tableStream.close();
-            })
-            inc++;
-        } while (inc < songs.length);
+                delete metadata.picture;
+
+                //Append object to master object
+                metadataArray.push(metadata);
+            });
+
+            if (i == (songs.length)) {
+                eventEmitter.emit('completeSaveAll');
+            }
+            i++;
+        } while (i < songs.length);
+
+
+        let metadataObj = {};
+        for (let i = 0; i < metadataArray.length; i++) {
+            console.log('${i}');
+           metadataObj['${i}'] = metadataArray[i];
+        }
+
+        console.log(metadataObj)
+        let json = JSON.stringify(metadataObj);
+        console.log(metadataArray);
+        console.log(json);
+
+        //Writes massive object to metadata.js
+        fs.appendFile('./app/json/metadata.json', json, (err) => {
+            if (err) throw err;
+            console.log("Saved All Metadata");
+        })
     }
 
 }
