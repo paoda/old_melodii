@@ -79,31 +79,26 @@ class melodiiClass {
                 metadataArray.push(metadata);
             });
 
-            if (i == (songs.length)) {
-                eventEmitter.emit('completeSaveAll');
+            if (i == (songs.length -1)) {
+                console.log('Completed Metadata Buffer');
             }
+
             i++;
         } while (i < songs.length);
 
+            let metadataObj = {};
+            for (let i = 0; i < metadataArray.length; i++) {
+                metadataObj[`${i}`] = metadataArray[i];
+            }
 
-        let metadataObj = {};
-        for (let i = 0; i < metadataArray.length; i++) {
-            console.log('${i}');
-           metadataObj['${i}'] = metadataArray[i];
-        }
+            let json = JSON.stringify(metadataObj);
 
-        console.log(metadataObj)
-        let json = JSON.stringify(metadataObj);
-        console.log(metadataArray);
-        console.log(json);
-
-        //Writes massive object to metadata.js
-        fs.appendFile('./app/json/metadata.json', json, (err) => {
-            if (err) throw err;
-            console.log("Saved All Metadata");
-        })
+            //Writes massive object to metadata.js
+            fs.appendFile('./app/json/metadata.json', json, (err) => {
+                if (err) throw err;
+                console.log("Saved All Metadata");
+            })
     }
-
 }
 
 const melodii = new melodiiClass;
