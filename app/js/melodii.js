@@ -1,5 +1,5 @@
 'use strict';
-
+var metadataObj = {};
 //melodii Class
 class melodiiClass {
 
@@ -60,34 +60,31 @@ class melodiiClass {
             return data;
         })
     }
-    saveAllMetadata() {
-        let i = 0;
-        var metadataObj = {};
-        console.log('Started Saving All Metadata...');
-
-        do {
-            //Concats all metadata into one large javascript object
-            //let stream = fs.createReadStream(songs[i]);
-            let metadataParser = mm(fs.createReadStream(songs[i]), function (err, metadata) {
-                if (err) throw err;
-
-                delete metadata.picture;
-
-                //Append object to master object
-                metadataObj[`${i}`] = metadata;
-            });
-            i++
-            if (i == (songs.length - 1)) {
-                console.log('Completed Metadata Buffer');
-            }
-        } while (i < songs.length);
-
-        let json = JSON.stringify(metadataObj);
-
-        //Writes massive object to metadata.js
-        fs.appendFile('./app/json/metadata.json', json, (err) => {
+    saveAllMetadata(file, num) {
+        if (num == songs.length) num--;
+        let stream = fs.createReadStream(file[num]);
+        let metadataParser = mm(stream, (err, metadata) => {
             if (err) throw err;
-            console.log("Saved All Metadata");
+            delete metadata.picture;
+            metadataObj[`${num}`] = metadata;
+            console.log('Metadata Added to Object');
+
+            if (num == 0) {
+                stream.close();
+                console.log('Scanned All Metadata');
+
+                let json = JSON.stringify(metadataObj)
+                fs.appendFile('./app/json/metadata.json', json, (err) => {
+                    if (err) throw err;
+                    console.log('Saved Metadata');
+                    
+                    var t2 = performance.now();
+                    console.log('Time Elapsed: ' + ((t2 - t1)/1000) + ' seconds');
+                });
+                return true;
+            } else {
+                melodii.saveAllMetadata(file, --num)
+            }
         })
     }
 }
