@@ -2,7 +2,9 @@
 var metadataObj = {};
 //melodii Class
 class melodiiClass {
-
+    constructor() {
+        this.doOnce = true;
+    }
     parseMetadata() {
         /*
             CHANGE ONCE JSON METADATA STORAGE IS WORKING
@@ -61,9 +63,9 @@ class melodiiClass {
         })
     }
     saveMetadata(file, object, num) {
-        if (typeof aniToggle === 'undefined' || aniToggle === null){
+        if (this.doOnce == true) {
             num--;
-            var aniToggle = true;
+            this.doOnce = false;
         }
         let stream = fs.createReadStream(file[num]);
         let metadataParser = mm(stream, (err, metadata) => {
@@ -74,7 +76,7 @@ class melodiiClass {
             object[`${num}`] = metadata;
 
             if (num == 0) {
-                aniToggle = null;
+                this.doOnce = true;
                 console.log('Scanned All Metadata');
 
                 var t2 = performance.now();
