@@ -74,12 +74,13 @@ class melodiiClass {
             object[`${num}`] = metadata;
 
             if (num == 0) {
+                aniToggle = null;
                 console.log('Scanned All Metadata');
 
-                let json = JSON.stringify(object);
+                var t2 = performance.now();
+                console.log('Time Elapsed: ' + ((t2-t1)/1000) + ' seconds');
                 
-                aniToggle = null;
-                return json;
+                return JSON.stringify(object);
             } else {
                 melodii.saveMetadata(file, object, --num);
             }
