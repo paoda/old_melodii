@@ -65,12 +65,12 @@ class melodiiClass {
         let stream = fs.createReadStream(file[num]);
         let metadataParser = mm(stream, (err, metadata) => {
             if (err) throw err;
+            stream.close();
             delete metadata.picture;
             metadataObj[`${num}`] = metadata;
             console.log('Metadata Added to Object');
 
             if (num == 0) {
-                stream.close();
                 console.log('Scanned All Metadata');
 
                 let json = JSON.stringify(metadataObj)
