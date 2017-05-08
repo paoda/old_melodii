@@ -62,42 +62,33 @@ class melodiiClass {
     }
     saveAllMetadata() {
         let i = 0;
-        let metadataArray = [];
+        var metadataObj = {};
         console.log('Started Saving All Metadata...');
 
         do {
             //Concats all metadata into one large javascript object
-            let stream = fs.createReadStream(songs[i]);
-
-            let metadataParser = mm(stream, (err, metadata) => {
+            //let stream = fs.createReadStream(songs[i]);
+            let metadataParser = mm(fs.createReadStream(songs[i]), function (err, metadata) {
                 if (err) throw err;
-                stream.close();
 
                 delete metadata.picture;
 
                 //Append object to master object
-                metadataArray.push(metadata);
+                metadataObj[`${i}`] = metadata;
             });
-
-            if (i == (songs.length -1)) {
+            i++
+            if (i == (songs.length - 1)) {
                 console.log('Completed Metadata Buffer');
             }
-
-            i++;
         } while (i < songs.length);
 
-            let metadataObj = {};
-            for (let i = 0; i < metadataArray.length; i++) {
-                metadataObj[`${i}`] = metadataArray[i];
-            }
+        let json = JSON.stringify(metadataObj);
 
-            let json = JSON.stringify(metadataObj);
-
-            //Writes massive object to metadata.js
-            fs.appendFile('./app/json/metadata.json', json, (err) => {
-                if (err) throw err;
-                console.log("Saved All Metadata");
-            })
+        //Writes massive object to metadata.js
+        fs.appendFile('./app/json/metadata.json', json, (err) => {
+            if (err) throw err;
+            console.log("Saved All Metadata");
+        })
     }
 }
 
