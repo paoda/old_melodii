@@ -60,7 +60,7 @@ class melodiiClass {
             return data;
         })
     }
-    saveAllMetadata(file, object, num) {
+    saveMetadata(file, object, num) {
         if (typeof aniToggle === 'undefined' || aniToggle === null){
             num--;
             var aniToggle = true;
@@ -81,7 +81,7 @@ class melodiiClass {
                 aniToggle = null;
                 return json;
             } else {
-                melodii.saveAllMetadata(file, object, --num);
+                melodii.saveMetadata(file, object, --num);
             }
         })
     }
