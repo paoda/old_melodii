@@ -60,30 +60,28 @@ class melodiiClass {
             return data;
         })
     }
-    saveAllMetadata(file, num) {
-        if (num == songs.length) num--;
+    saveAllMetadata(file, object, num) {
+        if (typeof aniToggle === 'undefined' || aniToggle === null){
+            num--;
+            var aniToggle = true;
+        }
         let stream = fs.createReadStream(file[num]);
         let metadataParser = mm(stream, (err, metadata) => {
             if (err) throw err;
             stream.close();
+
             delete metadata.picture;
-            metadataObj[`${num}`] = metadata;
-            console.log('Metadata Added to Object');
+            object[`${num}`] = metadata;
 
             if (num == 0) {
                 console.log('Scanned All Metadata');
 
-                let json = JSON.stringify(metadataObj)
-                fs.appendFile('./app/json/metadata.json', json, (err) => {
-                    if (err) throw err;
-                    console.log('Saved Metadata');
-                    
-                    var t2 = performance.now();
-                    console.log('Time Elapsed: ' + ((t2 - t1)/1000) + ' seconds');
-                });
-                return true;
+                let json = JSON.stringify(object);
+                
+                aniToggle = null;
+                return json;
             } else {
-                melodii.saveAllMetadata(file, --num)
+                melodii.saveAllMetadata(file, object, --num);
             }
         })
     }
