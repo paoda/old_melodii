@@ -1,6 +1,11 @@
 //melodiiCNTRL Class
 
 class melodiiCNTRLClass {
+    constructor() {
+        musicPlayer.onloadedmetadata = () => seekRange.max = musicPlayer.duration
+        seekRange.onchange = () => musicPlayer.currentTime = seekRange.value
+        musicPlayer.ontimeupdate = () => seekRange.value = musicPlayer.currentTime
+    }
     load() {
         musicPlayer.src = melodii.location;
     }
@@ -39,6 +44,10 @@ class melodiiCNTRLClass {
             toggleIcon.setAttribute('aria-hidden', true);
             toggle.appendChild(toggleIcon);
         }
+    }
+    updateSeek(e) {
+        melodiiBtns.animateSliderBg(e);
+
     }
 
 }

@@ -32,3 +32,4 @@ var volDown = document.getElementById('volDown'); //Button that calls melodiiCNT
 var volUp = document.getElementById('volUp'); //Button that calss melodiiCNTRL.volUp();
 var toggle = document.getElementById('toggle'); //Element which holds toggleIcon. 
 var toggleIcon = document.getElementById('toggleIcon'); //Button that calls either melodiiCNTRL.play() or .pause()
+var seekRange = document.getElementById('seekRange');
