@@ -1,8 +1,10 @@
 'use strict';
-
+var metadataObj = {};
 //melodii Class
 class melodiiClass {
-
+    constructor() {
+        this.doOnce = true;
+    }
     parseMetadata() {
         /*
             CHANGE ONCE JSON METADATA STORAGE IS WORKING
@@ -38,11 +40,11 @@ class melodiiClass {
     }
 
     loadSong(location) {
-        melodii.getLocation(location); //Location of file now available to melodii + melodiiCNTRL
-        melodii.parseMetadata(); //Loads metadata to property of melodii
+        this.getLocation(location); //Location of file now available to melodii + melodiiCNTRL
+        this.parseMetadata(); //Loads metadata to property of melodii
 
         eventEmitter.on('Metadata Done', () => {
-            melodii.getAlbumArt(); //Loads Album art
+            this.getAlbumArt(); //Loads Album art
         });
         melodiiCNTRL.load(); //Loads song to musicPlayer
     }
@@ -51,7 +53,7 @@ class melodiiClass {
 
         fs.writeFile(location, json, 'utf8', (err) => {
             if (err) throw err;
-            console.log ('JSON File Saved.')
+            console.log('JSON File Saved.')
         })
     }
     loadJSON(location) {
@@ -60,33 +62,32 @@ class melodiiClass {
             return data;
         })
     }
-    saveAllMetadata() {
-        //Gets All metadata and saves to JSON File
-        let inc = 0;
-        do {
-            let tableStream = fs.createReadStream(songs[inc]);
+    saveMetadata(file, object, num) {
+        if (this.doOnce == true) {
+            num--;
+            this.doOnce = false;
+        }
+        let stream = fs.createReadStream(file[num]);
+        let metadataParser = mm(stream, (err, metadata) => {
+            if (err) throw err;
+            stream.close();
 
-            let metadataParser = mm(tableStream, (err, metadata) => { //This creates a separate thread?
-                if (err) throw err;
-                delete metadata.picture;
-                let json = JSON.stringify(metadata);
-                json = json + ","
+            delete metadata.picture;
+            object[`${num}`] = metadata;
 
-                fs.appendFile('./app/json/metadata.json', json, (err) => {
-                    if (err) throw err;
-                    console.log("Saved " + metadata.title);
-                })
-                tableStream.close();
-            })
-            inc++;
-        } while (inc < songs.length);
+            if (num == 0) {
+                this.doOnce = true;
+                console.log('Scanned All Metadata');
+
+                var t2 = performance.now();
+                console.log('Time Elapsed: ' + ((t2-t1)/1000) + ' seconds');
+                
+                this.saveJSON(object, './app/json/metadata.json');
+            } else {
+                this.saveMetadata(file, object, --num);
+            }
+        })
     }
-
 }
 
 const melodii = new melodiiClass;
-
-
-function test() {
-    console.log('Harrison is stupid');
-}

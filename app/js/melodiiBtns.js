@@ -1,6 +1,6 @@
 'use strict';
 
-class melodiiButtonsClass {
+class melodiiBtnsClass {
 	createButtons() {
 		quit.addEventListener('click', () => {
 			app.quit();
@@ -27,7 +27,7 @@ class melodiiButtonsClass {
 		
 		})
 		
-		melodiiButtons.createDirBtn();
+		this.createDirBtn();
 	}
 	createDirBtn() {
 		dirBtn.addEventListener('click', () => {
@@ -47,7 +47,12 @@ class melodiiButtonsClass {
 			}
 		});
 	}
+	animateSliderBg(e) {
+		var target = e.target /*|| e.srcElement;*/
+
+		target.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + "% 100%";
+	}
 }
 
-const melodiiButtons = new melodiiButtonsClass;
+const melodiiBtns = new melodiiBtnsClass;
 //Minimize and Close Buttons
