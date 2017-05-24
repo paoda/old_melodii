@@ -1,6 +1,6 @@
 'use strict';
 
-class melodiiButtonsClass {
+class melodiiBtnsClass {
 	createButtons() {
 		quit.addEventListener('click', () => {
 			app.quit();
@@ -27,7 +27,7 @@ class melodiiButtonsClass {
 		
 		})
 		
-		melodiiButtons.createDirBtn();
+		this.createDirBtn();
 	}
 	createDirBtn() {
 		dirBtn.addEventListener('click', () => {
@@ -49,5 +49,5 @@ class melodiiButtonsClass {
 	}
 }
 
-const melodiiButtons = new melodiiButtonsClass;
+const melodiiBtns = new melodiiBtnsClass;
 //Minimize and Close Buttons

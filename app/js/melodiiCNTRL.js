@@ -15,6 +15,7 @@ class melodiiCNTRLClass {
         console.log('New Volume:' + musicPlayer.volume);
     }
     sliderVolume() { //used for slider control
+
         musicPlayer.volume = volRange.value;
         console.log('new Volume:' + musicPlayer.volume);
     };

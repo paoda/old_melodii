@@ -2,42 +2,48 @@
     font-family: Roboto;
     src: url('../../node_modules/roboto-fontface/fonts/Roboto/Roboto-Regular.ttf');
 }
+
 body {
     margin: 0;
     padding: 0;
     -webkit-app-region: drag;
     height: 100vh;
     width: 100vw;
-    font-family: Roboto; 
+    font-family: Roboto;
 }
 
 .control-icons {
     top: 0;
     right: 0;
     height: 25px;
-    background-color: darkslategray;
+    background-color: #616161;
 }
+
 .control-icons a {
-    -webkit-app-region:  no-drag;
-    color: white;
+    -webkit-app-region: no-drag;
+    color: #FFF;
     padding-left: 3px;
     float: right;
 }
+
 .control-icons p {
     margin: 0;
     padding: 0;
-    vertical-align: middle; 
+    vertical-align: middle;
     line-height: 25px;
     font-size: 20px;
     float: left;
-    color: white;
+    color: #FFF;
 }
+
 #minimize {
     font-size: 15px;
 }
+
 #quit {
     font-size: 20px;
-}   
+}
+
 #dirBtn {
     -webkit-app-region: no-drag;
 }
@@ -48,8 +54,9 @@ body {
 
 #mediaControls a {
     -webkit-app-region: no-drag;
+    display: inline-block;
     font-size: 5vh;
-    color: white;
+    color: #FFF;
     text-decoration: none;
     padding-left: 1vh;
 }
@@ -57,17 +64,19 @@ body {
 #mediaControls i {
     vertical-align: middle;
 }
+
 #mediaControls input {
     -webkit-app-region: no-drag;
     vertical-align: middle;
 }
+
 #footer {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     height: 2.75em;
-    background-color: darkslategray;
+    background-color: #616161;
     text-align: center;
 }
 
@@ -78,7 +87,7 @@ body {
     left: 0;
     height: 10em;
     width: 10em;
-    background-color: darkslategray;
+    background-color: #616161;
     z-index: 2;
 }
 
@@ -86,4 +95,33 @@ body {
     display: block;
     width: 100%;
     height: auto;
+}
+
+input[type=range] {
+    margin: auto;
+    outline: none;
+    padding: 0;
+    height: 6px;
+    background-color: #BDBDBD;
+	background-image: linear-gradient(#512DA8, #512DA8);
+    border-radius: 10px;
+    background-size: 50% 100%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    -webkit-appearance: none;
+}
+input[type=range]::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+    border: 0;
+    background: white;
+    border-radius: 100%;
+    box-shadow: 0 0 1px 0 rgba(0,0,0,0.1);
+    -webkit-appearance: none;
 }

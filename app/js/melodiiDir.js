@@ -12,7 +12,7 @@ class melodiiDirClass {
                 file = dir + '/' + file;
                 fs.stat(file, (err, stat) => {
                     if (stat && stat.isDirectory()) {
-                        melodiiDir.scanDirectory(file, (err, res) => {
+                        melodiiDir.scanDirectory(file, (err, res) => { //Wont work if I change melodiiDir to this.
                             results = results.concat(res);
                             next();
                         });

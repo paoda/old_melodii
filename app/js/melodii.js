@@ -40,11 +40,11 @@ class melodiiClass {
     }
 
     loadSong(location) {
-        melodii.getLocation(location); //Location of file now available to melodii + melodiiCNTRL
-        melodii.parseMetadata(); //Loads metadata to property of melodii
+        this.getLocation(location); //Location of file now available to melodii + melodiiCNTRL
+        this.parseMetadata(); //Loads metadata to property of melodii
 
         eventEmitter.on('Metadata Done', () => {
-            melodii.getAlbumArt(); //Loads Album art
+            this.getAlbumArt(); //Loads Album art
         });
         melodiiCNTRL.load(); //Loads song to musicPlayer
     }
@@ -82,9 +82,9 @@ class melodiiClass {
                 var t2 = performance.now();
                 console.log('Time Elapsed: ' + ((t2-t1)/1000) + ' seconds');
                 
-                return JSON.stringify(object);
+                this.saveJSON(object, './app/json/metadata.json');
             } else {
-                melodii.saveMetadata(file, object, --num);
+                this.saveMetadata(file, object, --num);
             }
         })
     }
