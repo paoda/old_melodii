@@ -47,6 +47,11 @@ class melodiiBtnsClass {
 			}
 		});
 	}
+	animateSliderBg(e) {
+		var target = e.target /*|| e.srcElement;*/
+
+		target.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + "% 100%";
+	}
 }
 
 const melodiiBtns = new melodiiBtnsClass;
