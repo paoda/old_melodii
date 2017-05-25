@@ -1,36 +1,43 @@
 'use strict';
 
 class melodiiBtnsClass {
+	constructor() {
+		Object.defineProperty(seekRange, 'getValue', {
+			get: function() {
+				return value;
+			},
+			set: function(value) {
+				seekRange.value = value;
+				melodiiBtns.animateSliderBg(null, false, seekRange);
+			}
+		});
+	}
 	createButtons() {
-		quit.addEventListener('click', () => {
-			app.quit();
-		})
-		minimize.addEventListener('click', () => {
-			browserWindow.getFocusedWindow().minimize();
-		})
+		quit.onclick = () => app.quit();
+		minimize.onclick = () => browserWindow.getFocusedWindow().minimize();
 
 		//Media Buttons
-		backward.addEventListener('click', () => {
-			melodiiCNTRL.previous();
-		})
-		forward.addEventListener('click', () => {
-			melodiiCNTRL.next();
-		})
-		volDown.addEventListener('click', () => {
-			melodiiCNTRL.volDown();
-		})
-		volUp.addEventListener('click', () => {
-			melodiiCNTRL.volUp();
-		})
-		toggle.addEventListener('click', () => {
-			melodiiCNTRL.toggle();
-		
-		})
-		
+		backward.onclick = () => melodiiCNTRL.previous();
+		forward.onclick = () => melodiiCNTRL.next();
+		volDown.onclick = () => melodiiCNTRL.volDown();
+		volUp.onclick = () => melodiiCNTRL.volUp();
+		toggle.onclick = () => melodiiCNTRL.toggle();
+
+		//Volume Slider
+		volRange.oninput = (e) => melodiiCNTRL.sliderVolume(e);
+		//Seek
+		musicPlayer.onloadedmetadata = () => seekRange.max = musicPlayer.duration;
+        seekRange.oninput = (e) => {
+			seekRange.getValue = seekRange.value;
+			musicPlayer.currentTime = seekRange.value;
+		}
+
+        musicPlayer.ontimeupdate = () => seekRange.getValue = musicPlayer.currentTime
+
 		this.createDirBtn();
 	}
 	createDirBtn() {
-		dirBtn.addEventListener('click', () => {
+		dirBtn.onclick = () => {
 			directory = dialog.showOpenDialog({
 				properties: ['openDirectory', 'openFile']
 			});
@@ -45,12 +52,18 @@ class melodiiBtnsClass {
 					songs = results.filter(melodiiDir.fileCheckFunc);
 				});
 			}
-		});
+		}
 	}
-	animateSliderBg(e) {
-		var target = e.target /*|| e.srcElement;*/
+	animateSliderBg(e, bool, objectName) {
 
-		target.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + "% 100%";
+		if (bool) {//Doesn't Incorporate the Getter/Setter Solution. Can be run using normal code
+			var target = e.target /*|| e.srcElement;*/
+
+			target.getValue = target.value;
+			target.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + "% 100%";
+		}else {
+			objectName.style.backgroundSize = (objectName.value - objectName.min) * 100 / (objectName.max - objectName.min) + "% 100%";
+		}
 	}
 }
 

@@ -1,11 +1,6 @@
 //melodiiCNTRL Class
 
 class melodiiCNTRLClass {
-    constructor() {
-        musicPlayer.onloadedmetadata = () => seekRange.max = musicPlayer.duration
-        seekRange.onchange = () => musicPlayer.currentTime = seekRange.value
-        musicPlayer.ontimeupdate = () => seekRange.value = musicPlayer.currentTime
-    }
     load() {
         musicPlayer.src = melodii.location;
     }
@@ -20,7 +15,7 @@ class melodiiCNTRLClass {
         console.log('New Volume:' + musicPlayer.volume);
     }
     sliderVolume(e) { //used for slider control
-        melodiiBtns.animateSliderBg(e);
+        melodiiBtns.animateSliderBg(e, true, null);
         musicPlayer.volume = volRange.value;
         console.log('new Volume:' + musicPlayer.volume);
     };
@@ -45,11 +40,6 @@ class melodiiCNTRLClass {
             toggle.appendChild(toggleIcon);
         }
     }
-    updateSeek(e) {
-        melodiiBtns.animateSliderBg(e);
-
-    }
-
 }
 
 const melodiiCNTRL = new melodiiCNTRLClass;
