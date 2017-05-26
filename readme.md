@@ -24,21 +24,25 @@ Damn This is very ambitous for a beginner like me...
 * UI 
   * Design
     * HTML, CSS Written
-  * ~~Choose Music From Directory~~
+    * Choose Music From Directory
+      * Working Table  in which you can select songs from
     * ~~Read Files from directory~~
-    * Pull Metadata from music fils.
+    * Pull Metadata from music files.
     * Media Controls 
-    *Audio Seeking
+    * ~~Audio Seeking~~
 * Audio Playback
   * Support for:
-    * FLAC
+    * ~~FLAC~~
     * ~~MP4~~
     * ~~MP3~~
-    * M4a
-    * AAC
+    * ~~M4a~~
+    * ~~AAC~~
     * ~~WAV~~
     * ~~Ogg~~
 * Sorting of albums
+  * By Artist
+  * By Title
+  * By Album Artist
 * Searching of albums
 * [last.fm](http://last.fm) scrobbling.
-* Visualizer
+* [Visualizer](https://github.com/paoda/js-visualizer)
