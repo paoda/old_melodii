@@ -12,7 +12,7 @@ class melodiiBtnsClass {
 			}
 		});
 	}
-	createButtons() {
+	createButtons() { //I create Event Listners here so that we can not have  init.js so cluttered
 		quit.onclick = () => app.quit();
 		minimize.onclick = () => browserWindow.getFocusedWindow().minimize();
 

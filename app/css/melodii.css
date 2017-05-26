@@ -54,21 +54,31 @@ body {
     width: 100%;
 }
 
-#mediaControls a {
+.mediaControls {
+    display: flex;
+    justify-content: center;
+
+}
+.mediaControls a {
     -webkit-app-region: no-drag;
-    font-size: 5vh;
+    font-size: 2em;
     color: #FFF;
     text-decoration: none;
-    padding-left: 1vh;
+    margin-left: 0.3em;
+    display: block;
 }
-
-#mediaControls i {
-    vertical-align: middle;
+#volRange {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0.4em;
+    margin-right: 0.1em;
 }
+/*.mediaControls i {
 
-#mediaControls input {
+}*/
+
+.mediaControls input {
     -webkit-app-region: no-drag;
-    vertical-align: middle;
 }
 
 .footer {
@@ -143,5 +153,4 @@ input[type=range]#seekRange {
     height: 100%;
     flex-shrink: 1;
     background: gray;
-    -webkit-app-region: no-drag;
 }
