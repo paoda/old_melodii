@@ -4,7 +4,7 @@ class melodiiCNTRLClass {
     load() {
         musicPlayer.src = melodii.location;
     }
-    volUp() {
+    /*volUp() {
         musicPlayer.volume += 0.02;
         volRange.value = musicPlayer.volume;
         console.log('New Volume:' + musicPlayer.volume);
@@ -13,10 +13,11 @@ class melodiiCNTRLClass {
         musicPlayer.volume -= 0.02;
         volRange.value = musicPlayer.volume;
         console.log('New Volume:' + musicPlayer.volume);
-    }
+    }*/
     sliderVolume(e) { //used for slider control
         melodiiBtns.animateSliderBg(e, true, null);
         musicPlayer.volume = volRange.value;
+        if (musicPlayer.muted) this.muteToggle();
         console.log('new Volume:' + musicPlayer.volume);
     };
     toggle() {
@@ -40,6 +41,29 @@ class melodiiCNTRLClass {
             toggle.appendChild(toggleIcon);
         }
     }
+    muteToggle() {
+        if (musicPlayer.muted) { //Unlike the play/pause toggle, the button present should correspond to what's actually happening. See WMP
+            musicPlayer.muted = false;
+            muteToggle.removeChild(muteIcon);
+            muteIcon = document.createElement('i'); //Creating Sound Icon
+            muteIcon.className = 'fa fa-volume-up';
+            muteIcon.id = 'muteIcon';
+            muteIcon.setAttribute('aria-hidden', true);
+            muteToggle.appendChild(muteIcon);
+
+            
+        } else {
+            musicPlayer.muted = true;
+            muteToggle.removeChild(muteIcon);
+            muteIcon = document.createElement('i'); //Creating Mute Icon
+            muteIcon.className = 'fa fa-volume-off';
+            muteIcon.id = 'muteIcon';
+            muteIcon.setAttribute('aria-hidden', true);
+            muteToggle.appendChild(muteIcon);
+        }
+    }
 }
 
 const melodiiCNTRL = new melodiiCNTRLClass;
+
+

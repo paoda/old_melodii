@@ -19,8 +19,9 @@ class melodiiBtnsClass {
 		//Media Buttons
 		backward.onclick = () => melodiiCNTRL.previous();
 		forward.onclick = () => melodiiCNTRL.next();
-		volDown.onclick = () => melodiiCNTRL.volDown();
-		volUp.onclick = () => melodiiCNTRL.volUp();
+		//volDown.onclick = () => melodiiCNTRL.volDown();
+		//volUp.onclick = () => melodiiCNTRL.volUp();
+		muteToggle.onclick = () => melodiiCNTRL.muteToggle();
 		toggle.onclick = () => melodiiCNTRL.toggle();
 
 		//Volume Slider
