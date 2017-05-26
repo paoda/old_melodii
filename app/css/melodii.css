@@ -56,7 +56,6 @@ body {
 
 #mediaControls a {
     -webkit-app-region: no-drag;
-    display: flex;
     font-size: 5vh;
     color: #FFF;
     text-decoration: none;
@@ -72,7 +71,7 @@ body {
     vertical-align: middle;
 }
 
-#footer {
+.footer {
     height: 2.75em;
     background-color: #616161;
     text-align: center;
@@ -90,7 +89,6 @@ body {
 }
 
 #albumImg {
-    display: inline-block;
     width: 100%;
     height: auto;
 }
@@ -127,13 +125,17 @@ input[type=range]::-webkit-slider-thumb {
     display: inline-block;
     background: gray;
     z-index: 3;
+    display: flex;
     width: 100%;
+    background: transparent;
 }
 #seekRange {
     -webkit-app-region: no-drag;
      width: 100%;
 }
-
+input[type=range]#seekRange {
+    border-radius: 0;
+}
 
 .wrapper {
     height: 80%;
