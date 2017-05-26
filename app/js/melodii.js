@@ -10,10 +10,8 @@ class melodiiClass {
             CHANGE ONCE JSON METADATA STORAGE IS WORKING
         */
         let fileStream = fs.createReadStream(this.location);
-        console.log('Read Stream Opened.');
         let metadataParser = mm(fileStream, (err, metadata) => {
             fileStream.close();
-            console.log('Read Stream Closed.');
             if (err) throw err;
             this.metadata = null;
             this.metadata = metadata;

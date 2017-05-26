@@ -12,6 +12,7 @@ const ee = require('events');
 //EventEmitter stuffs
 class eventClass extends ee {};
 const eventEmitter = new eventClass();
+//eventEmitter.setMaxListeners(0);
 
 console.log('Client OS = ' + os.platform());
 
