@@ -54,6 +54,17 @@ class melodiiClass {
             console.log('JSON File Saved.')
         })
     }
+    saveArray(array, location) {
+        var convArray = [];
+        let file = fs.createWriteStream(location);
+         file.on('error', (err) => {throw err});
+
+        for (let i = 0; i < array.length; i++) {
+            convArray.push(array[i]);
+            file.write(convArray[i] + ',\n');
+        }
+        file.end();
+    }
     loadJSON(location) {
         fs.readFile(location, 'utf8', (err, data) => {
             if (err) throw err;
@@ -76,11 +87,8 @@ class melodiiClass {
             if (num == 0) {
                 this.doOnce = true;
                 console.log('Scanned All Metadata');
-
-                var t2 = performance.now();
-                console.log('Time Elapsed: ' + ((t2-t1)/1000) + ' seconds');
                 
-                this.saveJSON(object, './app/json/metadata.json');
+                this.saveJSON(object, './app/user/metadata.json');
             } else {
                 this.saveMetadata(file, object, --num);
             }

@@ -51,6 +51,10 @@ class melodiiBtnsClass {
 				melodiiDir.scanDirectory(directory, (err, results) => {
 					if (err) throw err;
 					songs = results.filter(melodiiDir.fileCheckFunc);
+
+					if (confirm('Do You want to set "' + directory + '" as your default Directory?')) {
+						melodii.saveArray(songs, './app/user/songs.mld');
+					}
 				});
 			}
 		}
