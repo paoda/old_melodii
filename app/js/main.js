@@ -8,7 +8,10 @@ if (fs.existsSync('./app/user/songs.mld')) {
         if (err) throw err;
         
         songs = data.toString('utf8');
-        songs = songs.split(',');
-        console.log(songs);
+        songs = songs.split(',\n');
+
+        console.log('songs.mld Found & Loaded');
     })
+} else {
+    console.log('songs.mld Not Found. No Default Directory Set');
 }
