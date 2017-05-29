@@ -10,7 +10,12 @@ if (fs.existsSync('./app/user/songs.mld')) { //Does songs.mld Exist?
         songs = data.toString('utf8'); //readFile will read .mld as a UInt8Array
         songs = songs.split(',\n'); //Each file name is separated by a , and then a newline
 
-        console.log('songs.mld Found & Loaded'); //TODO: Make sure Laoding of Files Work
+        if (fs.existsSync(songs[Math.round(Math.random() * songs.length + 1)])) {
+            console.log('songs.mld passed Rudimentary Test. Files Loaded');
+        } else {
+            console.log('songs.mld failed rudimentary test. Reselect Default Directory');
+            songs = null;
+        }
     })
 } else {
     console.log('songs.mld Not Found. No Default Directory Set');
