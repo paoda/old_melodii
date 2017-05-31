@@ -88,19 +88,21 @@ body {
     display: flex;
     flex-flow: row;
     display: inline-block;
+    justify-content: space-around;
 }
 
 #albumContainer {
-    float: left;
-    height: 10em;
-    width: 10em;
-    background-color: #616161;
-    z-index: 2;
+    background: white;
+    flex: 1 0 auto;
+    width: 2.75em;
+    height: 2.75em;
+    text-align: center;
+
 }
 
 #albumImg {
-    width: 100%;
-    height: auto;
+    min-width: 100%;
+    min-height: 100%;
 }
 
 input[type=range] {
