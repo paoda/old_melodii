@@ -4,21 +4,10 @@ class melodiiCNTRLClass {
     load() {
         musicPlayer.src = melodii.location;
     }
-    /*volUp() {
-        musicPlayer.volume += 0.02;
-        volRange.value = musicPlayer.volume;
-        console.log('New Volume:' + musicPlayer.volume);
-    }
-    volDown() {
-        musicPlayer.volume -= 0.02;
-        volRange.value = musicPlayer.volume;
-        console.log('New Volume:' + musicPlayer.volume);
-    }*/
     sliderVolume(e) { //used for slider control
         melodiiBtns.animateSliderBg(e, true, null);
         musicPlayer.volume = volRange.value;
         if (musicPlayer.muted) this.muteToggle();
-        console.log('new Volume:' + musicPlayer.volume);
     };
     toggle() {
         if (musicPlayer.paused) {

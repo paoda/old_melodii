@@ -44,9 +44,6 @@ body {
     background-color: #616161;
     text-align: center;
     display: flex;
-    flex-flow: row;
-    display: inline-block;
-    justify-content: space-around;
 }
 
 
@@ -92,6 +89,7 @@ body {
 /* CSS for Media Controls */
 
 .mediaControls {
+    flex-shrink: 1;
     display: flex;
     justify-content: center;
 }
@@ -109,18 +107,26 @@ body {
     -webkit-app-region: no-drag;
 }
 
-
+/*CSS to Center the Media Controls */
+.centermedia {
+    margin-left: auto;
+    margin-right: auto;
+    visibility: hidden; /* This is Disgusting, is there a better solution? */
+}
 /* CSS for Album Container */
 
 #albumContainer {
-    background: white;
+    margin-right: auto;
     width: 2.75em;
     height: 2.75em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #albumImg {
-    min-width: 100%;
-    min-height: 100%;
+    width: auto;
+    height: 100%;
 }
 
 
