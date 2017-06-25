@@ -14,12 +14,50 @@ body {
     flex-flow: column;
 }
 
+
+/*CSS for Each Div affected by body flexbox */
+
 .control-icons {
     top: 0;
     right: 0;
     height: 25px;
     background-color: #616161;
 }
+
+.wrapper {
+    flex: 2;
+    overflow: auto;
+    background: gray;
+}
+
+.seek {
+    display: inline-block;
+    background: gray;
+    z-index: 3;
+    display: flex;
+    width: 100%;
+    background: transparent;
+}
+
+.footer {
+    min-height: 2.75em;
+    background-color: #616161;
+    text-align: center;
+    display: flex;
+    flex-flow: row;
+    display: inline-block;
+    justify-content: space-around;
+}
+
+
+/*CSS for Table of Songs */
+
+#songTable {
+    width: 100%;
+}
+
+
+/*CSS for Minimize etc. */
 
 .control-icons a {
     -webkit-app-region: no-drag;
@@ -50,15 +88,14 @@ body {
     -webkit-app-region: no-drag;
 }
 
-#songTable {
-    width: 100%;
-}
+
+/* CSS for Media Controls */
 
 .mediaControls {
     display: flex;
     justify-content: center;
-
 }
+
 .mediaControls a {
     -webkit-app-region: no-drag;
     font-size: 2em;
@@ -67,42 +104,38 @@ body {
     margin-left: 0.3em;
     display: block;
 }
-#volRange {
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 0.4em;
-    margin-right: 0.1em;
-}
-/*.mediaControls i {
-
-}*/
 
 .mediaControls input {
     -webkit-app-region: no-drag;
 }
 
-.footer {
-    height: 2.75em;
-    background-color: #616161;
-    text-align: center;
-    display: flex;
-    flex-flow: row;
-    display: inline-block;
-    justify-content: space-around;
-}
+
+/* CSS for Album Container */
 
 #albumContainer {
     background: white;
-    flex: 1 0 auto;
     width: 2.75em;
     height: 2.75em;
-    text-align: center;
-
 }
 
 #albumImg {
     min-width: 100%;
     min-height: 100%;
+}
+
+
+/* CSS For Input Type=Range */
+
+#seekRange {
+    -webkit-app-region: no-drag;
+    width: 100%;
+}
+
+#volRange {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0.4em;
+    margin-right: 0.1em;
 }
 
 input[type=range] {
@@ -111,48 +144,32 @@ input[type=range] {
     padding: 0;
     height: 6px;
     background-color: #BDBDBD;
-	background-image: linear-gradient(#512DA8, #512DA8);
+    background-image: linear-gradient(#512DA8, #512DA8);
     border-radius: 10px;
     background-size: 50% 100%;
     background-repeat: no-repeat;
     cursor: pointer;
     -webkit-appearance: none;
 }
+
 input[type=range]::-webkit-slider-runnable-track {
     box-shadow: none;
     border: none;
     background: transparent;
     -webkit-appearance: none;
 }
+
 input[type=range]::-webkit-slider-thumb {
     width: 14px;
     height: 14px;
     border: 0;
     background: white;
     border-radius: 100%;
-    box-shadow: 0 0 1px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.1);
     -webkit-appearance: none;
 }
-.seek {
-    display: inline-block;
-    background: gray;
-    z-index: 3;
-    display: flex;
-    width: 100%;
-    background: transparent;
-}
-#seekRange {
-    -webkit-app-region: no-drag;
-     width: 100%;
-}
+
 input[type=range]#seekRange {
     border-radius: 0;
     background-size: 0% 100%;
-}
-
-.wrapper {
-    display: flex;
-    height: 100%;
-    flex-shrink: 1;
-    background: gray;
 }
