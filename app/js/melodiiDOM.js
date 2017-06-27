@@ -39,7 +39,7 @@ class melodiiDOMClass {
         let title = melodii.metadata.common.title;
         let artist = melodii.metadata.common.artist;
         let album = melodii.metadata.common.album;
-        songInfo.innerHTML = `${title} - ${artist} - ${album}`;
+        songInfo.innerHTML = `${title} - ${artist}`;
     }
     removeSongInfo() {
         songInfo.innerHTML = null;
