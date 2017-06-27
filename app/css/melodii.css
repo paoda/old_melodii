@@ -44,7 +44,7 @@ body {
     background-color: #616161;
     text-align: center;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 
@@ -93,6 +93,8 @@ body {
     flex-shrink: 1;
     display: flex;
     justify-content: center;
+    padding-left: 6em;
+    margin-right: auto;
 }
 
 .mediaControls a {
@@ -141,6 +143,7 @@ body {
     margin-bottom: auto;
     margin-left: 0.4em;
     margin-right: 0.1em;
+    background-size: 100% 100%;
 }
 
 input[type=range] {
@@ -177,4 +180,11 @@ input[type=range]::-webkit-slider-thumb {
 input[type=range]#seekRange {
     border-radius: 0;
     background-size: 0% 100%;
+}
+
+
+
+/* Should Be Deleted at Some Point */
+#random {
+    -webkit-app-region: no-drag;
 }

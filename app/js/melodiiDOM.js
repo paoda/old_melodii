@@ -35,6 +35,9 @@ class melodiiDOMClass {
 
         console.log('Creation of Table Complete');
     }
+    loadSongInfo() {
+        //
+    }
 
 }
 

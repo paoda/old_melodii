@@ -22,3 +22,8 @@ if (fs.existsSync('./app/user/songs.mld')) { //Does songs.mld Exist?
 } else {
     console.log('songs.mld Not Found. No Default Directory Set');
 }
+
+document.getElementById('random').onclick = () => {
+    melodii.loadRandom();
+    melodiiCNTRL.toggle();
+}

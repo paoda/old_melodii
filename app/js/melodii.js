@@ -10,18 +10,19 @@ class melodiiClass {
             CHANGE ONCE JSON METADATA STORAGE IS WORKING
         */
         let fileStream = fs.createReadStream(this.location);
-        let metadataParser = mm(fileStream, (err, metadata) => {
-            fileStream.close();
+        mm.parseStream(fileStream, {native: true}, (err, metadata, uAs) => {
+            uAs.close();
             if (err) throw err;
             this.metadata = null;
             this.metadata = metadata;
-            eventEmitter.emit('Metadata Done');
+
+             this.getAlbumArt();
         });
     }
 
     getAlbumArt() {
-        if (this.metadata.picture.length > 0) {
-            let picture = this.metadata.picture[0];
+        if (this.metadata.common.picture.length > 0) {
+            let picture = this.metadata.common.picture[0];
             let url = URL.createObjectURL(new Blob([picture.data], {
                 'type': 'image/' + picture.format
             }));
@@ -40,10 +41,6 @@ class melodiiClass {
     loadSong(location) {
         this.getLocation(location); //Location of file now available to melodii + melodiiCNTRL
         this.parseMetadata(); //Loads metadata to property of melodii
-
-        eventEmitter.on('Metadata Done', () => {
-            this.getAlbumArt(); //Loads Album art
-        });
         melodiiCNTRL.load(); //Loads song to musicPlayer
     }
     loadRandom() {
@@ -51,10 +48,6 @@ class melodiiClass {
         console.log(num); //Checking to see if Thiss will choose any number
         this.getLocation(songs[num]);
         this.parseMetadata();
-
-        eventEmitter.on('Metadata Done', () => {
-            this.getAlbumArt();
-        });
         melodiiCNTRL.load();
 
     }
@@ -67,6 +60,7 @@ class melodiiClass {
         })
     }
     saveArray(array, location) {
+        let t1 = performance.now();
         var convArray = [];
         let file = fs.createWriteStream(location);
         file.on('error', (err) => {
@@ -83,6 +77,8 @@ class melodiiClass {
             }
         }
         file.end();
+        let t2 = performance.now() 
+        console.log("Time (.saveArray): " + (t2-t1) /1000 + " seconds");
     }
     loadJSON(location) {
         fs.readFile(location, 'utf8', (err, data) => {
@@ -90,15 +86,15 @@ class melodiiClass {
             return data;
         })
     }
-    saveMetadata(file, object, num) {
+    /*saveMetadata(file, object, num) {
         if (this.doOnce == true) {
             num--;
             this.doOnce = false;
         }
         let stream = fs.createReadStream(file[num]);
-        let metadataParser = mm(stream, (err, metadata) => {
+        mm.parseStream(stream,{native: true}, (err, metadata, uAS) => {
             if (err) throw err;
-            stream.close();
+            uAS.close();
 
             delete metadata.picture;
             object[`${num}`] = metadata;
@@ -112,6 +108,9 @@ class melodiiClass {
                 this.saveMetadata(file, object, --num);
             }
         })
+    } */
+    saveMetadata() {
+
     }
 }
 

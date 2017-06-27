@@ -6,7 +6,7 @@ const app = remote.app;
 const browserWindow = remote.BrowserWindow;
 const fs = require('fs');
 const os = require('os');
-const mm = require('musicmetadata');
+const mm = require('music-metadata');
 const ee = require('events');
 
 //EventEmitter stuffs
@@ -36,3 +36,4 @@ var muteIcon = document.getElementById('muteIcon'); //Icon for mute & unmute
 var toggle = document.getElementById('toggle'); //Element which holds toggleIcon. 
 var toggleIcon = document.getElementById('toggleIcon'); //Icon for mute & unmute
 var seekRange = document.getElementById('seekRange'); //Seekbar
+var songInfo = document.getElementById('songInfo'); //Gets div responsible for showing Song Information
