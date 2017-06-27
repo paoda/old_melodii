@@ -1,4 +1,3 @@
 node_modules/*
 .vscode/*
 app/user/*
-app/js/lastfm.js
