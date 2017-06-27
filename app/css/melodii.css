@@ -33,7 +33,7 @@ body {
 .seek {
     display: inline-block;
     background: gray;
-    z-index: 3;
+    z-index: 1;
     display: flex;
     width: 100%;
     background: transparent;
@@ -44,6 +44,7 @@ body {
     background-color: #616161;
     text-align: center;
     display: flex;
+    justify-content: center;
 }
 
 
@@ -107,21 +108,19 @@ body {
     -webkit-app-region: no-drag;
 }
 
-/*CSS to Center the Media Controls */
-.centermedia {
-    margin-left: auto;
-    margin-right: auto;
-    visibility: hidden; /* This is Disgusting, is there a better solution? */
-}
 /* CSS for Album Container */
 
 #albumContainer {
-    margin-right: auto;
-    width: 2.75em;
-    height: 2.75em;
-    display: flex;
+    position: absolute;
     align-items: center;
     justify-content: center;
+    display: flex;
+    bottom: 0;
+    left: 0;
+    width: 5em;
+    height: 5em;
+    z-index: 2;
+    background: darkgray;
 }
 
 #albumImg {
@@ -131,10 +130,10 @@ body {
 
 
 /* CSS For Input Type=Range */
-
 #seekRange {
     -webkit-app-region: no-drag;
-    width: 100%;
+    margin-left: 6em;
+    width: 100%
 }
 
 #volRange {
