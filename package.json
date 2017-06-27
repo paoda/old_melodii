@@ -25,9 +25,9 @@
     "electron-packager": "^8.6.0"
   },
   "dependencies": {
-    "roboto-fontface": "^0.7.0",
     "font-awesome": "^4.7.0",
+    "lastfmapi": "^0.1.1",
     "music-metadata": "^0.6.5",
-    "lastfm": "^0.9.2"
+    "roboto-fontface": "^0.7.0"
   }
 }
