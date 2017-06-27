@@ -36,7 +36,13 @@ class melodiiDOMClass {
         console.log('Creation of Table Complete');
     }
     loadSongInfo() {
-        //
+        let title = melodii.metadata.common.title;
+        let artist = melodii.metadata.common.artist;
+        let album = melodii.metadata.common.album;
+        songInfo.innerHTML = `${title} - ${artist} - ${album}`;
+    }
+    removeSongInfo() {
+        songInfo.innerHTML = null;
     }
 
 }

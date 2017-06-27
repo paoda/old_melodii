@@ -95,6 +95,7 @@ body {
     justify-content: center;
     padding-left: 6em;
     margin-right: auto;
+    align-items: center;
 }
 
 .mediaControls a {
@@ -130,6 +131,17 @@ body {
     height: 100%;
 }
 
+/* CSS for SongInfo */
+
+.songInfo {
+    align-self: center;
+    color: white;
+    font-size: 1em;
+}
+
+.a {
+    margin-right: auto;
+}
 
 /* CSS For Input Type=Range */
 #seekRange {

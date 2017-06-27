@@ -17,6 +17,7 @@ class melodiiClass {
             this.metadata = metadata;
 
              this.getAlbumArt();
+             melodiiDOM.loadSongInfo();
         });
     }
 
