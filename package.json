@@ -1,6 +1,6 @@
 {
   "name": "melodii",
-  "version": "0.0.1",
+  "version": "2017.628.0",
   "description": "An Electron Based Music Player.",
   "main": "main.js",
   "scripts": {

@@ -200,3 +200,6 @@ input[type=range]#seekRange {
 #random {
     -webkit-app-region: no-drag;
 }
+#lastfmBtn {
+    -webkit-app-region: no-drag;
+}

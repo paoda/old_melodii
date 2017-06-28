@@ -10,10 +10,12 @@ class LastFM {
             'api_key': this.api_key,
             'secret': this.secret
         })
+
+        document.getElementById('lastfmBtn').onclick = () => this.enable();
     }
     enable() {
 
-        if (settings.general.lastfm.token == false) {
+        if (settings.general.lastfm.session_key == false) {
             let BrowserWindow = remote.BrowserWindow;
 
             let win = new BrowserWindow({
@@ -32,21 +34,30 @@ class LastFM {
                 this.token = match[0].substring(6, 38);
                 win.close();
 
-                settings.general.lastfm.token = this.token;
-                settings.saveSettings();
                 this.authenticate();
             })
         } else {
-            this.token = settings.general.lastfm.token;
-            this.authenticate();
+            this.startSession();
         }
+    }
+    startSession() {
+        this.lfm.setSessionCredentials(settings.general.lastfm.session_name, settings.general.lastfm.session_key);
+        console.log('Session Keys Successfully loaded');
+        
+        this.editDOM();
     }
     authenticate() {
         this.lfm.authenticate(this.token, (err, session) => {
             if (err) throw err;
-            console.log(session);
-        })
 
+            settings.general.lastfm.session_name = session.username;
+            settings.general.lastfm.session_key = session.key;
+            settings.saveSettings();
+            console.log("Session Keys Saved!");
+        })
+        this.editDOM();
+    }
+    editDOM() {
         musicPlayer.onended = () => this.scrobble(); //Once Authenicated Scobbling can be enabled.
         musicPlayer.onloadedmetadata = () => {
             seekRange.max = (melodii.metadata.format.duration == null) ? ~~musicPlayer.duration : ~~melodii.metadata.format.duration;
@@ -78,8 +89,6 @@ class LastFM {
 eventEmitter.on('Settings Loaded', () => {
     if (settings.general.lastfm.enable) {
         var lastfm = new LastFM();
-
-        lastfm.enable();
     } else {
         console.log('LastFM Support Disabled');
     }
