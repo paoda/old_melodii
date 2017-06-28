@@ -9,6 +9,7 @@ class ListenMoe {
             var img = document.getElementById('albumImg');
             img.style.width= '100%';
             img.style.height = 'auto';
+            melodii.metadata = {format: {duration: null}};
             img.src = 'https://listen.moe/files/images/logo_big.png';
         }
         this.socket.onerror = (e) => console.log('LISTEN.moe Websocket Error: + ' + e);
@@ -38,9 +39,7 @@ class ListenMoe {
                 console.log('Faulty Response from LISTEN.moe Websocket');
                 return -1;
             }
-
             this.loadSongInfo();
-            console.log('Metadata of' + this.metadata.song_name + ' Loaded');
         }
     }
     listen() {
