@@ -203,3 +203,6 @@ input[type=range]#seekRange {
 #lastfmBtn {
     -webkit-app-region: no-drag;
 }
+#listenmoeBtn {
+    -webkit-app-region: no-drag;
+}
