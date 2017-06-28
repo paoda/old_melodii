@@ -68,7 +68,9 @@ class LastFM {
         this.lfm.track.scrobble({
             'artist': melodii.metadata.common.artist,
             'track': melodii.metadata.common.title,
-            'timestamp': ~~((new Date()).getTime() / 1000) - ((melodii.metadata.format.duration == null) ? ~~musicPlayer.duration : ~~melodii.metadata.format.duration)
+            'timestamp': ~~((new Date()).getTime() / 1000) - ((melodii.metadata.format.duration == null) ? ~~musicPlayer.duration : ~~melodii.metadata.format.duration),
+            "album": melodii.metadata.common.album,
+            "albumArtist": melodii.metadata.common.albumartist
         }, (err, scrobble) => {
             if (err) console.error(err);
             console.log("Scrobbling Successful");
@@ -79,6 +81,7 @@ class LastFM {
             'artist': melodii.metadata.common.artist,
             'track': melodii.metadata.common.title,
             'album': melodii.metadata.common.album,
+            'albumArtist': melodii.metadata.common.albumartist
         }, (err, nowPlaying) => {
             if (err) console.error(err);
             console.log("Now Playing Successful");
