@@ -50,8 +50,27 @@ class melodiiBtnsClass {
 					if (err) throw err;
 					songs = results.filter(melodiiDir.fileCheckFunc);
 
-					if (confirm('Do You want to set "' + directory + '" as your default Directory?')) {
-						melodii.saveArray(songs, './app/user/songs.mld');
+					if (settings.general.defaultDir.enable) {
+						if (settings.general.defaultDir.location == directory) {
+							melodii.saveArray(songs, './app/user/songs.mld');
+
+							alert('Updated "'+ directory + '".');
+						}else {
+							if(confirm('Would you like to replace "' + settings.general.defaultDir.location + '" with "' + directory + '" as your default directory?')) {
+								settings.general.defaultDir.location = directory;
+								settings.saveSettings();
+
+								melodii.saveArray(songs, './app/user/songs.mld');
+							}
+						}
+					} else {
+						if (confirm('Do you want to set "'+ directory + '" as your default directory?')) {
+							settings.general.defaultDir.enable = true;
+							settings.general.defaultDir.location = directory;
+							settings.saveSettings();
+
+							melodii.saveArray(songs, './app/user/songs.mld');
+						}
 					}
 				});
 			}
