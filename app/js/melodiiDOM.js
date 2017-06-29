@@ -97,8 +97,6 @@ class melodiiDOMClass {
                     }
                 }
             }
-            console.log('URL Compatible: ' + (t2 - t1) / 1000 + ' seconds.');
-            
             callback(string);
         }
     }
