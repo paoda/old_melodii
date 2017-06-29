@@ -3,37 +3,55 @@
 class melodiiDOMClass {
     getTable() {
         let tableTitle = ["Artist", "Title", "Album", "Year", "Genre", "Time"];
-        let table = document.createElement('table');
-        document.body.insertBefore(table, document.getElementById('footer')) //Creates table Where I want it.
 
-        console.log('Started Creation of Table.');
+        let wrapper = document.getElementsByClassName('wrapper')[0];
+        let tbl = document.createElement('table');
+        tbl.style.width = '100%';
 
-        //This is to create the Title Row which contains things like song information and such.
-        let titleRow = document.createElement('tr');
-        for (let i = 0; i < 6; i++) {
-            let cellTitle = document.createElement('th');
-            let cellTitleText = document.createTextNode(tableTitle[i]);
+        let tbody = document.createElement('tbody');
 
-            cellTitle.appendChild(cellTitleText);
-            titleRow.appendChild(cellTitle);
-        }
-        table.appendChild(titleRow);
+        for (let i = 0; i < songs.length; i++) { //Iteration of the Songs Itself.
 
-        //This is for the song information of each individual song.
+            this.parseMetadata(songs[i], (results) => {
+                let metadata = results;
 
+                this.createMetadataArray(metadata, (array) => {
 
+                    let metadataArr = array;
 
-        /*for (let i = 0; i <= songs.length; i++) {
-            let row = document.createElement('tr');
+                    let tr = document.createElement('tr');
 
-            melodii.location = songs[i];
-            let songInfo = melodii.parseMetadata()
-            eventEmitter.on('metadataDone', () => {
-                console.log(songInfo);
-            })
-        } */
-
-        console.log('Creation of Table Complete');
+                    for (let j = 0; j < tableTitle.length; j++) {
+                        let td = document.createElement('td');
+                        td.appendChild(document.createTextNode(metadataArr[j]));
+                        tr.appendChild(td);
+                    }
+                    tbody.appendChild(tr);
+                });
+            });
+        };
+        tbl.appendChild(tbody);
+        wrapper.appendChild(tbl);
+    }
+    parseMetadata(location, callback) {
+        let stream = fs.createReadStream(location)
+        mm.parseStream(stream, { native: true }, (err, metadata, uAs) => {
+            stream.close();
+            uAs.close();
+            if (err) throw err
+            callback(metadata);
+        })
+    }
+    createMetadataArray(metadata, callback) {
+        let metadataArr = [
+            metadata.common.artist,
+            metadata.common.title,
+            metadata.common.album,
+            metadata.common.year,
+            metadata.common.genre[0],
+            metadata.format.duration
+        ]
+        callback(metadataArr);
     }
     loadSongInfo() {
         let title = melodii.metadata.common.title;

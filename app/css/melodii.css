@@ -28,6 +28,7 @@ body {
     flex: 2;
     overflow: auto;
     background: gray;
+    -webkit-app-region: no-drag;
 }
 
 .seek {
