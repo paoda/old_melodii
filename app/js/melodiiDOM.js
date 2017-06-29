@@ -44,6 +44,64 @@ class melodiiDOMClass {
     removeSongInfo() {
         songInfo.innerHTML = null;
     }
+    makeURLCompatible(input, callback) {
+        if (input.match(/(!|#|\$|&|\'|\(|\)|\*|\+|,|\\|;|=|\?|\@|\[|\])/)) { //Removed /\//g and /:/g
+            let string = input;
+            let regexpSymbols = [
+                /!/g,
+                /#/g,
+                /\$/g,
+                /&/g,
+                /\'/g,
+                /\(/g,
+                /\)/g,
+                /\*/g,
+                /\+/g,
+                /,/g,
+                /\\/g,
+                ///:/g,
+                /;/g,
+                /=/g,
+                /\?/g,
+                /@/g,
+                /\[/g,
+                /\]/g,
+            ]
+            let replacements = [
+                '%21',
+                '%23',
+                '%24',
+                '%26',
+                '%27',
+                '%28',
+                '%29',
+                '%2A',
+                '%2B',
+                '%2C',
+                '/',
+                //'%3A',
+                '%3B',
+                '%3D',
+                '%3F',
+                '%40',
+                '%5B',
+                '%5D',
+            ]
+
+            for (let i = 0; i < 17; i++) {
+                let num = string.match(regexpSymbols[i]);
+                if (num !== null) {
+                    num = num.length;
+                    for (let j = 0; j < num; j++) {
+                        string = string.replace(regexpSymbols[i], replacements[i]);
+                    }
+                }
+            }
+            console.log('URL Compatible: ' + (t2 - t1) / 1000 + ' seconds.');
+            
+            callback(string);
+        }
+    }
 
 }
 

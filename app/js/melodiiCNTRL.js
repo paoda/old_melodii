@@ -2,7 +2,11 @@
 
 class melodiiCNTRLClass {
     load() {
-        musicPlayer.src = melodii.location;
+
+       melodiiDOM.makeURLCompatible(melodii.location, (result) => {
+            melodii.location = result;
+            musicPlayer.src = melodii.location;
+       })
     }
     sliderVolume(e) { //used for slider control
         melodiiBtns.animateSliderBg(e, true, null);
