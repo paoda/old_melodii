@@ -45,8 +45,8 @@ class melodiiClass {
         melodiiCNTRL.load(); //Loads song to musicPlayer
     }
     loadRandom() {
-        let num = ~~(Math.random() * songs.length + 1);
-        console.log(num); //Checking to see if Thiss will choose any number
+        let num = ~~(Math.random() * songs.length);
+        console.log(num); //Checking to see if This will choose any number
         this.getLocation(songs[num]);
         this.parseMetadata();
         melodiiCNTRL.load();

@@ -1,12 +1,20 @@
 'use strict';
 
 class melodiiDOMClass {
-    getTable() {
+    tableGen() {
         let tableTitle = ["Artist", "Title", "Album", "Year", "Genre", "Time"];
 
         let wrapper = document.getElementsByClassName('wrapper')[0];
         let tbl = document.createElement('table');
-        tbl.style.width = '100%';
+
+        let thead = document.createElement('thead');
+        let tr = document.createElement('tr');
+        for (let i = 0; i < tableTitle.length; i++) {
+            let td = document.createElement('td');
+            td.appendChild(document.createTextNode(tableTitle[i]));
+            tr.appendChild(td);
+        }
+        thead.appendChild(tr);
 
         let tbody = document.createElement('tbody');
 
@@ -30,12 +38,68 @@ class melodiiDOMClass {
                 });
             });
         };
+        tbl.appendChild(thead);
         tbl.appendChild(tbody);
         wrapper.appendChild(tbl);
     }
+
+    generateTable() {
+        let t1 = performance.now();
+        let wrapper = document.getElementsByClassName('wrapper')[0];
+        let tbl = document.createElement('table');
+        tbl.id ='songTable';
+        this.createHeader((header) => tbl.appendChild(header)); //Append Header to Table
+
+        let tbody = document.createElement('tbody');
+
+        let num = songs.length - 1;
+
+        this.createBody(num, songs, tbody, () => tbl.appendChild(tbody));
+        wrapper.appendChild(tbl);
+        let t2 = performance.now();
+        console.log('Table Gen: ' + (t2-t1)/1000 + ' seconds');
+    }
+    createHeader(callback) {
+        let tableTitle = ["Artist", "Title", "Album", "Year", "Genre", "Time"]
+        let thead = document.createElement('thead');
+        let tr = document.createElement('tr');
+        for (let i = 0; i < tableTitle.length; i++) {
+            let td = document.createElement('td');
+            td.appendChild(document.createTextNode(tableTitle[i]));
+            tr.appendChild(td);
+        }
+        thead.appendChild(tr);
+        callback(thead);
+    }
+    createBody(iterator, array, table, callback) {
+
+        this.parseMetadata(array[iterator], (results) => {
+            let metadata = results;
+            this.createMetadataArray(metadata, (array) => {
+                let metadataArr = array;
+
+                let tr = document.createElement('tr');
+
+                for (let i = 0; i < 6; i++) {
+                    let td = document.createElement('td');
+                    td.appendChild(document.createTextNode(metadataArr[i]));
+                    tr.appendChild(td);
+                }
+                table.appendChild(tr);
+            })
+        })
+        if (iterator == 0) {
+            console.log('Recursive Method Done');
+            callback();
+        } else {
+            this.createBody(--iterator, array, table, callback);
+        }
+    }
     parseMetadata(location, callback) {
         let stream = fs.createReadStream(location)
-        mm.parseStream(stream, { native: true }, (err, metadata, uAs) => {
+        mm.parseStream(stream, {
+            native: true
+        }, (err, metadata, uAs) => {
             stream.close();
             uAs.close();
             if (err) throw err
@@ -43,13 +107,18 @@ class melodiiDOMClass {
         })
     }
     createMetadataArray(metadata, callback) {
+        let minutes = ~~((metadata.format.duration % 3600) / 60);
+        let seconds = ~~(metadata.format.duration % 60)
+        if (seconds < 10) seconds = '0' + seconds;
+        let time = `${minutes}:${seconds}`;
+        try{metadata.common.genre[0]}catch(e){ metadata.common.genre = ['']};
         let metadataArr = [
             metadata.common.artist,
             metadata.common.title,
             metadata.common.album,
             metadata.common.year,
             metadata.common.genre[0],
-            metadata.format.duration
+            time
         ]
         callback(metadataArr);
     }
