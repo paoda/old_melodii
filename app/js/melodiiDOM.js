@@ -41,7 +41,7 @@ class melodiiDOMClass {
 
                 let tr = document.createElement('tr');
 
-                tr.addEventListener('click', () => {
+                tr.addEventListener('dblclick', () => {
                     melodii.loadSong(location);
                     melodiiCNTRL.toggle();
                 })
