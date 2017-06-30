@@ -1,48 +1,6 @@
 'use strict';
 
 class melodiiDOMClass {
-    tableGen() {
-        let tableTitle = ["Artist", "Title", "Album", "Year", "Genre", "Time"];
-
-        let wrapper = document.getElementsByClassName('wrapper')[0];
-        let tbl = document.createElement('table');
-
-        let thead = document.createElement('thead');
-        let tr = document.createElement('tr');
-        for (let i = 0; i < tableTitle.length; i++) {
-            let td = document.createElement('td');
-            td.appendChild(document.createTextNode(tableTitle[i]));
-            tr.appendChild(td);
-        }
-        thead.appendChild(tr);
-
-        let tbody = document.createElement('tbody');
-
-        for (let i = 0; i < songs.length; i++) { //Iteration of the Songs Itself.
-
-            this.parseMetadata(songs[i], (results) => {
-                let metadata = results;
-
-                this.createMetadataArray(metadata, (array) => {
-
-                    let metadataArr = array;
-
-                    let tr = document.createElement('tr');
-
-                    for (let j = 0; j < tableTitle.length; j++) {
-                        let td = document.createElement('td');
-                        td.appendChild(document.createTextNode(metadataArr[j]));
-                        tr.appendChild(td);
-                    }
-                    tbody.appendChild(tr);
-                });
-            });
-        };
-        tbl.appendChild(thead);
-        tbl.appendChild(tbody);
-        wrapper.appendChild(tbl);
-    }
-
     generateTable() {
         let t1 = performance.now();
         let wrapper = document.getElementsByClassName('wrapper')[0];
