@@ -82,10 +82,6 @@ body {
     font-size: 20px;
 }
 
-#dirBtn {
-}
-
-
 /* CSS for Media Controls */
 
 .mediaControls {
@@ -103,9 +99,6 @@ body {
     text-decoration: none;
     margin-left: 0.3em;
     display: block;
-}
-
-.mediaControls input {
 }
 
 /* CSS for Album Container */
@@ -188,14 +181,4 @@ input[type=range]::-webkit-slider-thumb {
 input[type=range]#seekRange {
     border-radius: 0;
     background-size: 0% 100%;
-}
-
-
-
-/* Should Be Deleted at Some Point */
-#random {
-}
-#lastfmBtn {
-}
-#listenmoeBtn {
 }

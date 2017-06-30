@@ -47,17 +47,19 @@ class melodiiDOMClass {
         let t1 = performance.now();
         let wrapper = document.getElementsByClassName('wrapper')[0];
         let tbl = document.createElement('table');
-        tbl.id ='songTable';
+        tbl.id = 'songTable';
         this.createHeader((header) => tbl.appendChild(header)); //Append Header to Table
 
         let tbody = document.createElement('tbody');
 
         let num = songs.length - 1;
-
-        this.createBody(num, songs, tbody, () => tbl.appendChild(tbody));
         wrapper.appendChild(tbl);
-        let t2 = performance.now();
-        console.log('Table Gen: ' + (t2-t1)/1000 + ' seconds');
+        tbl.appendChild(tbody)
+        this.createBody(num, songs, tbody, () => {
+            let t2 = performance.now();
+            console.log('Table Gen: ' + (t2 - t1) / 1000 + ' seconds');
+            alert('Done Function');
+        });
     }
     createHeader(callback) {
         let tableTitle = ["Artist", "Title", "Album", "Year", "Genre", "Time"]
@@ -71,12 +73,12 @@ class melodiiDOMClass {
         thead.appendChild(tr);
         callback(thead);
     }
-    createBody(iterator, array, table, callback) {
+    createBody(iterator, array, tbody, callback) {
 
         let location = array[iterator]
         this.parseMetadata(location, (results) => {
             let metadata = results;
-            this.createMetadataArray(metadata, (array) => {
+            this.createMetadataArray(metadata, location, (array) => {
                 let metadataArr = array;
 
                 let tr = document.createElement('tr');
@@ -91,15 +93,15 @@ class melodiiDOMClass {
                     td.appendChild(document.createTextNode(metadataArr[i]));
                     tr.appendChild(td);
                 }
-                table.appendChild(tr);
+                tbody.appendChild(tr);
             })
+            if (iterator == 0) {
+                console.log('Recursive Method Done');
+                callback();
+            } else {
+                this.createBody(--iterator, array, tbody, callback);
+            }
         })
-        if (iterator == 0) {
-            console.log('Recursive Method Done');
-            callback();
-        } else {
-            this.createBody(--iterator, array, table, callback);
-        }
     }
     parseMetadata(location, callback) {
         let stream = fs.createReadStream(location)
@@ -112,21 +114,48 @@ class melodiiDOMClass {
             callback(metadata);
         })
     }
-    createMetadataArray(metadata, callback) {
-        let minutes = ~~((metadata.format.duration % 3600) / 60);
-        let seconds = ~~(metadata.format.duration % 60)
-        if (seconds < 10) seconds = '0' + seconds;
-        let time = `${minutes}:${seconds}`;
-        try{metadata.common.genre[0]}catch(e){ metadata.common.genre = ['']};
-        let metadataArr = [
-            metadata.common.artist,
-            metadata.common.title,
-            metadata.common.album,
-            metadata.common.year,
-            metadata.common.genre[0],
-            time
-        ]
-        callback(metadataArr);
+    createMetadataArray(metadata, location, callback) {
+        let duration;
+        if (metadata.format.duration == null) {
+
+            this.makeURLCompatible(location, (res) => {
+                let getDuration = new Audio(res);
+                getDuration.onloadedmetadata = () => {
+                    duration = getDuration.duration;
+                    let minutes = ~~((duration % 3600) / 60);
+                    let seconds = ~~(duration % 60)
+                    if (seconds < 10) seconds = '0' + seconds;
+                    let time = `${minutes}:${seconds}`;
+                    try { metadata.common.genre[0] } catch (e) { metadata.common.genre = [''] };
+                    let metadataArr = [
+                        metadata.common.artist,
+                        metadata.common.title,
+                        metadata.common.album,
+                        metadata.common.year,
+                        metadata.common.genre[0],
+                        time
+                    ]
+                    callback(metadataArr)
+
+                }
+            });
+        } else {
+            duration = metadata.format.duration
+            let minutes = ~~((duration % 3600) / 60);
+            let seconds = ~~(duration % 60)
+            if (seconds < 10) seconds = '0' + seconds;
+            let time = `${minutes}:${seconds}`;
+            try { metadata.common.genre[0] } catch (e) { metadata.common.genre = [''] };
+            let metadataArr = [
+                metadata.common.artist,
+                metadata.common.title,
+                metadata.common.album,
+                metadata.common.year,
+                metadata.common.genre[0],
+                time
+            ]
+            callback(metadataArr)
+        };
     }
     loadSongInfo() {
         let title = melodii.metadata.common.title;
