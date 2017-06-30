@@ -73,12 +73,18 @@ class melodiiDOMClass {
     }
     createBody(iterator, array, table, callback) {
 
-        this.parseMetadata(array[iterator], (results) => {
+        let location = array[iterator]
+        this.parseMetadata(location, (results) => {
             let metadata = results;
             this.createMetadataArray(metadata, (array) => {
                 let metadataArr = array;
 
                 let tr = document.createElement('tr');
+
+                tr.addEventListener('click', () => {
+                    melodii.loadSong(location);
+                    melodiiCNTRL.toggle();
+                })
 
                 for (let i = 0; i < 6; i++) {
                     let td = document.createElement('td');
