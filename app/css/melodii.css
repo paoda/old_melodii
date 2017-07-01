@@ -52,6 +52,24 @@ body {
 
 #songTable {
     width: 100%;
+    border-spacing: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
+}
+#songTable thead tr{
+    background: none !important;
+}
+#songTable tr:nth-child(even) {
+    background: #BDBDBD;
+}
+#songTable tr:nth-child(odd) {
+    background: #9E9E9E;
+}
+
+#songTable tbody td {
+    max-width: 5em;
+    max-height: 1em;
 }
 
 
