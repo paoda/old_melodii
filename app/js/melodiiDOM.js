@@ -45,6 +45,10 @@ class melodiiDOMClass {
                     melodii.loadSong(location);
                     melodiiCNTRL.toggle();
                 })
+                tr.addEventListener('click', () => {
+                    this.giveActive(tr);
+                    this.currentActive = tr;
+                })
 
                 for (let i = 0; i < 6; i++) {
                     let td = document.createElement('td');
@@ -60,6 +64,14 @@ class melodiiDOMClass {
                 this.createBody(--iterator, array, tbody, callback);
             }
         })
+    }
+    giveActive(element) {
+        if (this.currentActive) {
+            this.currentActive.classList.remove('tableActive');
+            element.classList.add('tableActive');
+        } else {
+            element.classList.add('tableActive');
+        }
     }
     parseMetadata(location, callback) {
         let stream = fs.createReadStream(location)

@@ -72,6 +72,10 @@ body {
     max-height: 1em;
 }
 
+.tableActive {
+    background: #64B5F6 !important;
+    color: white;
+}
 
 /*CSS for Minimize etc. */
 
