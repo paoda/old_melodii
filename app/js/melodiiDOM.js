@@ -14,6 +14,7 @@ class melodiiDOMClass {
         wrapper.appendChild(tbl);
         tbl.appendChild(tbody)
         this.createBody(num, songs, tbody, () => {
+            this.createEventListeners();
             let t2 = performance.now();
             console.log('Table Gen: ' + (t2 - t1) / 1000 + ' seconds');
             alert('Done Function');
@@ -126,6 +127,57 @@ class melodiiDOMClass {
             ]
             callback(metadataArr)
         };
+    }
+    createEventListeners() {
+        document.onkeydown = (e) => this.keyDown(e);
+    }
+    keyDown(e) {
+        let table = document.getElementById('songTable');
+        let tbody = table.childNodes[1];
+        if (e.keyCode == '40') {
+            e.preventDefault();
+            //Move "ACTIVE" class down one.
+            let nodes = tbody.childNodes;
+            let list = nodes.length;
+            let currentNode = document.getElementsByClassName('tableActive')[0];
+            let nextNode;
+            for (let i = 0; i < list; i++) {
+                if (nodes[i] === currentNode) {
+                    console.log('Current Node Found!');
+                    if (i + 1 < list) {
+                        nextNode = nodes[i + 1];
+                        currentNode.classList.remove('tableActive');
+                        nextNode.classList.add('tableActive');
+                        this.currentActive = nextNode;
+                        nextNode.focus();
+                    } else {
+                        //Nothing Happens, and things make sense.
+                    }
+                    break;
+                }
+            }
+
+        } else if (e.keyCode == '38') {
+            e.preventDefault();
+            let nodes = tbody.childNodes;
+            let list = nodes.length;
+            let currentNode = document.getElementsByClassName('tableActive')[0];
+            let nextNode;
+            for (let i = 0; i < list; i++) {
+                if (nodes[i] === currentNode) {
+                    if (i > 0) {
+                        nextNode = nodes[i - 1];
+                        currentNode.classList.remove('tableActive');
+                        nextNode.classList.add('tableActive');
+                        this.currentActive = nextNode;
+                        nextNode.focus();
+                    } else {
+                        //Nothing happens, you'd be giving active focus to a nonexistent row
+                    }
+                    break;
+                }
+            }
+        }
     }
     loadSongInfo() {
         let title = melodii.metadata.common.title;
