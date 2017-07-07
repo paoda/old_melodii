@@ -25,7 +25,7 @@ class melodiiBtnsClass {
 		//Volume Slider
 		volRange.oninput = (e) => melodiiCNTRL.sliderVolume(e);
 		//Seek
-		musicPlayer.onloadedmetadata = () => seekRange.max = (melodii.metadata.format.duration == null) ? ~~musicPlayer.duration : ~~melodii.metadata.format.duration;
+		musicPlayer.onloadedmetadata = () => seekRange.max = musicPlayer.duration;
         seekRange.oninput = (e) => {
 			seekRange.getValue = seekRange.value;
 			musicPlayer.currentTime = seekRange.value;

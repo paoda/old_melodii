@@ -2,6 +2,11 @@
 
 class melodiiDOMClass {
     generateTable() {
+        if (document.getElementById('songTable')) {
+            let tbl = document.getElementById('songTable');
+            let wrapper = document.getElementsByClassName('wrapper')[0];
+            wrapper.removeChild(tbl); //Deletes Previous Table
+        }
         let t1 = performance.now();
         let wrapper = document.getElementsByClassName('wrapper')[0];
         let tbl = document.createElement('table');
@@ -148,8 +153,6 @@ class melodiiDOMClass {
                         nextNode.classList.add('tableActive');
                         this.currentActive = nextNode;
                         nextNode.focus();
-                    } else {
-                        //Nothing Happens, and things make sense.
                     }
                     break;
                 }
@@ -177,14 +180,28 @@ class melodiiDOMClass {
             }
         }
         if (e.keyCode == '13') {
-            let dblClickEvent = new MouseEvent("dblclick", {
-                "view": window,
-                "bubbles": true,
-                "cancelable": false
-            })
             e.preventDefault();
-            //Play the Song associated with the highlighted Table Row
-            this.currentActive.dispatchEvent(dblClickEvent);
+            if (musicPlayer.duration > 0) {
+                if (this.currentActive.childNodes[1].innerHTML == melodii.metadata.common.title) {
+                    melodiiCNTRL.toggle();
+                } else {
+                    let dblClickEvent = new MouseEvent("dblclick", {
+                        "view": window,
+                        "bubbles": true,
+                        "cancelable": false
+                    })
+                    //Play the Song associated with the highlighted Table Row
+                    this.currentActive.dispatchEvent(dblClickEvent);
+                }
+            } else {
+                let dblClickEvent = new MouseEvent("dblclick", {
+                    "view": window,
+                    "bubbles": true,
+                    "cancelable": false
+                })
+                //Play the Song associated with the highlighted Table Row
+                this.currentActive.dispatchEvent(dblClickEvent);
+            }
         }
     }
     loadSongInfo() {
