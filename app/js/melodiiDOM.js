@@ -59,7 +59,6 @@ class melodiiDOMClass {
                 tbody.appendChild(tr);
             })
             if (iterator == 0) {
-                console.log('Recursive Method Done');
                 callback();
             } else {
                 this.createBody(--iterator, array, tbody, callback);
@@ -143,7 +142,6 @@ class melodiiDOMClass {
             let nextNode;
             for (let i = 0; i < list; i++) {
                 if (nodes[i] === currentNode) {
-                    console.log('Current Node Found!');
                     if (i + 1 < list) {
                         nextNode = nodes[i + 1];
                         currentNode.classList.remove('tableActive');
@@ -177,6 +175,16 @@ class melodiiDOMClass {
                     break;
                 }
             }
+        }
+        if (e.keyCode == '13') {
+            let dblClickEvent = new MouseEvent("dblclick", {
+                "view": window,
+                "bubbles": true,
+                "cancelable": false
+            })
+            e.preventDefault();
+            //Play the Song associated with the highlighted Table Row
+            this.currentActive.dispatchEvent(dblClickEvent);
         }
     }
     loadSongInfo() {
