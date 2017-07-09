@@ -91,46 +91,115 @@ class melodiiDOMClass {
     }
     createMetadataArray(metadata, location, callback) {
         let duration;
-        if (metadata.format.duration == null) {
-
+        if (!metadata.format.duration) {
             this.makeURLCompatible(location, (res) => {
+                let artist;
+                let title;
+                let album;
+                let year;
+                let genre
+                let time;
+                let length = 15;
+
                 let getDuration = new Audio(res);
                 getDuration.onloadedmetadata = () => {
                     duration = getDuration.duration;
                     let minutes = ~~((duration % 3600) / 60);
                     let seconds = ~~(duration % 60)
                     if (seconds < 10) seconds = '0' + seconds;
-                    let time = `${minutes}:${seconds}`;
-                    try { metadata.common.genre[0] } catch (e) { metadata.common.genre = [''] };
+                    time = `${minutes}:${seconds}`;
+
+                    if (!metadata.common.artist) {
+                        artist = '';
+                    } else {
+                        artist = metadata.common.artist;
+                        if (artist.length > length) artist = artist.substring(0, length) + '...';
+                    }
+                    if (!metadata.common.title) {
+                        title = '';
+                    } else {
+                        title = metadata.common.title;
+                        if (title.length > length) title = title.substring(0, length) + '...';
+                    }
+                    if (!metadata.common.album) {
+                        album = '';
+                    } else {
+                        album = metadata.common.album;
+                        if (album.length > length) album = album.substring(0, length) + '...';
+                    }
+                    if (!metadata.common.year) {
+                        year = ''
+                    } else {
+                        year = metadata.common.year;
+                    }
+                    if (!metadata.common.genre) {
+                        genre = '';
+                    } else {
+                        genre = metadata.common.genre[0];
+                        if (genre > length) genre = genre.substring(0, length) + '...';
+                    }
                     let metadataArr = [
-                        metadata.common.artist,
-                        metadata.common.title,
-                        metadata.common.album,
-                        metadata.common.year,
-                        metadata.common.genre[0],
+                        artist,
+                        title,
+                        album,
+                        year,
+                        genre,
                         time
                     ]
                     callback(metadataArr)
-
                 }
-            });
+            })
         } else {
-            duration = metadata.format.duration
+            let artist;
+            let title;
+            let album;
+            let year;
+            let genre;
+            let length = 15;
+            duration = metadata.format.duration;
             let minutes = ~~((duration % 3600) / 60);
             let seconds = ~~(duration % 60)
             if (seconds < 10) seconds = '0' + seconds;
             let time = `${minutes}:${seconds}`;
-            try { metadata.common.genre[0] } catch (e) { metadata.common.genre = [''] };
+            if (!metadata.common.artist) {
+                artist = '';
+            } else {
+                artist = metadata.common.artist;
+                if (artist.length > length) artist = artist.substring(0, length) + '...';
+            }
+            if (!metadata.common.title) {
+                title = '';
+            } else {
+                title = metadata.common.title;
+                if (title.length > length) title = title.substring(0, length) + '...';
+            }
+            if (!metadata.common.album) {
+                album = '';
+            } else {
+                album = metadata.common.album;
+                if (album.length > length) album = album.substring(0, length) + '...';
+            }
+            if (!metadata.common.year) {
+                year = ''
+            } else {
+                year = metadata.common.year;
+            }
+            if (!metadata.common.genre) {
+                genre = '';
+            } else {
+                genre = metadata.common.genre[0];
+                if (genre > length) genre = genre.substring(0, length) + '...';
+            }
             let metadataArr = [
-                metadata.common.artist,
-                metadata.common.title,
-                metadata.common.album,
-                metadata.common.year,
-                metadata.common.genre[0],
+                artist,
+                title,
+                album,
+                year,
+                genre,
                 time
             ]
             callback(metadataArr)
-        };
+        }
     }
     createEventListeners() {
         document.onkeydown = (e) => this.keyDown(e);
@@ -205,9 +274,13 @@ class melodiiDOMClass {
         }
     }
     loadSongInfo() {
+        let length = 15;
         let title = melodii.metadata.common.title;
+        if (title.length > length) title = title.substr(0, length) + '...';
         let artist = melodii.metadata.common.artist;
+        if (artist.length > length) artist = artist.substr(0, length) + '...';
         let album = melodii.metadata.common.album;
+        if (album.length > length) album = album.substr(0, length) + '...';
         songInfo.innerHTML = `${title} - ${artist}`;
     }
     removeSongInfo() {

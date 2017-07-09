@@ -66,10 +66,10 @@ body {
 #songTable tr:nth-child(odd) {
     background: #9E9E9E;
 }
-
 #songTable tbody td {
-    max-width: 5em;
-    max-height: 1em;
+    text-align: left;
+    height: 0.9em;
+    font-size: 0.9em;
 }
 
 .tableActive {
