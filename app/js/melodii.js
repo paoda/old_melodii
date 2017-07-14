@@ -1,7 +1,7 @@
 'use strict';
-var metadataObj = {};
+Global.metadataObj = {};
 //melodii Class
-class melodiiClass {
+class Melodii {
     constructor() {
         this.doOnce = true;
     }
@@ -9,15 +9,15 @@ class melodiiClass {
         /*
             CHANGE ONCE JSON METADATA STORAGE IS WORKING
         */
-        let fileStream = fs.createReadStream(this.location);
-        mm.parseStream(fileStream, {native: true}, (err, metadata, uAs) => {
+        let fileStream = Global.fs.createReadStream(this.location);
+        Global.mm.parseStream(fileStream, {native: true}, (err, metadata, uAs) => {
             uAs.close();
             if (err) throw err;
             this.metadata = null;
             this.metadata = metadata;
 
              this.getAlbumArt();
-             melodiiDOM.loadSongInfo();
+             Global.melodiiDOM.loadSongInfo();
         });
     }
 
@@ -32,7 +32,7 @@ class melodiiClass {
             this.albumArt = url;
 
         } else {
-            throw "Metadata does not have album art";
+            throw 'Metadata does not have album art';
         }
     }
     getLocation(location) {
@@ -42,58 +42,55 @@ class melodiiClass {
     loadSong(location) {
         this.getLocation(location); //Location of file now available to melodii + melodiiCNTRL
         this.parseMetadata(); //Loads metadata to property of melodii
-        melodiiCNTRL.load(); //Loads song to musicPlayer
+        Global.melodiiCNTRL.load(); //Loads song to musicPlayer
     }
     loadRandom() {
-        let num = ~~(Math.random() * songs.length);
+        let num = Math.floor(Math.random() * Global.songs.length);
         console.log(num); //Checking to see if This will choose any number
-        this.getLocation(songs[num]);
+        this.getLocation(Global.songs[num]);
         this.parseMetadata();
-        melodiiCNTRL.load();
+        Global.melodiiCNTRL.load();
 
     }
     saveJSON(object, location) {
         let json = JSON.stringify(object);
 
-        fs.writeFile(location, json, 'utf8', (err) => {
+        Global.fs.writeFile(location, json, 'utf8', (err) => {
             if (err) throw err;
-            console.log('JSON File Saved.')
-        })
+            console.log('JSON File Saved.');
+        });
     }
     saveArray(array, location) {
-        let t1 = performance.now();
-        var convArray = [];
-        let file = fs.createWriteStream(location);
+        let convArray = [];
+        let file = Global.fs.createWriteStream(location);
         file.on('error', (err) => {
-            throw err
+            throw err;
         });
 
         for (let i = 0; i < array.length; i++) {
             convArray.push(array[i]);
 
-            if (i == array.length - 1) { //Probably not as efficient but is less of a hack than removing 1 from an array
+            if (i === array.length - 1) { //Probably not as efficient but is less of a hack than removing 1 from an array
                 file.write(convArray[i]);
             } else {
                 file.write(convArray[i] + ',\n');
             }
         }
         file.end();
-        let t2 = performance.now() 
-        console.log("Time (.saveArray): " + (t2-t1) /1000 + " seconds");
     }
     loadJSON(location) {
-        fs.readFile(location, 'utf8', (err, data) => {
+        Global.fs.readFile(location, 'utf8', (err, data) => {
             if (err) throw err;
             return data;
-        })
+        });
     }
     /*saveMetadata(file, object, num) {
         if (this.doOnce == true) {
             num--;
             this.doOnce = false;
         }
-        let stream = fs.createReadStream(file[num]);
-        mm.parseStream(stream,{native: true}, (err, metadata, uAS) => {
+        let stream = Global.fs.createReadStream(file[num]);
+        Global.mm.parseStream(stream,{native: true}, (err, metadata, uAS) => {
             if (err) throw err;
             uAS.close();
 
@@ -115,4 +112,4 @@ class melodiiClass {
     }
 }
 
-const melodii = new melodiiClass;
+Global.melodii = new Melodii();

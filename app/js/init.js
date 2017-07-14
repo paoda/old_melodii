@@ -1,39 +1,41 @@
 'use strict';
 
-const remote = require('electron').remote;
-const dialog = remote.dialog;
-const app = remote.app;
-const browserWindow = remote.BrowserWindow;
-const fs = require('fs');
-const os = require('os');
-const mm = require('music-metadata');
-const ee = require('events');
+let Global = {};
+
+ Global.remote = require('electron').remote;
+Global.dialog = Global.remote.dialog;
+Global.app = Global.remote.app;
+Global.browserWindow = Global.remote.BrowserWindow;
+Global.fs = require('fs');
+Global.os = require('os');
+Global.mm = require('music-metadata');
+Global.ee = require('events');
 
 //EventEmitter stuffs
-class eventClass extends ee {};
-const eventEmitter = new eventClass();
+class eventClass extends Global.ee {}
+Global.eventEmitter = new eventClass();
 //eventEmitter.setMaxListeners(0);
 
-console.log('Client OS = ' + os.platform());
+console.log('Client OS = ' + Global.os.platform());
 
-var musicPlayer = new Audio(); //Audio musicPlayer
+Global.musicPlayer = new Audio(); //Audio musicPlayer
 
-var songs; //variable that holds user decided songs
-var directory; //User defined directory;
+Global.songs = null; //variable that holds user decided songs
+Global.directory = null; //User defined directory;
 
 
 //All assignments of HTML tags to variables
-var dirBtn = document.getElementById('dirBtn'); //Button that opens Dialog Box
-var quit = document.getElementById('quit'); //Button that quits melodii
-var minimize = document.getElementById('minimize'); //Button that minimizes melodii
-var volRange = document.getElementById('volRange'); //Range that handles music Volume
-var forward = document.getElementById('forward'); //Button that calls melodiiCNTRL.next();
-var backward = document.getElementById('backward'); //Button that calls melodiiCNTRL.previous();
-//var volDown = document.getElementById('volDown'); //Button that calls melodiiCNTRL.volDown();
-//var volUp = document.getElementById('volUp'); //Button that calss melodiiCNTRL.volUp();
-var muteToggle = document.getElementById('muteToggle'); //Toggle for Mute and unmute
-var muteIcon = document.getElementById('muteIcon'); //Icon for mute & unmute
-var toggle = document.getElementById('toggle'); //Element which holds toggleIcon. 
-var toggleIcon = document.getElementById('toggleIcon'); //Icon for mute & unmute
-var seekRange = document.getElementById('seekRange'); //Seekbar
-var songInfo = document.getElementById('songInfo'); //Gets div responsible for showing Song Information
+Global.dirBtn = document.getElementById('dirBtn'); //Button that opens Dialog Box
+Global.quit = document.getElementById('quit'); //Button that quits melodii
+Global.minimize = document.getElementById('minimize'); //Button that minimizes melodii
+Global.volRange = document.getElementById('volRange'); //Range that handles music Volume
+Global.forward = document.getElementById('forward'); //Button that calls melodiiCNTRL.next();
+Global.backward = document.getElementById('backward'); //Button that calls melodiiCNTRL.previous();
+//Global.volDown = document.getElementById('volDown'); //Button that calls melodiiCNTRL.volDown();
+//Global.volUp = document.getElementById('volUp'); //Button that calss melodiiCNTRL.volUp();
+Global.muteToggle = document.getElementById('muteToggle'); //Toggle for Mute and unmute
+Global.muteIcon = document.getElementById('muteIcon'); //Icon for mute & unmute
+Global.toggle = document.getElementById('toggle'); //Element which holds toggleIcon. 
+Global.toggleIcon = document.getElementById('toggleIcon'); //Icon for mute & unmute
+Global.seekRange = document.getElementById('seekRange'); //Seekbar
+Global.songInfo = document.getElementById('songInfo'); //Gets div responsible for showing Song Information

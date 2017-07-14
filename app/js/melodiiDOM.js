@@ -1,6 +1,6 @@
 'use strict';
 
-class melodiiDOMClass {
+class MelodiiDOM {
     generateTable() {
         if (document.getElementById('songTable')) {
             let tbl = document.getElementById('songTable');
@@ -15,10 +15,10 @@ class melodiiDOMClass {
 
         let tbody = document.createElement('tbody');
 
-        let num = songs.length - 1;
+        let num = Global.songs.length - 1;
         wrapper.appendChild(tbl);
-        tbl.appendChild(tbody)
-        this.createBody(num, songs, tbody, () => {
+        tbl.appendChild(tbody);
+        this.createBody(num, Global.songs, tbody, () => {
             this.createEventListeners();
             let t2 = performance.now();
             console.log('Table Gen: ' + (t2 - t1) / 1000 + ' seconds');
@@ -26,7 +26,7 @@ class melodiiDOMClass {
         });
     }
     createHeader(callback) {
-        let tableTitle = ["Artist", "Title", "Album", "Year", "Genre", "Time"]
+        let tableTitle = ['Artist', 'Title', 'Album', 'Year', 'Genre', 'Time'];
         let thead = document.createElement('thead');
         let tr = document.createElement('tr');
         for (let i = 0; i < tableTitle.length; i++) {
@@ -39,7 +39,7 @@ class melodiiDOMClass {
     }
     createBody(iterator, array, tbody, callback) {
 
-        let location = array[iterator]
+        let location = array[iterator];
         this.parseMetadata(location, (results) => {
             let metadata = results;
             this.createMetadataArray(metadata, location, (array) => {
@@ -48,13 +48,13 @@ class melodiiDOMClass {
                 let tr = document.createElement('tr');
 
                 tr.addEventListener('dblclick', () => {
-                    melodii.loadSong(location);
-                    melodiiCNTRL.toggle();
-                })
+                    Global.melodii.loadSong(location);
+                    Global.melodiiCNTRL.toggle();
+                });
                 tr.addEventListener('click', () => {
                     this.giveActive(tr);
                     this.currentActive = tr;
-                })
+                });
 
                 for (let i = 0; i < 6; i++) {
                     let td = document.createElement('td');
@@ -62,13 +62,13 @@ class melodiiDOMClass {
                     tr.appendChild(td);
                 }
                 tbody.appendChild(tr);
-            })
-            if (iterator == 0) {
+            });
+            if (iterator === 0) {
                 callback();
             } else {
                 this.createBody(--iterator, array, tbody, callback);
             }
-        })
+        });
     }
     giveActive(element) {
         if (this.currentActive) {
@@ -77,17 +77,18 @@ class melodiiDOMClass {
         } else {
             element.classList.add('tableActive');
         }
+        element.id = 'scrollHere';
     }
     parseMetadata(location, callback) {
-        let stream = fs.createReadStream(location)
-        mm.parseStream(stream, {
+        let stream = Global.fs.createReadStream(location);
+        Global.mm.parseStream(stream, {
             native: true
         }, (err, metadata, uAs) => {
             stream.close();
             uAs.close();
-            if (err) throw err
+            if (err) throw err;
             callback(metadata);
-        })
+        });
     }
     createMetadataArray(metadata, location, callback) {
         let duration;
@@ -97,15 +98,15 @@ class melodiiDOMClass {
                 let title;
                 let album;
                 let year;
-                let genre
+                let genre;
                 let time;
                 let length = 15;
 
                 let getDuration = new Audio(res);
                 getDuration.onloadedmetadata = () => {
                     duration = getDuration.duration;
-                    let minutes = ~~((duration % 3600) / 60);
-                    let seconds = ~~(duration % 60)
+                    let minutes = Math.floor((duration % 3600) / 60);
+                    let seconds = Math.floor(duration % 60);
                     if (seconds < 10) seconds = '0' + seconds;
                     time = `${minutes}:${seconds}`;
 
@@ -128,7 +129,7 @@ class melodiiDOMClass {
                         if (album.length > length) album = album.substring(0, length) + '...';
                     }
                     if (!metadata.common.year) {
-                        year = ''
+                        year = '';
                     } else {
                         year = metadata.common.year;
                     }
@@ -145,10 +146,10 @@ class melodiiDOMClass {
                         year,
                         genre,
                         time
-                    ]
-                    callback(metadataArr)
-                }
-            })
+                    ];
+                    callback(metadataArr);
+                };
+            });
         } else {
             let artist;
             let title;
@@ -157,8 +158,8 @@ class melodiiDOMClass {
             let genre;
             let length = 15;
             duration = metadata.format.duration;
-            let minutes = ~~((duration % 3600) / 60);
-            let seconds = ~~(duration % 60)
+            let minutes = Math.floor((duration % 3600) / 60);
+            let seconds = Math.floor(duration % 60);
             if (seconds < 10) seconds = '0' + seconds;
             let time = `${minutes}:${seconds}`;
             if (!metadata.common.artist) {
@@ -180,7 +181,7 @@ class melodiiDOMClass {
                 if (album.length > length) album = album.substring(0, length) + '...';
             }
             if (!metadata.common.year) {
-                year = ''
+                year = '';
             } else {
                 year = metadata.common.year;
             }
@@ -197,8 +198,8 @@ class melodiiDOMClass {
                 year,
                 genre,
                 time
-            ]
-            callback(metadataArr)
+            ];
+            callback(metadataArr);
         }
     }
     createEventListeners() {
@@ -207,9 +208,10 @@ class melodiiDOMClass {
     keyDown(e) {
         let table = document.getElementById('songTable');
         let tbody = table.childNodes[1];
-        if (e.keyCode == '40') {
+        if (e.keyCode === '40') {
             e.preventDefault();
-            //Move "ACTIVE" class down one.
+            //Move 'ACTIVE' class down one.
+            window.location.hash = '';
             let nodes = tbody.childNodes;
             let list = nodes.length;
             let currentNode = document.getElementsByClassName('tableActive')[0];
@@ -220,6 +222,10 @@ class melodiiDOMClass {
                         nextNode = nodes[i + 1];
                         currentNode.classList.remove('tableActive');
                         nextNode.classList.add('tableActive');
+                        this.currentActive.id = '';
+                        currentNode.id = '';
+                        nextNode.id = 'scrollHere';
+                        window.location.hash = 'scrollHere';
                         this.currentActive = nextNode;
                         nextNode.focus();
                     }
@@ -227,7 +233,7 @@ class melodiiDOMClass {
                 }
             }
 
-        } else if (e.keyCode == '38') {
+        } else if (e.keyCode === '38') {
             e.preventDefault();
             let nodes = tbody.childNodes;
             let list = nodes.length;
@@ -239,52 +245,51 @@ class melodiiDOMClass {
                         nextNode = nodes[i - 1];
                         currentNode.classList.remove('tableActive');
                         nextNode.classList.add('tableActive');
+                        nextNode.id = 'scrollHere';
+                        window.location.hash = 'scrollHere';
                         this.currentActive = nextNode;
                         nextNode.focus();
-                    } else {
-                        //Nothing happens, you'd be giving active focus to a nonexistent row
                     }
                     break;
                 }
             }
         }
-        if (e.keyCode == '13') {
+        if (e.keyCode === '13') {
             e.preventDefault();
-            if (musicPlayer.duration > 0) {
-                if (this.currentActive.childNodes[1].innerHTML == melodii.metadata.common.title) {
-                    melodiiCNTRL.toggle();
+            if (Global.musicPlayer.duration > 0) {
+                if (this.currentActive.childNodes[1].innerHTML === Global.melodii.metadata.common.title) {
+                    Global.melodiiCNTRL.toggle();
                 } else {
-                    let dblClickEvent = new MouseEvent("dblclick", {
-                        "view": window,
-                        "bubbles": true,
-                        "cancelable": false
-                    })
+                    let dblClickEvent = new MouseEvent('dblclick', {
+                        'view': window,
+                        'bubbles': true,
+                        'cancelable': false
+                    });
                     //Play the Song associated with the highlighted Table Row
                     this.currentActive.dispatchEvent(dblClickEvent);
                 }
             } else {
-                let dblClickEvent = new MouseEvent("dblclick", {
-                    "view": window,
-                    "bubbles": true,
-                    "cancelable": false
-                })
+                let dblClickEvent = new MouseEvent('dblclick', {
+                    'view': window,
+                    'bubbles': true,
+                    'cancelable': false
+                });
                 //Play the Song associated with the highlighted Table Row
                 this.currentActive.dispatchEvent(dblClickEvent);
             }
         }
     }
     loadSongInfo() {
-        let length = 15;
-        let title = melodii.metadata.common.title;
-        if (title.length > length) title = title.substr(0, length) + '...';
-        let artist = melodii.metadata.common.artist;
-        if (artist.length > length) artist = artist.substr(0, length) + '...';
-        let album = melodii.metadata.common.album;
-        if (album.length > length) album = album.substr(0, length) + '...';
-        songInfo.innerHTML = `${title} - ${artist}`;
+        let length = 40;
+        let title = Global.melodii.metadata.common.title;
+        let artist = Global.melodii.metadata.common.artist;
+        let album = Global.melodii.metadata.common.album;
+        let string = `${title} - ${artist}`;
+        if (string.length > length) string = string.substr(0, length) + '...';
+        Global.songInfo.innerHTML = string;
     }
     removeSongInfo() {
-        songInfo.innerHTML = null;
+        Global.songInfo.innerHTML = null;
     }
     makeURLCompatible(input, callback) {
         if (input.match(/(!|#|\$|&|\'|\(|\)|\*|\+|,|\\|;|=|\?|\@|\[|\])/)) { //Removed /\//g and /:/g
@@ -308,7 +313,7 @@ class melodiiDOMClass {
                 /@/g,
                 /\[/g,
                 /\]/g,
-            ]
+            ];
             let replacements = [
                 '%21',
                 '%23',
@@ -328,7 +333,7 @@ class melodiiDOMClass {
                 '%40',
                 '%5B',
                 '%5D',
-            ]
+            ];
 
             for (let i = 0; i < 17; i++) {
                 let num = string.match(regexpSymbols[i]);
@@ -345,4 +350,4 @@ class melodiiDOMClass {
 
 }
 
-const melodiiDOM = new melodiiDOMClass;
+Global.melodiiDOM = new MelodiiDOM();

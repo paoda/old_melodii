@@ -1,3 +1,4 @@
+'use strict';
 const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const url = require('url');
@@ -34,7 +35,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-    if (win == null) {
+    if (win === null) {
 	createWindow();
     }
 });

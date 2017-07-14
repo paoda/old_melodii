@@ -1,18 +1,18 @@
 'use strict';
 
-class melodiiDirClass {
+class MelodiiDir {
     scanDirectory(dir, done) {
-        var results = [];
-        fs.readdir(dir, (err, list) => {
+        let results = [];
+        Global.fs.readdir(dir, (err, list) => {
             if (err) return done(err);
-            var i = 0;
+            let i = 0;
             (function next() {
-                var file = list[i++];
+                let file = list[i++];
                 if (!file) return done(null, results);
                 file = dir + '/' + file;
-                fs.stat(file, (err, stat) => {
+                Global.fs.stat(file, (err, stat) => {
                     if (stat && stat.isDirectory()) {
-                        melodiiDir.scanDirectory(file, (err, res) => { //Wont work if I change melodiiDir to this.
+                        Global.melodiiDir.scanDirectory(file, (err, res) => { //Wont work if I change melodiiDir to this.
                             results = results.concat(res);
                             next();
                         });
@@ -34,4 +34,4 @@ class melodiiDirClass {
     }
 }
 
-const melodiiDir = new melodiiDirClass;
+Global.melodiiDir = new MelodiiDir();

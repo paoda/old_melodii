@@ -1,93 +1,93 @@
 'use strict';
 
-class melodiiBtnsClass {
+class MelodiiBtns {
 	constructor() {
-		Object.defineProperty(seekRange, 'getValue', {
-			get: function() {
+		Object.defineProperty(Global.seekRange, 'getValue', {
+			get: function(value) {
 				return value;
 			},
 			set: function(value) {
-				seekRange.value = value;
-				melodiiBtns.animateSliderBg(null, false, seekRange);
+				Global.seekRange.value = value;
+				Global.melodiiBtns.animateSliderBg(null, false, Global.seekRange);
 			}
 		});
 	}
 	createButtons() { //I create Event Listners here so that we can not have  init.js so cluttered
-		quit.onclick = () => app.quit();
-		minimize.onclick = () => browserWindow.getFocusedWindow().minimize();
+		Global.quit.onclick = () => Global.app.quit();
+		Global.minimize.onclick = () => Global.browserWindow.getFocusedWindow().minimize();
 
 		//Media Buttons
-		backward.onclick = () => melodiiCNTRL.previous();
-		forward.onclick = () => melodiiCNTRL.next();
-		muteToggle.onclick = () => melodiiCNTRL.muteToggle();
-		toggle.onclick = () => melodiiCNTRL.toggle();
+		Global.backward.onclick = () => Global.melodiiCNTRL.previous();
+		Global.forward.onclick = () => Global.melodiiCNTRL.next();
+		Global.muteToggle.onclick = () => Global.melodiiCNTRL.muteToggle();
+		Global.toggle.onclick = () => Global.melodiiCNTRL.toggle();
 
 		//Volume Slider
-		volRange.oninput = (e) => melodiiCNTRL.sliderVolume(e);
+		Global.volRange.oninput = (e) => Global.melodiiCNTRL.sliderVolume(e);
 		//Seek
-		musicPlayer.onloadedmetadata = () => seekRange.max = musicPlayer.duration;
-        seekRange.oninput = (e) => {
-			seekRange.getValue = seekRange.value;
-			musicPlayer.currentTime = seekRange.value;
-		}
+		Global.musicPlayer.onloadedmetadata = () => Global.seekRange.max = Global.musicPlayer.duration;
+        Global.seekRange.oninput = (e) => {
+			Global.seekRange.getValue = Global.seekRange.value;
+			Global.musicPlayer.currentTime = Global.seekRange.value;
+		};
 
-        musicPlayer.ontimeupdate = () => seekRange.getValue = musicPlayer.currentTime
+        Global.musicPlayer.ontimeupdate = () => Global.seekRange.getValue = Global.musicPlayer.currentTime;
 
 		this.createDirBtn();
 	}
 	createDirBtn() {
-		dirBtn.onclick = () => {
-			directory = dialog.showOpenDialog({
+		Global.dirBtn.onclick = () => {
+			Global.directory = Global.dialog.showOpenDialog({
 				properties: ['openDirectory', 'openFile']
 			});
 
-			if (directory !== 'undefined') {
-				directory = directory.toString();
+			if (Global.directory !== 'undefined') {
+				Global.directory = Global.directory.toString();
 
-				console.log('Chosen Directory: ' + directory)
+				console.log('Chosen Directory: ' + Global.directory);
 
-				melodiiDir.scanDirectory(directory, (err, results) => {
+				Global.melodiiDir.scanDirectory(Global.directory, (err, results) => {
 					if (err) throw err;
-					songs = results.filter(melodiiDir.fileCheckFunc);
+					Global.songs = results.filter(Global.melodiiDir.fileCheckFunc);
 
-					if (settings.general.defaultDir.enable) {
-						if (settings.general.defaultDir.location == directory) {
-							melodii.saveArray(songs, './app/user/songs.mld');
+					if (Global.settings.general.defaultDir.enable) {
+						if (Global.settings.general.defaultDir.location === Global.directory) {
+							Global.melodii.saveArray(Global.songs, './app/user/songs.mld');
 
-							alert('Updated "'+ directory + '".');
+							alert('Updated "'+ Global.directory + '".');
 						}else {
-							if(confirm('Would you like to replace "' + settings.general.defaultDir.location + '" with "' + directory + '" as your default directory?')) {
-								settings.general.defaultDir.location = directory;
-								settings.saveSettings();
+							if(confirm('Would you like to replace "' + Global.settings.general.defaultDir.location + '" with "' + Global.directory + '" as your default directory?')) {
+								Global.settings.general.defaultDir.location = Global.directory;
+								Global.settings.saveSettings();
 
-								melodii.saveArray(songs, './app/user/songs.mld');
+								Global.melodii.saveArray(Global.songs, './app/user/songs.mld');
 							}
 						}
 					} else {
-						if (confirm('Do you want to set "'+ directory + '" as your default directory?')) {
-							settings.general.defaultDir.enable = true;
-							settings.general.defaultDir.location = directory;
-							settings.saveSettings();
+						if (confirm('Do you want to set "'+ Global.directory + '" as your default directory?')) {
+							Global.settings.general.defaultDir.enable = true;
+							Global.settings.general.defaultDir.location = Global.directory;
+							Global.settings.saveSettings();
 
-							melodii.saveArray(songs, './app/user/songs.mld');
+							Global.melodii.saveArray(Global.songs, './app/user/songs.mld');
 						}
 					}
 				});
 			}
-		}
+		};
 	}
 	animateSliderBg(e, bool, objectName) {
 
 		if (bool) {//Doesn't Incorporate the Getter/Setter Solution. Can be run using normal code
-			var target = e.target /*|| e.srcElement;*/
+			let target = e.target; /*|| e.srcElement*/
 
 			target.getValue = target.value;
-			target.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + "% 100%";
+			target.style.backgroundSize = (e.target.value - e.target.min) * 100 / (e.target.max - e.target.min) + '% 100%';
 		}else {
-			objectName.style.backgroundSize = (objectName.value - objectName.min) * 100 / (objectName.max - objectName.min) + "% 100%";
+			objectName.style.backgroundSize = (objectName.value - objectName.min) * 100 / (objectName.max - objectName.min) + '% 100%';
 		}
 	}
 }
 
-const melodiiBtns = new melodiiBtnsClass;
+Global.melodiiBtns = new MelodiiBtns();
 //Minimize and Close Buttons
