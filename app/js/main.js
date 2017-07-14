@@ -19,7 +19,7 @@ Global.eventEmitter.on('Settings Loaded', () => {
 
                 Global.settings.general.defaultDir.enable = false;
                 Global.settings.general.defaultDir.location = null;
-                Global.settings.saveGlobal.Settings();
+                Global.settings.saveSettings();
             }
         });
     } else {
