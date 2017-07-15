@@ -285,6 +285,5 @@ class MelodiiDOM {
             callback(string);
         }
     }
-
 }
 Global.melodiiDOM = new MelodiiDOM();
