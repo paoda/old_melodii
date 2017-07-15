@@ -185,7 +185,7 @@ input[type=range] {
     outline: none;
     padding: 0;
     height: 6px;
-    background-color: var(--bg-colour);
+    background-color: var(--album-art-bg);
     background-image: linear-gradient(var(--accent-colour), var(--accent-colour));
     border-radius: 10px;
     background-size: 50% 100%;
