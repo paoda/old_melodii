@@ -81,7 +81,6 @@ class MelodiiDOM {
         } else {
             element.classList.add('tableActive');
         }
-        element.id = 'scrollHere';
     }
     parseMetadata(location, callback) {
         let stream = Global.fs.createReadStream(location);
@@ -98,116 +97,58 @@ class MelodiiDOM {
         let duration;
         if (!metadata.format.duration) {
             this.makeURLCompatible(location, (res) => {
-                let artist;
-                let title;
-                let album;
-                let year;
-                let genre;
-                let time;
-                let length = 15;
-
                 let getDuration = new Audio(res);
                 getDuration.onloadedmetadata = () => {
-                    duration = getDuration.duration;
-                    let minutes = Math.floor((duration % 3600) / 60);
-                    let seconds = Math.floor(duration % 60);
-                    if (seconds < 10) seconds = '0' + seconds;
-                    time = `${minutes}:${seconds}`;
-
-                    if (!metadata.common.artist) {
-                        artist = '';
-                    } else {
-                        artist = metadata.common.artist;
-                        if (artist.length > length) artist = artist.substring(0, length) + '...';
-                    }
-                    if (!metadata.common.title) {
-                        title = '';
-                    } else {
-                        title = metadata.common.title;
-                        if (title.length > length) title = title.substring(0, length) + '...';
-                    }
-                    if (!metadata.common.album) {
-                        album = '';
-                    } else {
-                        album = metadata.common.album;
-                        if (album.length > length) album = album.substring(0, length) + '...';
-                    }
-                    if (!metadata.common.year) {
-                        year = '';
-                    } else {
-                        year = metadata.common.year;
-                    }
-                    if (!metadata.common.genre) {
-                        genre = '';
-                    } else {
-                        genre = metadata.common.genre[0];
-                        if (genre > length) genre = genre.substring(0, length) + '...';
-                    }
-                    let metadataArr = [
-                        artist,
-                        title,
-                        album,
-                        year,
-                        genre,
-                        time
-                    ];
+                    let metadataArr;
+                    metadata.format.duration = getDuration.duration;
+                    this.checkMetadata(metadata, (array) => metadataArr = array);
                     callback(metadataArr);
                 };
             });
         } else {
-            let artist;
-            let title;
-            let album;
-            let year;
-            let genre;
-            let length = 15;
-            duration = metadata.format.duration;
-            let minutes = Math.floor((duration % 3600) / 60);
-            let seconds = Math.floor(duration % 60);
-            if (seconds < 10) seconds = '0' + seconds;
-            let time = `${minutes}:${seconds}`;
-            if (!metadata.common.artist) {
-                artist = '';
-            } else {
-                artist = metadata.common.artist;
-                if (artist.length > length) artist = artist.substring(0, length) + '...';
-            }
-            if (!metadata.common.title) {
-                title = '';
-            } else {
-                title = metadata.common.title;
-                if (title.length > length) title = title.substring(0, length) + '...';
-            }
-            if (!metadata.common.album) {
-                album = '';
-            } else {
-                album = metadata.common.album;
-                if (album.length > length) album = album.substring(0, length) + '...';
-            }
-            if (!metadata.common.year) {
-                year = '';
-            } else {
-                year = metadata.common.year;
-            }
-            if (!metadata.common.genre) {
-                genre = '';
-            } else {
-                genre = metadata.common.genre[0];
-                if (genre > length) genre = genre.substring(0, length) + '...';
-            }
-            let metadataArr = [
-                artist,
-                title,
-                album,
-                year,
-                genre,
-                time
-            ];
+            let metadataArr;
+            this.checkMetadata(metadata, (array) => metadataArr = array);
             callback(metadataArr);
         }
     }
     createEventListeners() {
         document.onkeydown = (e) => this.keyDown(e);
+    }
+    checkMetadata(metadata, callback) {
+        let artist, title, album, year, genre, length = 15;
+        let duration = metadata.format.duration;
+
+        let minutes = Math.floor((duration % 3600) / 60);
+        let seconds = Math.floor(duration % 60);
+        if (seconds < 10) seconds = '0' + seconds;
+        let time = `${minutes}:${seconds}`;
+
+        // If the item You're looking for is nonexsitent mark it is nonexistent in the table by having nothing there.
+        if (!metadata.common.artist) {artist = '';} else {
+            artist = metadata.common.artist;
+            if (artist.length > length) artist = artist.substring(0, length) + '...';
+        } if (!metadata.common.title) {title = '';} else {
+            title = metadata.common.title;
+            if (title.length > length) title = title.substring(0, length) + '...';
+        }if (!metadata.common.album) {album = '';} else {
+            album = metadata.common.album;
+            if (album.length > length) album = album.substring(0, length) + '...';
+        }if (!metadata.common.year) {year = '';} else {
+            year = metadata.common.year;
+        }if (!metadata.common.genre) {genre = '';} else {
+            genre = metadata.common.genre[0];
+            if (genre > length) genre = genre.substring(0, length) + '...';
+        }
+
+        let metadataArr = [
+            artist,
+            title,
+            album,
+            year,
+            genre,
+            time
+        ];
+        callback(metadataArr);
     }
     keyDown(e) {
         let table = document.getElementById('songTable');
@@ -346,5 +287,4 @@ class MelodiiDOM {
     }
 
 }
-
 Global.melodiiDOM = new MelodiiDOM();
