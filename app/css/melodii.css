@@ -2,7 +2,18 @@
     font-family: Roboto;
     src: url('../../node_modules/roboto-fontface/fonts/Roboto/Roboto-Regular.ttf');
 }
-
+:root {
+    --ui-bg-colour: #616161;
+    --bg-colour: gray;
+    --accent-colour: #512DA8;
+    --table-bg-even: #BDBDBD;
+    --table-bg-odd: #9E9E9E;
+    --table-bg-active: #64B5F6;
+    --table-txt-active: white;
+    --icon-color: white;
+    --song-info-text: white;
+    --album-art-bg: #BDBDBD;
+}
 body {
     margin: 0;
     padding: 0;
@@ -21,18 +32,18 @@ body {
     top: 0;
     right: 0;
     height: 25px;
-    background-color: #616161;
+    background-color: var(--ui-bg-colour);
 }
 
 .wrapper {
     flex: 2;
     overflow: auto;
-    background: gray;
+    background: var(--bg-colour);
 }
 
 .seek {
     display: inline-block;
-    background: gray;
+    background: var(--bg-colour);
     z-index: 1;
     display: flex;
     width: 100%;
@@ -41,7 +52,7 @@ body {
 
 .footer {
     min-height: 2.75em;
-    background-color: #616161;
+    background-color: var(--ui-bg-colour);
     text-align: center;
     display: flex;
     justify-content: flex-start;
@@ -61,10 +72,10 @@ body {
     background: none !important;
 }
 #songTable tr:nth-child(even) {
-    background: #BDBDBD;
+    background: var(--table-bg-even);
 }
 #songTable tr:nth-child(odd) {
-    background: #9E9E9E;
+    background: var(--table-bg-odd);
 }
 #songTable tbody td {
     text-align: left;
@@ -73,15 +84,15 @@ body {
 }
 
 .tableActive {
-    background: #64B5F6 !important;
-    color: white;
+    background: var(--table-bg-active) !important;
+    color: var(--table-txt-active);
 }
 
 /*CSS for Minimize etc. */
 
 .control-icons a {
     -webkit-app-region: no-drag;
-    color: #FFF;
+    color: var(--icon-color);
     padding-left: 3px;
     float: right;
 }
@@ -93,7 +104,7 @@ body {
     line-height: 25px;
     font-size: 20px;
     float: left;
-    color: #FFF;
+    color:var(--icon-color);
 }
 
 #minimize {
@@ -117,7 +128,7 @@ body {
 
 .mediaControls a {
     font-size: 2em;
-    color: #FFF;
+    color: var(--icon-color);
     text-decoration: none;
     margin-left: 0.3em;
     display: block;
@@ -135,7 +146,7 @@ body {
     width: 5em;
     height: 5em;
     z-index: 2;
-    background: darkgray;
+    background: var(--album-art-bg);
 }
 
 #albumImg {
@@ -147,7 +158,7 @@ body {
 
 .songInfo {
     align-self: center;
-    color: white;
+    color:var(--song-info-text);
     font-size: 1em;
 }
 
@@ -174,8 +185,8 @@ input[type=range] {
     outline: none;
     padding: 0;
     height: 6px;
-    background-color: #BDBDBD;
-    background-image: linear-gradient(#512DA8, #512DA8);
+    background-color: var(--bg-colour);
+    background-image: linear-gradient(var(--accent-colour), var(--accent-colour));
     border-radius: 10px;
     background-size: 50% 100%;
     background-repeat: no-repeat;
@@ -194,7 +205,7 @@ input[type=range]::-webkit-slider-thumb {
     width: 14px;
     height: 14px;
     border: 0;
-    background: white;
+    background: var(--icon-color);
     border-radius: 100%;
     box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.1);
     -webkit-appearance: none;
