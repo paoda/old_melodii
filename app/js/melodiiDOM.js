@@ -212,10 +212,9 @@ class MelodiiDOM {
     keyDown(e) {
         let table = document.getElementById('songTable');
         let tbody = table.childNodes[1];
-        if (e.keyCode === '40') {
+        if (e.keyCode === 40) {
             e.preventDefault();
             //Move 'ACTIVE' class down one.
-            window.location.hash = '';
             let nodes = tbody.childNodes;
             let list = nodes.length;
             let currentNode = document.getElementsByClassName('tableActive')[0];
@@ -226,10 +225,6 @@ class MelodiiDOM {
                         nextNode = nodes[i + 1];
                         currentNode.classList.remove('tableActive');
                         nextNode.classList.add('tableActive');
-                        this.currentActive.id = '';
-                        currentNode.id = '';
-                        nextNode.id = 'scrollHere';
-                        window.location.hash = 'scrollHere';
                         this.currentActive = nextNode;
                         nextNode.focus();
                     }
@@ -237,7 +232,7 @@ class MelodiiDOM {
                 }
             }
 
-        } else if (e.keyCode === '38') {
+        } else if (e.keyCode === 38) {
             e.preventDefault();
             let nodes = tbody.childNodes;
             let list = nodes.length;
@@ -249,8 +244,6 @@ class MelodiiDOM {
                         nextNode = nodes[i - 1];
                         currentNode.classList.remove('tableActive');
                         nextNode.classList.add('tableActive');
-                        nextNode.id = 'scrollHere';
-                        window.location.hash = 'scrollHere';
                         this.currentActive = nextNode;
                         nextNode.focus();
                     }
@@ -258,7 +251,7 @@ class MelodiiDOM {
                 }
             }
         }
-        if (e.keyCode === '13') {
+        if (e.keyCode === 13) {
             e.preventDefault();
             if (Global.musicPlayer.duration > 0) {
                 if (this.currentActive.childNodes[1].innerHTML === Global.melodii.metadata.common.title) {

@@ -33,10 +33,10 @@ class Melodii {
                 this.albumArt = url;
 
             } else {
-                console.error(this.metadata.common.picture + 'has Album Art, but the Album Art is nothing more than an empty shell');
+                console.error(this.metadata.common.picture + ' has Album Art, but the Album Art is nothing more than an empty shell');
             }
         } else {
-            console.error(this.metadata.common.title + 'does not have Album Art');
+            console.error(this.metadata.common.title + ' does not have Album Art');
                 let img = document.getElementById('albumImg');
                 img.src = './img/noalbumart.png';
         }
