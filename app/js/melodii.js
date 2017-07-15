@@ -22,17 +22,23 @@ class Melodii {
     }
 
     getAlbumArt() {
-        if (this.metadata.common.picture.length > 0) {
-            let picture = this.metadata.common.picture[0];
-            let url = URL.createObjectURL(new Blob([picture.data], {
-                'type': 'image/' + picture.format
-            }));
-            let img = document.getElementById('albumImg');
-            img.src = url;
-            this.albumArt = url;
+        if (this.metadata.common.picture) {
+            if (this.metadata.common.picture.length > 0) {
+                let picture = this.metadata.common.picture[0];
+                let url = URL.createObjectURL(new Blob([picture.data], {
+                    'type': 'image/' + picture.format
+                }));
+                let img = document.getElementById('albumImg');
+                img.src = url;
+                this.albumArt = url;
 
+            } else {
+                console.error(this.metadata.common.picture + 'has Album Art, but the Album Art is nothing more than an empty shell');
+            }
         } else {
-            throw 'Metadata does not have album art';
+            console.error(this.metadata.common.title + 'does not have Album Art');
+                let img = document.getElementById('albumImg');
+                img.src = './img/noalbumart.png';
         }
     }
     getLocation(location) {

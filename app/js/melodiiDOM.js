@@ -1,6 +1,10 @@
 'use strict';
 
 class MelodiiDOM {
+    constructor() {
+        let img = document.getElementById('albumImg');
+        img.src = './img/noalbumart.png';
+    }
     generateTable() {
         if (document.getElementById('songTable')) {
             let tbl = document.getElementById('songTable');
