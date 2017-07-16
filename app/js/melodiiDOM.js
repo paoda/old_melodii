@@ -1,9 +1,16 @@
 'use strict';
+let songs = require('./songs');
+let melodii = require('./melodii');
+let melodiiCNTRL = require('./melodiiCNTRL');
+let DOMElement = require('./DOMElement');
+let fs = require('fs');
+let mm = require('music-metadata');
+
 
 class MelodiiDOM {
     constructor() {
-        let img = document.getElementById('albumImg');
-        img.src = './img/noalbumart.png';
+        this.img = document.getElementById('albumImg');
+        this.img.src = './img/noalbumart.png';
     }
     generateTable() {
         if (document.getElementById('songTable')) {
@@ -19,10 +26,10 @@ class MelodiiDOM {
 
         let tbody = document.createElement('tbody');
 
-        let num = Global.songs.length - 1;
+        let num = songs.length - 1;
         wrapper.appendChild(tbl);
         tbl.appendChild(tbody);
-        this.createBody(num, Global.songs, tbody, () => {
+        this.createBody(num, songs, tbody, () => {
             this.createEventListeners();
             let t2 = performance.now();
             console.log('Table Gen: ' + (t2 - t1) / 1000 + ' seconds');
@@ -52,8 +59,8 @@ class MelodiiDOM {
                 let tr = document.createElement('tr');
 
                 tr.addEventListener('dblclick', () => {
-                    Global.melodii.loadSong(location);
-                    Global.melodiiCNTRL.toggle();
+                    melodii.loadSong(location);
+                    melodiiCNTRL.toggle();
                 });
                 tr.addEventListener('click', () => {
                     this.giveActive(tr);
@@ -83,8 +90,8 @@ class MelodiiDOM {
         }
     }
     parseMetadata(location, callback) {
-        let stream = Global.fs.createReadStream(location);
-        Global.mm.parseStream(stream, {
+        let stream = fs.createReadStream(location);
+        mm.parseStream(stream, {
             native: true
         }, (err, metadata, uAs) => {
             stream.close();
@@ -195,8 +202,8 @@ class MelodiiDOM {
         if (e.keyCode === 13) {
             e.preventDefault();
             if (Global.musicPlayer.duration > 0) {
-                if (this.currentActive.childNodes[1].innerHTML === Global.melodii.metadata.common.title) {
-                    Global.melodiiCNTRL.toggle();
+                if (this.currentActive.childNodes[1].innerHTML === melodii.metadata.common.title) {
+                    melodiiCNTRL.toggle();
                 } else {
                     let dblClickEvent = new MouseEvent('dblclick', {
                         'view': window,
@@ -219,15 +226,15 @@ class MelodiiDOM {
     }
     loadSongInfo() {
         let length = 40;
-        let title = Global.melodii.metadata.common.title;
-        let artist = Global.melodii.metadata.common.artist;
-        let album = Global.melodii.metadata.common.album;
+        let title = melodii.metadata.common.title;
+        let artist = melodii.metadata.common.artist;
+        let album = melodii.metadata.common.album;
         let string = `${title} - ${artist}`;
         if (string.length > length) string = string.substr(0, length) + '...';
-        Global.songInfo.innerHTML = string;
+        DOMElement.songInfo.innerHTML = string;
     }
     removeSongInfo() {
-        Global.songInfo.innerHTML = null;
+        DOMElement.songInfo.innerHTML = null;
     }
     makeURLCompatible(input, callback) {
         if (input.match(/(!|#|\$|&|\'|\(|\)|\*|\+|,|\\|;|=|\?|\@|\[|\])/)) { //Removed /\//g and /:/g
@@ -286,4 +293,4 @@ class MelodiiDOM {
         }
     }
 }
-Global.melodiiDOM = new MelodiiDOM();
+module.exports = new MelodiiDOM();

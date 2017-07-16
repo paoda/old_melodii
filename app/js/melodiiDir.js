@@ -1,18 +1,19 @@
 'use strict';
+let fs = require('fs');
 
 class MelodiiDir {
     scanDirectory(dir, done) {
         let results = [];
-        Global.fs.readdir(dir, (err, list) => {
+        fs.readdir(dir, (err, list) => {
             if (err) return done(err);
             let i = 0;
             (function next() {
                 let file = list[i++];
                 if (!file) return done(null, results);
                 file = dir + '/' + file;
-                Global.fs.stat(file, (err, stat) => {
+                fs.stat(file, (err, stat) => {
                     if (stat && stat.isDirectory()) {
-                        Global.melodiiDir.scanDirectory(file, (err, res) => { //Wont work if I change melodiiDir to this.
+                        melodiiDir.scanDirectory(file, (err, res) => {
                             results = results.concat(res);
                             next();
                         });
@@ -33,5 +34,5 @@ class MelodiiDir {
         }
     }
 }
-
-Global.melodiiDir = new MelodiiDir();
+let melodiiDir = new MelodiiDir();
+module.exports = melodiiDir;

@@ -1,22 +1,29 @@
 'use strict';
+let eventEmitter = require('./eventEmitter');
+let settings = require('./settings');
+let DOMElement = require('./DOMElement');
+let melodii = require('./melodii');
+let remote = require('electron').remote;
 
 class LastFM {
     constructor() {
-        this.api_key = Global.settings.general.lastfm.api_key;
-        this.secret = Global.settings.general.lastfm.secret;
+        eventEmitter.on('Settings Loaded', () => {
+            this.api_key = settings.general.lastfm.api_key;
+            this.secret = settings.general.lastfm.secret;
 
-        const lastFmAPI = require('lastfmapi');
-        this.lfm = new lastFmAPI({
-            'api_key': this.api_key,
-            'secret': this.secret
+            const lastFmAPI = require('lastfmapi');
+            this.lfm = new lastFmAPI({
+                'api_key': this.api_key,
+                'secret': this.secret
+            });
+
+            document.getElementById('lastfmBtn').onclick = () => this.enable();
         });
-
-        document.getElementById('lastfmBtn').onclick = () => this.enable();
     }
     enable() {
 
-        if (Global.settings.general.lastfm.session_key === false) {
-            let BrowserWindow = Global.remote.BrowserWindow;
+        if (settings.general.lastfm.session_key === false) {
+            let BrowserWindow = remote.BrowserWindow;
 
             let win = new BrowserWindow({
                 width: 800,
@@ -41,18 +48,17 @@ class LastFM {
         }
     }
     startSession() {
-        this.lfm.setSessionCredentials(Global.settings.general.lastfm.session_name, Global.settings.general.lastfm.session_key);
-        console.log('Session Keys Successfully loaded');
-        
+        this.lfm.setSessionCredentials(settings.general.lastfm.session_name, settings.general.lastfm.session_key);
+
         this.editDOM();
     }
     authenticate() {
         this.lfm.authenticate(this.token, (err, session) => {
             if (err) throw err;
 
-            Global.settings.general.lastfm.session_name = session.username;
-            Global.settings.general.lastfm.session_key = session.key;
-            Global.settings.saveSettings();
+            settings.general.lastfm.session_name = session.username;
+            settings.general.lastfm.session_key = session.key;
+            settings.saveSettings();
             console.log('Session Keys Saved!');
         });
         this.editDOM();
@@ -60,17 +66,17 @@ class LastFM {
     editDOM() {
         Global.musicPlayer.onended = () => this.scrobble(); //Once Authenicated Scobbling can be enabled.
         Global.musicPlayer.onloadedmetadata = () => {
-            Global.seekRange.max = (Global.melodii.metadata.format.duration === null) ? Math.floor(Global.musicPlayer.duration) : Math.floor(Global.melodii.metadata.format.duration);
+            DOMElement.seekRange.max = (melodii.metadata.format.duration === null) ? Math.floor(Global.musicPlayer.duration) : Math.floor(melodii.metadata.format.duration);
             this.nowPlaying(); //Once Authenticated, nowPlaying can be enabled. //TODO Make autonomous
         };
     }
     scrobble() {
         this.lfm.track.scrobble({
-            'artist': Global.melodii.metadata.common.artist,
-            'track': Global.melodii.metadata.common.title,
-            'timestamp': Math.floor((new Date()).getTime() / 1000) - ((Global.melodii.metadata.format.duration === null) ? Math.floor(Global.musicPlayer.duration) : Math.floor(Global.melodii.metadata.format.duration)),
-            'album': Global.melodii.metadata.common.album,
-            'albumArtist': Global.melodii.metadata.common.albumartist
+            'artist': melodii.metadata.common.artist,
+            'track': melodii.metadata.common.title,
+            'timestamp': Math.floor((new Date()).getTime() / 1000) - ((melodii.metadata.format.duration === null) ? Math.floor(Global.musicPlayer.duration) : Math.floor(melodii.metadata.format.duration)),
+            'album': melodii.metadata.common.album,
+            'albumArtist': melodii.metadata.common.albumartist
         }, (err, scrobble) => {
             if (err) console.error(err);
             console.log('Scrobbling Successful');
@@ -78,10 +84,10 @@ class LastFM {
     }
     nowPlaying() {
         this.lfm.track.updateNowPlaying({
-            'artist': Global.melodii.metadata.common.artist,
-            'track': Global.melodii.metadata.common.title,
-            'album': Global.melodii.metadata.common.album,
-            'albumArtist': Global.melodii.metadata.common.albumartist
+            'artist': melodii.metadata.common.artist,
+            'track': melodii.metadata.common.title,
+            'album': melodii.metadata.common.album,
+            'albumArtist': melodii.metadata.common.albumartist
         }, (err, nowPlaying) => {
             if (err) console.error(err);
             console.log('Now Playing Successful');
@@ -89,10 +95,4 @@ class LastFM {
     }
 }
 
-Global.eventEmitter.on('Settings Loaded', () => {
-    if (Global.settings.general.lastfm.enable) {
-        Global.lastfm = new LastFM();
-    } else {
-        console.log('LastFM Support Disabled');
-    }
-});
+module.exports = new LastFM();

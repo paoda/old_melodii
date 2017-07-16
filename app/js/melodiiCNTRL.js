@@ -1,61 +1,68 @@
 //melodiiCNTRL Class
 'use strict';
+
+let melodiiDOM = require('./melodiiDOM');
+let melodii = require('./melodii');
+let DOMElement = require('./DOMElement');
+let melodiiBtns = require('./melodiiBtns');
+
 class MelodiiCNTRL {
     load() {
-       Global.melodiiDOM.makeURLCompatible(Global.melodii.location, (result) => {
-            Global.melodii.location = result;
-            Global.musicPlayer.src = Global.melodii.location;
-       });
+        debugger;
+        melodiiDOM.makeURLCompatible(melodii.location, (result) => {
+            melodii.location = result;
+            global.musicPlayer.src = melodii.location;
+        });
     }
     sliderVolume(e) { //used for slider control
-        Global.melodiiBtns.animateSliderBg(e, true, null);
-        Global.musicPlayer.volume = Global.volRange.value;
-        if (Global.musicPlayer.muted) this.muteToggle();
+        melodiiBtns.animateSliderBg(e, true, null);
+        global.musicPlayer.volume = DOMElement.volRange.value;
+        if (global.musicPlayer.muted) this.muteToggle();
     }
     toggle() {
-        if (Global.musicPlayer.paused) {
-            Global.musicPlayer.play();
-            Global.toggle.removeChild(Global.toggleIcon);
-            Global.toggleIcon = document.createElement('i'); //Creating Pause Icon
-            Global.toggleIcon.className = 'fa fa-pause';
-            Global.toggleIcon.id = 'toggleIcon';
-            Global.toggleIcon.setAttribute('aria-hidden', true);
-            Global.toggle.appendChild(Global.toggleIcon);
+        if (global.musicPlayer.paused) {
+            global.musicPlayer.play();
+            DOMElement.toggle.removeChild(DOMElement.toggleIcon);
+            DOMElement.toggleIcon = document.createElement('i'); //Creating Pause Icon
+            DOMElement.toggleIcon.className = 'fa fa-pause';
+            DOMElement.toggleIcon.id = 'toggleIcon';
+            DOMElement.toggleIcon.setAttribute('aria-hidden', true);
+            DOMElement.toggle.appendChild(DOMElement.toggleIcon);
 
-            Global.volRange.value = Global.musicPlayer.volume;
+            DOMElement.volRange.value = global.musicPlayer.volume;
         } else {
-            Global.musicPlayer.pause();
-            Global.toggle.removeChild(Global.toggleIcon);
-            Global.toggleIcon = document.createElement('i'); //Creating Play Icon
-            Global.toggleIcon.className = 'fa fa-play';
-            Global.toggleIcon.id = 'toggleIcon';
-            Global.toggleIcon.setAttribute('aria-hidden', true);
-            Global.toggle.appendChild(Global.toggleIcon);
+            global.musicPlayer.pause();
+            DOMElement.toggle.removeChild(DOMElement.toggleIcon);
+            DOMElement.toggleIcon = document.createElement('i'); //Creating Play Icon
+            DOMElement.toggleIcon.className = 'fa fa-play';
+            DOMElement.toggleIcon.id = 'toggleIcon';
+            DOMElement.toggleIcon.setAttribute('aria-hidden', true);
+            DOMElement.toggle.appendChild(DOMElement.toggleIcon);
         }
     }
     muteToggle() {
-        if (Global.musicPlayer.muted) { //Unlike the play/pause toggle, the button present should correspond to what's actually happening. See WMP
-            Global.musicPlayer.muted = false;
-            Global.muteToggle.removeChild(Global.muteIcon);
-            Global.muteIcon = document.createElement('i'); //Creating Sound Icon
-            Global.muteIcon.className = 'fa fa-volume-up';
-            Global.muteIcon.id = 'muteIcon';
-            Global.muteIcon.setAttribute('aria-hidden', true);
-            Global.muteToggle.appendChild(Global.muteIcon);
+        if (global.musicPlayer.muted) { //Unlike the play/pause toggle, the button present should correspond to what's actually happening. See WMP
+            global.musicPlayer.muted = false;
+            DOMElement.muteToggle.removeChild(DOMElement.muteIcon);
+            DOMElement.muteIcon = document.createElement('i'); //Creating Sound Icon
+            DOMElement.muteIcon.className = 'fa fa-volume-up';
+            DOMElement.muteIcon.id = 'muteIcon';
+            DOMElement.muteIcon.setAttribute('aria-hidden', true);
+            DOMElement.muteToggle.appendChild(DOMElement.muteIcon);
 
-            
+
         } else {
-            Global.musicPlayer.muted = true;
-            Global.muteToggle.removeChild(Global.muteIcon);
-            Global.muteIcon = document.createElement('i'); //Creating Mute Icon
-            Global.muteIcon.className = 'fa fa-volume-off';
-            Global.muteIcon.id = 'muteIcon';
-            Global.muteIcon.setAttribute('aria-hidden', true);
-            Global.muteToggle.appendChild(Global.muteIcon);
+            global.musicPlayer.muted = true;
+            DOMElement.muteToggle.removeChild(DOMElement.muteIcon);
+            DOMElement.muteIcon = document.createElement('i'); //Creating Mute Icon
+            DOMElement.muteIcon.className = 'fa fa-volume-off';
+            DOMElement.muteIcon.id = 'muteIcon';
+            DOMElement.muteIcon.setAttribute('aria-hidden', true);
+            DOMElement.muteToggle.appendChild(DOMElement.muteIcon);
         }
     }
 }
 
-Global.melodiiCNTRL = new MelodiiCNTRL();
+module.exports = new MelodiiCNTRL();
 
 
