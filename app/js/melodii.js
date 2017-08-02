@@ -1,14 +1,23 @@
 'use strict';
-let fs = require('fs');
-let mm = require('music-metadata');
-let melodiiDOM = require('./melodiiDOM');
-let melodiiCNTRL = require('./melodiiCNTRL');
-let songs = require('./songs');
+const fs = require('fs');
+const mm = require('music-metadata');
+const melodiiDOM = require('./melodiiDOM');
+const melodiiCNTRL = require('./melodiiCNTRL');
+const songs = require('./songs');
 
 
 class Melodii {
     constructor() {
         this.doOnce = true;
+
+        Object.defineProperty(this, 'metadata', {
+            get: function(value) {
+                return value;
+            },
+            set: function(value) {
+                // idk
+            }
+        })
     }
     parseMetadata() {
         /*
@@ -22,7 +31,7 @@ class Melodii {
             this.metadata = metadata;
 
              this.getAlbumArt();
-             melodiiDOM.loadSongInfo();
+             melodiiDOM.loadSongInfo(this.metadata);
         });
     }
 
@@ -53,16 +62,15 @@ class Melodii {
     loadSong(location) {
         this.getLocation(location); //Location of file now available to melodii + melodiiCNTRL
         this.parseMetadata(); //Loads metadata to property of melodii
-        melodiiCNTRL.load(); //Loads song to musicPlayer
+        melodiiCNTRL.load(this.location); //Loads song to musicPlayer
+        return this.metadata;
     }
     loadRandom() {
-        let songs = require('./songs');
         let num = Math.floor(Math.random() * songs.list.length);
         console.log(num); //Checking to see if This will choose any number
         this.getLocation(songs.list[num]);
         this.parseMetadata();
-        melodiiCNTRL.load();
-
+        melodiiCNTRL.load(this.location);
     }
     saveJSON(object, location) {
         let json = JSON.stringify(object);

@@ -1,6 +1,6 @@
 'use strict';
-let eventEmitter = require('./eventEmitter');
-let fs = require('fs');
+const eventEmitter = require('./eventEmitter');
+const fs = require('fs');
 
 
 class Settings {

@@ -1,15 +1,13 @@
 'use strict';
-let eventEmitter = require('./eventEmitter');
-let settings = require('./settings');
-let DOMElement = require('./DOMElement');
-let melodii = require('./melodii');
-let remote = require('electron').remote;
+const eventEmitter = require('./eventEmitter');
+const DOMElement = require('./DOMElement');
+const melodii = require('./melodii');
+const remote = require('electron').remote;
 
 class LastFM {
     constructor() {
-        eventEmitter.on('Settings Loaded', () => {
-            this.api_key = settings.general.lastfm.api_key;
-            this.secret = settings.general.lastfm.secret;
+            this.api_key = Global.settings.general.lastfm.api_key;
+            this.secret = Global.settings.general.lastfm.secret;
 
             const lastFmAPI = require('lastfmapi');
             this.lfm = new lastFmAPI({
@@ -18,11 +16,10 @@ class LastFM {
             });
 
             document.getElementById('lastfmBtn').onclick = () => this.enable();
-        });
     }
     enable() {
 
-        if (settings.general.lastfm.session_key === false) {
+        if (Global.settings.general.lastfm.session_key === false) {
             let BrowserWindow = remote.BrowserWindow;
 
             let win = new BrowserWindow({
@@ -48,17 +45,17 @@ class LastFM {
         }
     }
     startSession() {
-        this.lfm.setSessionCredentials(settings.general.lastfm.session_name, settings.general.lastfm.session_key);
-
+        this.lfm.setSessionCredentials(Global.settings.general.lastfm.session_name, Global.settings.general.lastfm.session_key);
+        console.log('Loaded Credentials from User Settings');
         this.editDOM();
     }
     authenticate() {
         this.lfm.authenticate(this.token, (err, session) => {
             if (err) throw err;
 
-            settings.general.lastfm.session_name = session.username;
-            settings.general.lastfm.session_key = session.key;
-            settings.saveSettings();
+            Global.settings.general.lastfm.session_name = session.username;
+            Global.settings.general.lastfm.session_key = session.key;
+            Global.settings.saveSettings();
             console.log('Session Keys Saved!');
         });
         this.editDOM();

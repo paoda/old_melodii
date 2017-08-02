@@ -1,27 +1,26 @@
 //melodiiCNTRL Class
 'use strict';
 
-let melodiiDOM = require('./melodiiDOM');
-let melodii = require('./melodii');
-let DOMElement = require('./DOMElement');
-let melodiiBtns = require('./melodiiBtns');
+//const melodiiDOM = require('./melodiiDOM');
+const melodii = require('./melodii');
+const DOMElement = require('./DOMElement');
+const melodiiBtns = require('./melodiiBtns');
 
 class MelodiiCNTRL {
-    load() {
-        debugger;
-        melodiiDOM.makeURLCompatible(melodii.location, (result) => {
+    load(location) {
+        require('./melodiiDOM').makeURLCompatible(location, (result) => {
             melodii.location = result;
-            global.musicPlayer.src = melodii.location;
+            Global.musicPlayer.src = melodii.location;
         });
     }
     sliderVolume(e) { //used for slider control
         melodiiBtns.animateSliderBg(e, true, null);
-        global.musicPlayer.volume = DOMElement.volRange.value;
-        if (global.musicPlayer.muted) this.muteToggle();
+        Global.musicPlayer.volume = DOMElement.volRange.value;
+        if (Global.musicPlayer.muted) this.muteToggle();
     }
     toggle() {
-        if (global.musicPlayer.paused) {
-            global.musicPlayer.play();
+        if (Global.musicPlayer.paused) {
+            Global.musicPlayer.play();
             DOMElement.toggle.removeChild(DOMElement.toggleIcon);
             DOMElement.toggleIcon = document.createElement('i'); //Creating Pause Icon
             DOMElement.toggleIcon.className = 'fa fa-pause';
@@ -29,9 +28,9 @@ class MelodiiCNTRL {
             DOMElement.toggleIcon.setAttribute('aria-hidden', true);
             DOMElement.toggle.appendChild(DOMElement.toggleIcon);
 
-            DOMElement.volRange.value = global.musicPlayer.volume;
+            DOMElement.volRange.value = Global.musicPlayer.volume;
         } else {
-            global.musicPlayer.pause();
+            Global.musicPlayer.pause();
             DOMElement.toggle.removeChild(DOMElement.toggleIcon);
             DOMElement.toggleIcon = document.createElement('i'); //Creating Play Icon
             DOMElement.toggleIcon.className = 'fa fa-play';
@@ -41,8 +40,8 @@ class MelodiiCNTRL {
         }
     }
     muteToggle() {
-        if (global.musicPlayer.muted) { //Unlike the play/pause toggle, the button present should correspond to what's actually happening. See WMP
-            global.musicPlayer.muted = false;
+        if (Global.musicPlayer.muted) { //Unlike the play/pause toggle, the button present should correspond to what's actually happening. See WMP
+            Global.musicPlayer.muted = false;
             DOMElement.muteToggle.removeChild(DOMElement.muteIcon);
             DOMElement.muteIcon = document.createElement('i'); //Creating Sound Icon
             DOMElement.muteIcon.className = 'fa fa-volume-up';
@@ -52,7 +51,7 @@ class MelodiiCNTRL {
 
 
         } else {
-            global.musicPlayer.muted = true;
+            Global.musicPlayer.muted = true;
             DOMElement.muteToggle.removeChild(DOMElement.muteIcon);
             DOMElement.muteIcon = document.createElement('i'); //Creating Mute Icon
             DOMElement.muteIcon.className = 'fa fa-volume-off';

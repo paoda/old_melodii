@@ -1,18 +1,20 @@
 'use strict';
-let songs = require('./songs');
-let melodii = require('./melodii');
-let melodiiCNTRL = require('./melodiiCNTRL');
-let DOMElement = require('./DOMElement');
-let fs = require('fs');
-let mm = require('music-metadata');
+const songs = require('./songs');
+const melodii = require('./melodii');
+const melodiiCNTRL = require('./melodiiCNTRL');
+const DOMElement = require('./DOMElement');
+const fs = require('fs');
+const mm = require('music-metadata');
 
 
 class MelodiiDOM {
     constructor() {
+        //TODO Move to DOMElement
         this.img = document.getElementById('albumImg');
         this.img.src = './img/noalbumart.png';
     }
     generateTable() {
+        //TODO Move to DOMElement
         if (document.getElementById('songTable')) {
             let tbl = document.getElementById('songTable');
             let wrapper = document.getElementsByClassName('wrapper')[0];
@@ -26,10 +28,10 @@ class MelodiiDOM {
 
         let tbody = document.createElement('tbody');
 
-        let num = songs.length - 1;
+        let num = songs.list.length - 1;
         wrapper.appendChild(tbl);
         tbl.appendChild(tbody);
-        this.createBody(num, songs, tbody, () => {
+        this.createBody(num, songs.list, tbody, () => {
             this.createEventListeners();
             let t2 = performance.now();
             console.log('Table Gen: ' + (t2 - t1) / 1000 + ' seconds');
@@ -57,9 +59,10 @@ class MelodiiDOM {
                 let metadataArr = array;
 
                 let tr = document.createElement('tr');
+                tr.setAttribute('data-location', location);
 
                 tr.addEventListener('dblclick', () => {
-                    melodii.loadSong(location);
+                    this.currentMetadata = require('./melodii').loadSong(tr.getAttribute('data-location'));
                     melodiiCNTRL.toggle();
                 });
                 tr.addEventListener('click', () => {
@@ -200,9 +203,10 @@ class MelodiiDOM {
             }
         }
         if (e.keyCode === 13) {
+            //TODO Fix bug (Need to figure out how to replicate);
             e.preventDefault();
             if (Global.musicPlayer.duration > 0) {
-                if (this.currentActive.childNodes[1].innerHTML === melodii.metadata.common.title) {
+                if (this.currentActive.childNodes[2].innerHTML === this.currentMetadata.common.title) {
                     melodiiCNTRL.toggle();
                 } else {
                     let dblClickEvent = new MouseEvent('dblclick', {
@@ -224,11 +228,11 @@ class MelodiiDOM {
             }
         }
     }
-    loadSongInfo() {
+    loadSongInfo(metadata) {
         let length = 40;
-        let title = melodii.metadata.common.title;
-        let artist = melodii.metadata.common.artist;
-        let album = melodii.metadata.common.album;
+        let title = metadata.common.title;
+        let artist = metadata.common.artist;
+        let album = metadata.common.album;
         let string = `${title} - ${artist}`;
         if (string.length > length) string = string.substr(0, length) + '...';
         DOMElement.songInfo.innerHTML = string;

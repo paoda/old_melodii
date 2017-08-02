@@ -1,5 +1,5 @@
 'use strict';
-let fs = require('fs');
+const fs = require('fs');
 
 class MelodiiDir {
     scanDirectory(dir, done) {

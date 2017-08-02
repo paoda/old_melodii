@@ -1,7 +1,5 @@
 'use strict';
-let ee = require('events');
-
+const ee = require('events');
 class eventClass extends ee{}
-
 module.exports = new eventClass();
 
