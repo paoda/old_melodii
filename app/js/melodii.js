@@ -10,14 +10,16 @@ class Melodii {
     constructor() {
         this.doOnce = true;
 
+        let temp;
         Object.defineProperty(this, 'metadata', {
-            get: function(value) {
-                return value;
+            set: function (value) {
+                temp = value;
+                return temp;
             },
-            set: function(value) {
-                // idk
+            get: function () {
+                return temp;
             }
-        })
+        });
     }
     parseMetadata() {
         /*
