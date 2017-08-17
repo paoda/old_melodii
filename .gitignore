@@ -1,0 +1,5 @@
+node_modules/*
+.jshintrc
+dist/app/*
+!dist/app/index.html
+src/assets/Melodii.xd
