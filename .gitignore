@@ -1,0 +1,4 @@
+node_modules/*
+.jshintrc
+dist/app/bundle.js
+src/assets/Melodii.xd

@@ -1,0 +1,36 @@
+{
+  "name": "melodii",
+  "version": "2017.817.0",
+  "description": "An Electron Based Music Player",
+  "main": "./dist/main.js",
+  "scripts": {
+    "start": "webpack && electron .",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paoda/melodii.git"
+  },
+  "keywords": [],
+  "author": "Rekai Nyangadzayi Musuka (PAODA)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paoda/melodii/issues"
+  },
+  "homepage": "https://github.com/paoda/melodii#readme",
+  "devDependencies": {
+    "css-loader": "^0.28.5",
+    "electron": "^1.7.5",
+    "file-loader": "^0.11.2",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.5.5"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}
