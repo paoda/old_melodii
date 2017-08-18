@@ -15,13 +15,18 @@
     --song-info-text: white;
     --album-art-bg: #BDBDBD;
 }
-
 body {
     margin: 0;
     padding: 0;
     height: 100vh;
     width: 100vw;
     font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+.melodiiContainer {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-flow: column;
 }
@@ -55,4 +60,38 @@ header span {
     margin-left: 0.3em;
 }
 
+/*CSS for the Body */
+
+.wrapper {
+    flex: 2;
+    overflow: auto;
+    background: var(--bg-colour);
+}
 /* CSS for the Footer */
+
+footer {
+    min-height: 2.75em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    background: var(--ui-bg-colour);
+}
+
+    /*CSS for Album Art */
+    footer #albumContainer {
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        bottom: 0;
+        left: 0;
+        width: 7em;
+        height: 7em;
+        z-index: 2;
+        background: var(--album-art-bg);
+    }
+    footer #albumImg {
+        width: auto;
+        height: 100%;
+    }
+
