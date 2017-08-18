@@ -77,6 +77,30 @@ footer {
     background: var(--ui-bg-colour);
 }
 
+/*CSS for Media Controls */
+.mediaControls {
+    flex-shrink: 1;
+    display: flex;
+    justify-content: center;
+    padding-left: 8em;
+    margin-right: auto;
+    align-items: center;
+}
+.mediaControls i {
+    font-size: 2em;
+    color: var(--icon-color);
+    margin-left: 0.3em;
+    display: block;
+    cursor: pointer;
+}
+.mediaControls #VolBar {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0.4em;
+    margin-right: 0.1em;
+    background-size: 100% 100%;
+}
+
 /*CSS for Album Art */
 #albumContainer {
     position: absolute;
