@@ -77,21 +77,70 @@ footer {
     background: var(--ui-bg-colour);
 }
 
-    /*CSS for Album Art */
-    footer #albumContainer {
-        position: absolute;
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        bottom: 0;
-        left: 0;
-        width: 7em;
-        height: 7em;
-        z-index: 2;
-        background: var(--album-art-bg);
-    }
-    footer #albumImg {
-        width: auto;
-        height: 100%;
-    }
+/*CSS for Album Art */
+#albumContainer {
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    bottom: 0;
+    left: 0;
+    width: 7em;
+    height: 7em;
+    z-index: 2;
+    background: var(--album-art-bg);
+}
+#albumImg {
+    width: auto;
+    height: 100%;
+}
 
+/*CSS for SeekRange */
+.seekBar {
+    background: var(--bg-colour);
+    z-index: 1;
+    display: flex;
+    width: 100%;
+}
+#seekRange {
+    margin-left: 8.5em;
+    width: 100%;
+}
+
+
+/*CSS for Range Input */
+input[type=range] {
+    margin: auto;
+    outline: none;
+    padding: 0;
+    height: 6px;
+    background-color: var(--album-art-bg);
+    background-image: linear-gradient(var(--accent-colour), var(--accent-colour));
+    border-radius: 10px;
+    background-size: 50% 100%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+    border: 0;
+    background: var(--icon-color);
+    border-radius: 100%;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.1);
+    -webkit-appearance: none;
+}
+
+input[type=range]#seekRange {
+    border-radius: 0;
+    background-size: 0% 100%;
+}
