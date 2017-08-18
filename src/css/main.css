@@ -49,7 +49,7 @@ header i {
 }
 header span {
     color: white;
-    vertical-align: middle;
+    align-self: center;
 }
 .fa-window-minimize {
     font-size: 15px;
