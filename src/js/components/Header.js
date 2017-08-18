@@ -6,9 +6,11 @@ export default class Header extends React.Component {
     render() {
         return (
             <header>
-                Melodii Music Player
-                <Minimize />
-                <Quit />
+                <span>Melodii Music Player</span>
+                <div id='headerIcons'>
+                    <Minimize />
+                    <Quit />
+                </div>
             </header>
         )
     }

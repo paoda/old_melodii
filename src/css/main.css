@@ -1,0 +1,58 @@
+@font-face {
+    font-family: Roboto;
+    src: url('../assets/fonts/Roboto-Regular.ttf');
+}
+
+:root {
+    --ui-bg-colour: #616161;
+    --bg-colour: gray;
+    --accent-colour: #512DA8;
+    --table-bg-even: #BDBDBD;
+    --table-bg-odd: #9E9E9E;
+    --table-bg-active: #64B5F6;
+    --table-txt-active: white;
+    --icon-color: white;
+    --song-info-text: white;
+    --album-art-bg: #BDBDBD;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-flow: column;
+}
+
+/* CSS for the Header */
+header {
+    -webkit-app-region: drag;
+    top: 0;
+    right: 0;
+    height: 25px;
+    background: var(--ui-bg-colour);
+    display: flex;
+    justify-content: space-between;
+}
+header i {
+    -webkit-app-region: no-drag;
+    color: var(--icon-color);
+    cursor: pointer;
+    text-shadow: 1px 1px 2px #292929;
+}
+header span {
+    color: white;
+    vertical-align: middle;
+}
+.fa-window-minimize {
+    font-size: 15px;
+}
+.fa-times {
+    font-size: 20px;
+    margin-right: 0.1em;
+    margin-left: 0.3em;
+}
+
+/* CSS for the Footer */
