@@ -9,6 +9,7 @@ export default class MusicPlayer {
     }
     stop() {
         this.pause();
+        this.ispaused = false;
         this.audioElement.currentTime = 0.0;
     }
     pause() {
@@ -22,7 +23,7 @@ export default class MusicPlayer {
         }
     }
     load(url) {
-        if (!this.audioElement.paused) this.pause();
+        if (!this.ispaused) this.pause();
         this.audioElement.src = url;
         this.audioElement.load();
     }

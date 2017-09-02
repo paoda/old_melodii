@@ -4,7 +4,7 @@ import MusicPlayer from './js/melodii/MusicPlayer';
 
 var musicPlayer = new MusicPlayer();
 
-musicPlayer.load('http://openings.moe/video/Opening1-AmagiBrilliantPark.webm');
+musicPlayer.load('http://openings.moe/video/Ending1-KokoroConnect.webm');
 musicPlayer.play();
 
 var otherPlayer = new MusicPlayer();
