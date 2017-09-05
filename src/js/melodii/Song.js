@@ -17,7 +17,7 @@ export default class Song {
             self.metadata = res;
             self.getAlbumArt(res);
         });*/
-        this.neoMetadata(path, (res, err) => {
+        this.getMetadata(path, (res, err) => {
             if (err) throw err;
             this.metadata = res;
             this.location = path;
@@ -46,18 +46,6 @@ export default class Song {
         }
     }
     getMetadata(path, done) {
-        if (typeof path === 'object') path.toString();
-        let fileStream = fs.createReadStream(path);
-
-        mm.parseStream(fileStream, {native: true}, (err, metadata, uAs) => {
-            uAs.close();
-            fileStream.close();
-            console.log(metadata);
-            if (err) done(err, null);
-            else done(metadata, null);
-        });
-    }
-    neoMetadata(path, done) {
     if (typeof path === 'object') path = path.toString();
     mm.parseFile(path, {native: true, duration: true}).then((metadata) => {
         done(metadata, null);
