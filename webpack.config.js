@@ -1,6 +1,6 @@
 'use strict';
 const path = require('path');
-
+var webpack = require('webpack');
 module.exports = {
     target: 'electron',
     entry: './src/index.js',
@@ -40,5 +40,9 @@ module.exports = {
                 use: 'file-loader'
             }
         ]
-    }
+    },
+    plugins: [
+        new webpack.IgnorePlugin(/vertx/)
+    ],
+    devtool: 'inline-source-map'
 };

@@ -75,4 +75,11 @@ export default class Settings {
             console.log('Loaded Settings!');
         });
     }
+    wait(done) { //The Exact same as load() but with callback
+        fs.readFile(this.misc.path, 'utf8', (err, obj) => {
+            if (err) throw err;
+            this.general = JSON.parse(obj);
+            done(JSON.parse(obj));
+        });
+    }
 }
