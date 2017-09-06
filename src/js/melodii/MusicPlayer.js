@@ -22,7 +22,9 @@ export default class MusicPlayer {
             this.ispaused = false;
         }
     }
-    load(url) {
+    load(obj) {
+        let url = obj.location;
+        this.currentSong = obj;
         if (!this.ispaused) this.pause();
         this.audioElement.src = url;
         this.audioElement.load();

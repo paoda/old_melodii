@@ -5,7 +5,7 @@ import AlbumArt from '../components/Footer/AlbumArt';
 import fs from 'fs';
 
 export default class Song {
-    constructor(path) {
+    constructor(path, albumArtBool) {
         this.location = path;
         this.metadata = null;
 
@@ -21,7 +21,7 @@ export default class Song {
             this.metadata = res;
             this.location = path;
             console.log(this.metadata);
-            this.getAlbumArt(res);
+            if (albumArtBool) this.getAlbumArt(res);
         });
     }
     getAlbumArt(metadata) {
