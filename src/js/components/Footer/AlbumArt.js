@@ -5,7 +5,7 @@ import noalbumart from '../../../img/noalbumart.png';
 export default class AlbumArt extends React.Component {
     constructor() {
         super();
-        this.state = {albumart: false, albumArtLocation: noalbumart};
+        this.state = {albumArtLocation: noalbumart};
     }
     render() {
         return (

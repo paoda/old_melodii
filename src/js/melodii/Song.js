@@ -6,7 +6,6 @@ import fs from 'fs';
 
 export default class Song {
     constructor(path) {
-
         this.location = path;
         this.metadata = null;
 
