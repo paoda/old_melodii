@@ -20,7 +20,6 @@ export default class Song {
             if (err) throw err;
             this.metadata = res;
             this.location = path;
-            console.log(this.metadata);
             if (albumArtBool) this.getAlbumArt(res);
         });
     }

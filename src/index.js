@@ -15,7 +15,7 @@ settings.wait((general) => {
 
     let test = new Song(general.songs.list[~~(Math.random() * general.songs.list.length)], false);
     let otherPlayer = new MusicPlayer();
-    console.log(otherPlayer.currentSong);
+    console.log(otherPlayer.audioElement.currentSong);
 });
 
 /*window.setTimeout(() => {
