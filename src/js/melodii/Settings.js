@@ -43,7 +43,16 @@ export default class Settings {
         }
 
         if (this.misc.found) this.load();
-        else console.warn('Settings not found.');
+        else this.createSettings();
+
+    }
+    createSettings() {
+        //user.json does not exist :(
+        fs.writeFile(this.misc.path, JSON.stringify(this.general), (err) => {
+            if (err) throw err;
+            console.log('Created Settings File\nLoaded Default Settings');  
+        });
+
     }
     save(obj) {
         //Takes the modified setings overwrites them and then saves them to file.

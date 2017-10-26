@@ -3,6 +3,9 @@ import * as mm from 'music-metadata';
 import noalbumart from '../../img/noalbumart.png';
 import AlbumArt from '../components/Footer/AlbumArt';
 import fs from 'fs';
+import Settings from './Settings';
+
+var settings = new Settings();
 
 export default class Song {
     constructor(path, albumArtBool) {
@@ -16,12 +19,20 @@ export default class Song {
             self.metadata = res;
             self.getAlbumArt(res);
         });*/
-        this.getMetadata(path, (res, err) => {
-            if (err) throw err;
-            this.metadata = res;
-            this.location = path;
-            if (albumArtBool) this.getAlbumArt(res);
+
+        settings.wait((res) => {
+            settings.general = res;
         });
+
+        debugger;
+        if (settings.general.songs.list.length !== 0) {
+            this.getMetadata(path, (res, err) => {
+                if (err) throw err;
+                this.metadata = res;
+                this.location = path;
+                if (albumArtBool) this.getAlbumArt(res);
+            });
+        }
     }
     getAlbumArt(metadata) {
         if (metadata.common.picture) {
@@ -31,7 +42,7 @@ export default class Song {
                     'type': 'image/' + picture.format
                 }));
                 let img = document.getElementById('albumImg');
-                img.src= url;
+                img.src = url;
             } else {
                 console.error(metadata.common.title + ' has Album Art, but the Album Art is empty');
                 let img = document.getElementById('albumImg');
@@ -44,11 +55,11 @@ export default class Song {
         }
     }
     getMetadata(path, done) {
-    if (typeof path === 'object') path = path.toString();
-    mm.parseFile(path, {native: true, duration: true}).then((metadata) => {
-        done(metadata, null);
-    }).catch((err) => {
-        done(null, err);
-    });
+        if (typeof path === 'object') path = path.toString();
+        mm.parseFile(path, { native: true, duration: true }).then((metadata) => {
+            done(metadata, null);
+        }).catch((err) => {
+            done(null, err);
+        });
     }
 }
