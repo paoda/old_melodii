@@ -55,7 +55,8 @@ export default class Directory {
 
             this.scan(this.location, (err, res) => {
                 if (err) throw err;
-                settings.general.songs.location.push(this.location);
+                debugger;
+                settings.general.songs.location.push(this.location); //Check to see if,
 
                 var songs = res.filter((arg) => {
                     if (arg.match(/^.*\.(flac|mp4|mp3|m4a|aac|wav|ogg)$/gi) !== null) return true;

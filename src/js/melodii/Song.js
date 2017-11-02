@@ -11,8 +11,8 @@ export default class Song {
     constructor(path, albumArtBool) {
         this.location = path;
         this.metadata = null;
-
         let self = this;
+
         /*this.getMetadata(path, (err, res) => {
             if (err) throw err;
             self.location = path;
@@ -22,17 +22,18 @@ export default class Song {
 
         settings.wait((res) => {
             settings.general = res;
-        });
 
-        debugger;
-        if (settings.general.songs.list.length !== 0) {
-            this.getMetadata(path, (res, err) => {
-                if (err) throw err;
-                this.metadata = res;
-                this.location = path;
-                if (albumArtBool) this.getAlbumArt(res);
-            });
-        }
+            if (settings.general.songs.list.length !== 0) {
+                this.getMetadata(path, (res, err) => {
+                    if (err) throw err;
+                    this.metadata = res;
+                    this.location = path;
+                    if (albumArtBool) this.getAlbumArt(res);
+                });
+            } else {
+                console.warn('No Songs Found :(');
+            }
+        });   
     }
     getAlbumArt(metadata) {
         if (metadata.common.picture) {

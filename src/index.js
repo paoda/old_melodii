@@ -8,14 +8,13 @@ import Settings from './js/melodii/Settings';
 var settings = new Settings();
 settings.wait((general) => {
     var song = new Song(general.songs.list[~~(Math.random() * general.songs.list.length)], true);
-    var musicPlayer = new MusicPlayer();
-    musicPlayer.audioElement.volume = 1;
-    musicPlayer.load(song);
-    musicPlayer.play();
 
-    let test = new Song(general.songs.list[~~(Math.random() * general.songs.list.length)], false);
-    let otherPlayer = new MusicPlayer();
-    console.log(otherPlayer.audioElement.currentSong);
+    if (song.location) {
+        var musicPlayer = new MusicPlayer();
+        musicPlayer.setVolume(1);
+        musicPlayer.load(song);
+        musicPlayer.play();
+    }
 });
 
 /*window.setTimeout(() => {

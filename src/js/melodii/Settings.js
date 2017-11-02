@@ -43,14 +43,15 @@ export default class Settings {
         }
 
         if (this.misc.found) this.load();
-        else this.createSettings();
+        else this.createSettings(()=> {});
 
     }
-    createSettings() {
+    createSettings(done) {
         //user.json does not exist :(
         fs.writeFile(this.misc.path, JSON.stringify(this.general), (err) => {
             if (err) throw err;
-            console.log('Created Settings File\nLoaded Default Settings');  
+            //Repeats 3 times? 
+            done();
         });
 
     }
@@ -74,21 +75,30 @@ export default class Settings {
         }
         fs.writeFile(this.misc.path, JSON.stringify(obj), (err) => {
             if (err) throw err;
-            console.log('Saved Settings');
         });
     }
     load() {
         fs.readFile(this.misc.path, 'utf8', (err, obj) => {
             if (err) throw err;
-            this.general = JSON.parse(obj);
-            console.log('Loaded Settings!');
+            try {
+                this.general = JSON.parse(obj);
+            } catch (e) {
+                console.error('Recreating user.json due to file corruption.');
+                this.createSettings(() => {});
+            }
         });
     }
     wait(done) { //The Exact same as load() but with callback
         fs.readFile(this.misc.path, 'utf8', (err, obj) => {
             if (err) throw err;
-            this.general = JSON.parse(obj);
-            done(JSON.parse(obj));
+            try {
+                this.general = JSON.parse(obj);
+            } catch (e) {
+                console.error('Error in Settings.wait(): unable to parse user.json');
+                this.createSettings(() => {});
+            }
+            
+            done(this.general);
         });
     }
 }

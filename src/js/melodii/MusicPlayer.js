@@ -44,10 +44,11 @@ export default class MusicPlayer {
         this.audioElement.src = url;
         this.audioElement.load();
     }
-    changeVol(num) {
-
+    setVolume(num) {
         if (num <= 1) {
             this.audioElement.volume = num;
+        }else if ( num < 0) {
+            console.error(num + ' is smaller than 0');
         }else {
             console.error(num + ' is greater than 1');
         }
