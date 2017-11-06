@@ -8,7 +8,7 @@ export default class Settings {
         this.general = { //Default Settings
             defaultDir: {
                 enable: false,
-                location: []
+                filepaths: []
             },
             lastfm: {
                 enable: false,
@@ -20,8 +20,7 @@ export default class Settings {
                 enable: false
             },
             songs: {
-                location: [],
-                list: []
+                filepaths: []
             }
         };
         this.misc = {
@@ -35,44 +34,36 @@ export default class Settings {
         if (this.misc.os === 'win32') {
             this.misc.path = this.misc.appdata + '\\melodii\\user\\user.json';
             this.misc.slash = '\\';
-            this.misc.found = fs.existsSync(this.misc.path);
         } else {
             this.misc.path = this.misc.appdata + '/melodii/user/user.json';
             this.misc.slash = '/';
-            this.misc.found = fs.existsSync(this.misc.path);
         }
+        this.misc.found = fs.existsSync(this.misc.path);
 
-        if (this.misc.found) this.load();
-        else this.createSettings(()=> {});
+        if (!this.misc.found) this.createSettings(()=> {});
 
     }
     createSettings(done) {
-        //user.json does not exist :(
+        //Checking if directories exist:
+        try {
+            fs.mkdirSync(this.misc.appdata + this.misc.slash + 'melodii');
+        } catch (e) {console.warn('Melodii folder already exists!');}
+        try {
+            fs.mkdirSync(this.misc.appdata + this.misc.slash + 'melodii' + this.misc.slash + 'user');
+        } catch (e) {console.warn('Whoops! the user folder already exists!');}
+
+        //creating user.json w/ default settings
         fs.writeFile(this.misc.path, JSON.stringify(this.general), (err) => {
             if (err) throw err;
-            //Repeats 3 times? 
+
             done();
         });
-
     }
     save(obj) {
         //Takes the modified setings overwrites them and then saves them to file.
-        if(this.misc.found) this.load();
-        this.general = Object.assign({}, this.general, obj);
+        // if(this.misc.found) this.load();
+        // this.general = Object.assign({}, this.general, obj);
         
-        if (!this.misc.found) {
-            try {
-                fs.mkdirSync(this.misc.appdata + this.misc.slash + 'melodii');
-            } catch (e) {
-                console.warn('Whoops! The melodii folder already exists!');
-            }
-            try {
-                fs.mkdirSync(this.misc.appdata + this.misc.slash + 'melodii' + this.misc.slash + 'user');
-            } catch (e) {
-                console.warn('Whoops! the user folder already exists!');
-            }
-            console.log('Finished Creating directories');
-        }
         fs.writeFile(this.misc.path, JSON.stringify(obj), (err) => {
             if (err) throw err;
         });

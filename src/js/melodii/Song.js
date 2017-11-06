@@ -23,7 +23,7 @@ export default class Song {
         settings.wait((res) => {
             settings.general = res;
 
-            if (settings.general.songs.list.length !== 0) {
+            if (settings.general.songs.filepaths[0].list !== 0) { //Check for all songs
                 this.getMetadata(path, (res, err) => {
                     if (err) throw err;
                     this.metadata = res;

@@ -7,13 +7,16 @@ import Settings from './js/melodii/Settings';
 
 var settings = new Settings();
 settings.wait((general) => {
-    var song = new Song(general.songs.list[~~(Math.random() * general.songs.list.length)], true);
 
-    if (song.location) {
-        var musicPlayer = new MusicPlayer();
-        musicPlayer.setVolume(1);
-        musicPlayer.load(song);
-        musicPlayer.play();
+    if (general.songs.filepaths.length > 0) {
+        var song = new Song(general.songs.filepaths[0].list[~~(Math.random() * general.songs.filepaths[0].list.length)], true);
+        
+        if (song.location) {
+            var musicPlayer = new MusicPlayer();
+            musicPlayer.setVolume(1);
+            musicPlayer.load(song);
+            musicPlayer.play();
+        }
     }
 });
 

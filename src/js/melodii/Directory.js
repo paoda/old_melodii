@@ -1,6 +1,7 @@
 'use strict';
-import {remote} from 'electron';
+import { remote } from 'electron';
 import Settings from './Settings';
+import FilePath from './Filepath';
 import fs from 'fs';
 import os from 'os';
 
@@ -14,78 +15,46 @@ export default class Directory {
         if (os.platform() !== 'win32') this.slash = '/';
         else this.slash = '\\';
     }
-    //http://stackoverflow.com/questions/5827612/node-js-fs-readdir-recursive-directory-search
-    scan(dir, done) {
-        let self = this;
-        let results = [];
-        fs.readdir(dir, (err, list) => {
-            if (err) return done(err);
-            let i = 0;
-            (function next() {
-                let file = list[i++];
-                if (!file) return done(null, results);
-                file = dir + self.slash + file;
-                fs.stat(file, (err, stat) => {
-                    if (stat && stat.isDirectory()) {
-                        self.scan(file, (err, res) => {
-                            results = results.concat(res);
-                            next();
-                        });
-                    } else {
-                        results.push(file);
-                        next();
-                    }
-                });
-            })();
-        });
-    }
     get() {
         try {
             this.location = remote.dialog.showOpenDialog({
                 properties: ['openDirectory']
             });
         } catch (e) {
-            console.log('Unexpected Closure of Dialog Box');
+            console.error('Unexpected Closure of Dialog Box');
         }
 
         if (this.location !== 'undefined') {
             this.location = this.location.toString();
 
+            debugger;
+            let filepath = new FilePath(this.location);
             console.log('Chosen Directory: ' + this.location);
 
-            this.scan(this.location, (err, res) => {
-                if (err) throw err;
-                debugger;
-                settings.general.songs.location.push(this.location); //Check to see if,
+            settings.wait((general) => {
+                general.songs.filepaths.push(filepath); //check to see if filepaths.location already exists
 
-                var songs = res.filter((arg) => {
-                    if (arg.match(/^.*\.(flac|mp4|mp3|m4a|aac|wav|ogg)$/gi) !== null) return true;
-                    else return false;
-                });
-
-                settings.general.songs.list = settings.general.songs.list.concat(songs);
-
-                if (settings.general.defaultDir.enable) {
-
-                    let length = settings.general.defaultDir.location.length;
-                    for (let i = 0; i < length; i++) if (settings.general.defaultDir.location[i] === this.location) this.overwrite = true;
-
-                    if (this.overwrite) {
-                        settings.save(settings.general);
-                        alert('Updated "' + this.location + '"');
-                    } else {
-                        if (confirm('Would You like to add "' + this.location + '" as a default directory?')) {
-                            settings.general.defaultDir.location.push(this.location);
-                            settings.save(settings.general);
-                            alert('Added "' + this.location + '" as a default directory');
-                        }
+                if (general.defaultDir.enable) {
+                    let length = general.defaultDir.location.length;
+                    for (let i = 0; i < length; i++) {
+                        if (general.defaultDir.filepaths[i].location === this.location) this.overwrite = true;
                     }
 
+                    if (this.overwrite) {
+                        settings.save(general);
+                        window.alert('Updated "' + this.location + '"');
+                    } else {
+                        if (confirm('Would You like to add "' + this.location + '" as a default directory?')) {
+                            general.defaultDir.filepaths.push(this.location);
+                            settings.save(general);
+                            window.alert('Added "' + this.location + '" as a default directory');
+                        }
+                    }
                 } else {
                     if (confirm('Do you Want to set "' + this.location + '" as your default directory?')) {
-                        settings.general.defaultDir.enable = true;
-                        settings.general.defaultDir.location.push(this.location);
-                        settings.save(settings.general);
+                        general.defaultDir.enable = true;
+                        general.defaultDir.filepaths.push(filepath);
+                        settings.save(general);
                     }
                 }
             });
