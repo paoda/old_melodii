@@ -21,6 +21,7 @@ export default class MusicPlayer {
                 currentSong = value;
             }
         });
+
     }
     stop() {
         this.pause();
@@ -43,6 +44,15 @@ export default class MusicPlayer {
         if (!this.ispaused) this.pause();
         this.audioElement.src = url;
         this.audioElement.load();
+    }
+    seek(pos) {
+        this.audioElement.currentTime = pos;
+    }
+    currentTime() {
+        return this.audioElement.currentTime;
+    }
+    duration() {
+        return this.audioElement.duration;
     }
     setVolume(num) {
         if (num <= 1) {

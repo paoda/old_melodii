@@ -129,6 +129,7 @@ footer {
 #seekRange {
     margin-left: 8.5em;
     width: 100%;
+    display: flex;
 }
 
 
