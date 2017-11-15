@@ -1,16 +1,18 @@
 'use strict';
 import './js/react.js'; //Runs the React Code
+
 //Test Code
 import MusicPlayer from './js/melodii/MusicPlayer';
 import Song from './js/melodii/Song';
 import Settings from './js/melodii/Settings';
-
+import Playlist from './js/melodii/Playlist';
 var settings = new Settings();
 settings.wait((general) => {
 
     if (general.songs.filepaths.length > 0) {
-        var song = new Song(general.songs.filepaths[0].list[~~(Math.random() * general.songs.filepaths[0].list.length)], true);
-        
+        var song;
+        Playlist.getRandomFromAll((res) => song = res);
+
         if (song.location) {
             var musicPlayer = new MusicPlayer();
             musicPlayer.setVolume(1);
@@ -18,8 +20,10 @@ settings.wait((general) => {
             musicPlayer.play();
 
             musicPlayer.audioElement.onended = () => {
-                musicPlayer.load(new Song(general.songs.filepaths[0].list[~~(Math.random() * general.songs.filepaths[0].list.length)], true));
-                musicPlayer.play();
+                Playlist.getRandomFromAll((res) => {
+                    musicPlayer.load(res);
+                    musicPlayer.play();
+                });
             };
         }
     }
