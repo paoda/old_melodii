@@ -16,6 +16,11 @@ settings.wait((general) => {
             musicPlayer.setVolume(1);
             musicPlayer.load(song);
             musicPlayer.play();
+
+            musicPlayer.audioElement.onended = () => {
+                musicPlayer.load(new Song(general.songs.filepaths[0].list[~~(Math.random() * general.songs.filepaths[0].list.length)], true));
+                musicPlayer.play();
+            };
         }
     }
 });
