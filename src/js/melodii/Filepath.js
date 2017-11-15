@@ -5,24 +5,28 @@ import os from 'os';
 var settings = new Settings();
 
 export default class Filepath {
-    constructor(location) {
-
+    constructor(location, done) {
+        this.list = null;
         if (os.platform() !== 'win32') this.slash = '/';
         else this.slash = '\\';
 
+    
         settings.wait((res) => {
             this.location = location;
-            this.getFiles(location);
-
+            this.getFiles(location, (arr) => {
+                done('Filepath Class for' + this.location + ' created.');
+            });
         });
 
     }
-    getFiles(location) {
+    getFiles(location, done) {
         this.scan(location, (err, res) => {
+            if (err) throw err;
             this.list = res.filter((arg) => {
                 if (arg.match(/^.*\.(flac|mp4|mp3|m4a|aac|wav|ogg)$/gi) !== null) return true;
                 else return false;
             });
+            done(res);
         });
 
     }

@@ -1,5 +1,7 @@
 'use strict';
-import { remote } from 'electron';
+import {
+    remote
+} from 'electron';
 import Settings from './Settings';
 import FilePath from './Filepath';
 import fs from 'fs';
@@ -27,36 +29,46 @@ export default class Directory {
         if (this.location !== 'undefined') {
             this.location = this.location.toString();
 
-            debugger;
-            let filepath = new FilePath(this.location);
-            console.log('Chosen Directory: ' + this.location);
+            let filepath = new FilePath(this.location, (text) => {
+                console.log(text);
 
-            settings.wait((general) => {
-                general.songs.filepaths.push(filepath); //check to see if filepaths.location already exists
+                console.log('Chosen Directory: ' + this.location);
 
-                if (general.defaultDir.enable) {
-                    let length = general.defaultDir.location.length;
-                    for (let i = 0; i < length; i++) {
-                        if (general.defaultDir.filepaths[i].location === this.location) this.overwrite = true;
-                    }
+                settings.wait((general) => {
+                    let preExist = false;
 
-                    if (this.overwrite) {
-                        settings.save(general);
-                        window.alert('Updated "' + this.location + '"');
-                    } else {
-                        if (confirm('Would You like to add "' + this.location + '" as a default directory?')) {
-                            general.defaultDir.filepaths.push(this.location);
-                            settings.save(general);
-                            window.alert('Added "' + this.location + '" as a default directory');
+                    for (let i = 0; i < general.songs.filepaths.length; i++) {
+                        if (general.songs.filepaths[i] === filepath) {
+                            preExist = true;
+                            general.songs.filepaths[i] = filepath;
                         }
                     }
-                } else {
-                    if (confirm('Do you Want to set "' + this.location + '" as your default directory?')) {
-                        general.defaultDir.enable = true;
-                        general.defaultDir.filepaths.push(filepath);
-                        settings.save(general);
+                    if (!preExist) general.songs.filepaths.push(filepath);
+
+                    if (general.defaultDir.enable) {
+                        let length = general.defaultDir.location.length;
+                        for (let i = 0; i < length; i++) {
+                            if (general.defaultDir.filepaths[i].location === this.location) this.overwrite = true;
+                        }
+
+                        if (this.overwrite) {
+                            settings.save(general);
+                            window.alert('Updated "' + this.location + '"');
+                        } else {
+                            if (confirm('Would You like to add "' + this.location + '" as a default directory?')) {
+                                general.defaultDir.filepaths.push({slash: filepath.slash, location: filepath.location});
+                                settings.save(general);
+                                window.alert('Added "' + this.location + '" as a default directory');
+                            }
+                        }
+                    } else {
+                        if (confirm('Do you Want to set "' + this.location + '" as your default directory?')) {
+                            general.defaultDir.enable = true;
+                            general.defaultDir.filepaths.push({slash: filepath.slash, location: filepath.location});
+                            settings.save(general);
+                        }
                     }
-                }
+                });
             });
         } else {
             console.error('Melodii was unable to retrieve the directory chosen');
