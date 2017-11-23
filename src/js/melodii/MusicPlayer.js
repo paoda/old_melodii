@@ -1,27 +1,17 @@
 'use strict';
 
 var mp = new Audio();
+var loadedSong; 
 
 export default class MusicPlayer {
     constructor() {
         this.audioElement = mp;
         this.ispaused = false;
 
-        let currentSong = null;
         let pastSongs = [];
-
-        Object.defineProperty(this.audioElement, 'currentSong', {
-            configurable: true,
-            get: () => {
-                return currentSong;
-            },
-            set: (value) => {
-                if (!currentSong) pastSongs.push(currentSong);
-                console.log(pastSongs);
-                currentSong = value;
-            }
-        });
-
+    }
+    getLoadedSong() {
+        return loadedSong;
     }
     stop() {
         this.pause();
@@ -38,9 +28,12 @@ export default class MusicPlayer {
             this.ispaused = false;
         }
     }
+    editDOM() {
+
+    }
     load(obj) {
         let url = obj.location;
-        this.audioElement.currentSong = obj;
+        loadedSong = obj;
         if (!this.ispaused) this.pause();
         this.audioElement.src = url;
         this.audioElement.load();

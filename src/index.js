@@ -11,21 +11,21 @@ settings.wait((general) => {
 
     if (general.songs.filepaths.length > 0) {
         var song;
-        Playlist.getRandomFromAll((res) => song = res);
-
-        if (song.location) {
-            var musicPlayer = new MusicPlayer();
-            musicPlayer.setVolume(1);
-            musicPlayer.load(song);
-            musicPlayer.play();
-
-            musicPlayer.audioElement.onended = () => {
-                Playlist.getRandomFromAll((res) => {
-                    musicPlayer.load(res);
-                    musicPlayer.play();
-                });
-            };
-        }
+        Playlist.getRandomFromAll((res) => {
+            if (res.location) {
+                var musicPlayer = new MusicPlayer();
+                musicPlayer.setVolume(1);
+                musicPlayer.load(res);
+                musicPlayer.play();
+    
+                musicPlayer.audioElement.onended = () => {
+                    Playlist.getRandomFromAll((res) => {
+                        musicPlayer.load(res);
+                        musicPlayer.play();
+                    });
+                };
+            }
+        });
     }
 });
 
