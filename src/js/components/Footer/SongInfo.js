@@ -10,30 +10,31 @@ export default class SongInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            artist: ' ',
-            title: ' ',
-            album: ' '
+            artist: 'Artist',
+            title: 'Title',
+            album: 'Album Name'
         };
     }
     componentDidMount() {
-        this.timerID = setInterval(this.check, 1000/refreshRate);
+        this.timerID = setInterval(() => this.check(), 1000/refreshRate);
     }
     check() {
         let loadedSong = mp.getLoadedSong();
 
         console.log(loadedSong);
-        this.setState = {
+        this.setState({
             artist: loadedSong.metadata.common.artist,
             title: loadedSong.metadata.common.title,
             album: loadedSong.metadata.common.album
-        };
+        });
+        
     }
     componentWillUnmount() {
         clearInterval(this.timerID);
     }
     render() {
         return (
-            <div>{this.state.title} - {this.state.artist} | {this.state.album}</div>
+            <span>{this.state.title} - {this.state.artist} | {this.state.album}</span>
         )
     }
 }

@@ -1,10 +1,10 @@
 {
   "name": "melodii",
-  "version": "2017.1114.0",
+  "version": "2017.1129.0",
   "description": "An Electron Based Music Player",
   "main": "./dist/main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron .",2
     "build": "webpack"
   },
   "repository": {

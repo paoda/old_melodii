@@ -11,18 +11,12 @@ const refreshRate = 30; //30fps
 export default class SeekBar extends React.Component {
     constructor(props) {
         super(props);
-        
-        var rekai;
-        var self = this;
         this.state = {
             currentTime: mp.currentTime(),
             duration: mp.duration()
         };
         this.isPlayingOnMouseDown = false;
         this.onChangeUsed = false;
-    }
-    test(input) {
-        this.setState({currentTime: input});
     }
     componentDidMount() {
         this.timerID = setInterval(() => this.check(),1000/refreshRate); //Maybe Fix This

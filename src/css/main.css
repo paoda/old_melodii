@@ -31,6 +31,18 @@ body {
     flex-flow: column;
 }
 
+/* CSS for Song Information */
+.songInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.75em;
+}
+
+.songInfo span {
+    color: white;
+    text-align: center;
+}
 /* CSS for the Header */
 header {
     -webkit-app-region: drag;
@@ -73,7 +85,7 @@ footer {
     min-height: 2.75em;
     text-align: center;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     background: var(--ui-bg-colour);
 }
 
@@ -83,7 +95,7 @@ footer {
     display: flex;
     justify-content: center;
     padding-left: 8em;
-    margin-right: auto;
+    /* margin-right: auto; */
     align-items: center;
 }
 .mediaControls i {
@@ -92,6 +104,9 @@ footer {
     margin-left: 0.3em;
     display: block;
     cursor: pointer;
+}
+.mediaControls #SkipFwd {
+    margin-right: 0.5em;
 }
 .mediaControls #VolBar {
     margin-top: auto;

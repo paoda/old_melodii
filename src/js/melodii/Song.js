@@ -51,7 +51,7 @@ export default class Song {
             }
         } else {
             console.warn(metadata.common.title + ' does not have Album Art');
-            let img = document.getElementById('albumimg');
+            let img = document.getElementById('albumImg');
             img.src = noalbumart;
         }
     }
