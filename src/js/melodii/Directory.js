@@ -26,7 +26,7 @@ export default class Directory {
             console.error('Unexpected Closure of Dialog Box');
         }
 
-        if (this.location !== 'undefined') {
+        if (this.location !== undefined) {
             this.location = this.location.toString();
 
             let filepath = new FilePath(this.location, (text) => {

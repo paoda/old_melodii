@@ -1,7 +1,8 @@
 'use strict';
 
 var mp = new Audio();
-var loadedSong; 
+var loadedSong;
+var previousSongs = [];
 
 export default class MusicPlayer {
     constructor() {
@@ -32,11 +33,26 @@ export default class MusicPlayer {
 
     }
     load(obj) {
+        console.log('Song to be Loaded: ' + obj.location);
+        if (loadedSong !== undefined) previousSongs.push(loadedSong);
         let url = obj.location;
         loadedSong = obj;
         if (!this.ispaused) this.pause();
-        this.audioElement.src = url;
-        this.audioElement.load();
+        try {
+            this.audioElement.src = this.getURICompatibleString(url);
+            this.audioElement.load();
+        } catch(e) {
+            console.error(e);
+            alert(e);
+        }
+    }
+    getURICompatibleString(string) {
+       return string.replace(/[!'()*#?@$&+,;=\[\]]/g, (c) => { //Excluded '/' '\' ':'
+            return '%' + c.charCodeAt(0).toString(16);
+        });
+    }
+    getPreviousSongs() {
+        return previousSongs;
     }
     seek(pos) {
         this.audioElement.currentTime = pos;

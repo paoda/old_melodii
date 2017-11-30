@@ -20,13 +20,15 @@ export default class SongInfo extends React.Component {
     }
     check() {
         let loadedSong = mp.getLoadedSong();
-
-        console.log(loadedSong);
-        this.setState({
-            artist: loadedSong.metadata.common.artist,
-            title: loadedSong.metadata.common.title,
-            album: loadedSong.metadata.common.album
-        });
+        try {
+            this.setState({
+                artist: loadedSong.metadata.common.artist,
+                title: loadedSong.metadata.common.title,
+                album: loadedSong.metadata.common.album
+            });
+        } catch (e) {
+            console.warn('Song Information not found (possibly waiting for async process');
+        }
         
     }
     componentWillUnmount() {

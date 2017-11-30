@@ -7,7 +7,7 @@ var mp = new MusicPlayer();
 export default class VolBar extends React.Component {
     constructor() {
         super();
-        this.state = {input:1, max: 250};
+        this.state = {input:250, max: 250};
 
         this.setVolume = this.setVolume.bind(this);
     }
