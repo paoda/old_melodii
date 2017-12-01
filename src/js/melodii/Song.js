@@ -35,10 +35,30 @@ export default class Song {
             }
         });   
     }
+    applyAlbumArt() {
+        let img = document.getElementById('albumImg');
+        
+        if (this.metadata.common.picture) {
+            if (this.metadata.common.picture.length > 0) {
+                let picture = this.metadata.common.picture[0];
+                let url = URL.createObjectURL(new Blob([picture.data], {
+                    'type': 'image/' + picture.format
+                }));
+                img.src = url;
+            } else {
+                console.error(this.metadata.common.title + ' has Album Art, but the Album Art is empty');
+                let img = document.getElementById('albumImg');
+                img.src = noalbumart;
+            }
+        } else {
+            console.warn(this.metadata.common.title + ' does not have Album Art');
+            img.src = noalbumart;
+        }
+    }
     getAlbumArt(metadata) {
         if (metadata.common.picture) {
             if (metadata.common.picture.length > 0) {
-                let picture = this.metadata.common.picture[0];
+                let picture = metadata.common.picture[0];
                 let url = URL.createObjectURL(new Blob([picture.data], {
                     'type': 'image/' + picture.format
                 }));
