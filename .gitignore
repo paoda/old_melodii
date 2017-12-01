@@ -3,3 +3,4 @@ node_modules/*
 dist/app/*
 !dist/app/index.html
 src/assets/Melodii.xd
+.vscode/melodii.code-workspace
