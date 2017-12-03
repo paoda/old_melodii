@@ -30,7 +30,7 @@ export default class Table { //Table Generation
             table.thead.tr = ['Artist', 'Title', 'Album', 'Year', 'Genre', 'Time'];
 
             this.getBody(table, general.songs.filepaths[0].list, 0, num, (err) => {
-                if (err) throw err;
+                if (err) throw err; //Can Throw Error: File not found
 
                 ReactDOM.render(<SongTable json={table} />, wrapper);    
             });

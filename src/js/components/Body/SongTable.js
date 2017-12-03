@@ -10,39 +10,32 @@ export default class SongTable extends React.Component {
         this.parseBody.bind(this);
     }
     parseJSON(json) {
-        let headJSX = this.parseHead(json.thead.tr);
-        let bodyJSX = this.parseBody(json.tbody);
+        this.headJSX = this.parseHead(json.thead.tr);
+        this.bodyJSX = this.parseBody(json.tbody);
 
-        console.log(headJSX);
-        console.log(bodyJSX);
+        console.log(this.headJSX);
+        console.log(this.bodyJSX);
     }
     parseHead(arr) {
-        let temp = []
-        for (let i = 0; i < arr.length; i++) {
-            temp.push(<th> {arr[i]} </th>);
-        }
-        return temp;
+        return arr.map((string) => <th key={string}> {string} </th>);
     }
     parseBody(arr) {
-        let tr = [];
-        for (let i = 0; i < arr.length; i++) {
-            let tr = [];
-            for (let j = 0; j < 6; j++) {
-                tr[i].push(arr[j].artist);
-                tr[i].push(arr[j].title);
-                tr[i].push(arr[j].album);
-                tr[i].push(arr[j].year);
-                tr[i].push(arr[j].genre);
-                tr[i].push(arr[j].time);
-            }
-        }
-
-        return tr;
+        let temp = arr.map( (obj) => <tr> <td>{obj.artist}</td> <td>{obj.title}</td> <td>{obj.album}</td> <td>{obj.year}</td> <td>{obj.genre[0]}</td> <td>{obj.time}</td> </tr>);
+        return temp;
     }
     render() {
         this.parseJSON(this.props.json);
         return (
-            <table id='songTable'></table>
+            <table id='songTable'>
+                <thead>
+                    <tr>
+                        {this.headJSX}
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.bodyJSX}
+                </tbody>
+            </table>
         )
     }
 }
