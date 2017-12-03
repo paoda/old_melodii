@@ -6,6 +6,7 @@ import MusicPlayer from './js/melodii/MusicPlayer';
 import Song from './js/melodii/Song';
 import Settings from './js/melodii/Settings';
 import Playlist from './js/melodii/Playlist';
+import Table from './js/melodii/Table';
 var settings = new Settings();
 settings.wait((general) => {
 
@@ -27,6 +28,9 @@ settings.wait((general) => {
             }
         });
     }
+
+    var table = new Table();
+    table.generate();
 });
 
 /*window.setTimeout(() => {
