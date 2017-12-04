@@ -7,6 +7,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as mm from 'music-metadata';
 
+import Body from '../components/Body';
+import BtnDir from '../components/Body/BtnDir';
 import SongTable from '../components/Body/SongTable';
 
 let settings = new Settings();
@@ -32,7 +34,7 @@ export default class Table { //Table Generation
             this.getBody(table, general.songs.filepaths[0].list, 0, num, (err) => {
                 if (err) throw err; //Can Throw Error: File not found
 
-                ReactDOM.render(<SongTable json={table} />, wrapper);    
+                ReactDOM.render(<SongTable json={table} />, wrapper);
             });
         });
     }
@@ -51,6 +53,7 @@ export default class Table { //Table Generation
 
         let min = ~~((metadata.format.duration % 3600) /60);
         let sec = ~~(metadata.format.duration % 60);
+        if (sec < 10) sec = '0' + sec;
         let time = `${min}:${sec}`;
 
         let obj = {
