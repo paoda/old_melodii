@@ -30,7 +30,7 @@ settings.wait((general) => {
     }
 
     var table = new Table();
-    table.generate();
+    table.create();
 });
 
 /*window.setTimeout(() => {

@@ -75,6 +75,14 @@ header span {
 /* Song Table */
 .wrapper table {
     cursor: default;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+.wrapper table tbody:hover {
+   cursor: pointer;
+}
+.wrapper table thead {
+    border-bottom: 2px solid #666666;
 }
 .wrapper table td {
     margin: 0;
@@ -83,11 +91,11 @@ header span {
     vertical-align: middle;
 }
 .wrapper table tr:nth-child(even) {
-    background-color: var(--table-bg-even);
+    background: var(--table-bg-even);
     color: white;
 }
 .wrapper table tr:nth-child(odd) {
-    background-color: var(--table-bg-odd);
+    background: var(--table-bg-odd);
     color: white;
 }
 /*CSS for the Body */

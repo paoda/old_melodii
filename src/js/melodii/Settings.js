@@ -7,21 +7,22 @@ export default class Settings {
     constructor() {
         this.general = { //Default Settings
             defaultDir: {
-                enable: false,
-                filepaths: []
+                enable: false, //boolean
+                filepaths: [] //array
             },
             lastfm: {
-                enable: false,
-                apiKey: null,
-                secret: null,
-                sessionName: null
+                enable: false, //boolean
+                apiKey: null, //string
+                secret: null, //string
+                sessionName: null //string
             },
             listenmoe: {
-                enable: false
+                enable: false //boolean
             },
             songs: {
-                filepaths: []
-            }
+                filepaths: [] //array
+            },
+            table: undefined //boolean
         };
         this.misc = {
             appdata: remote.app.getPath('appData'),
@@ -66,6 +67,7 @@ export default class Settings {
         
         fs.writeFile(this.misc.path, JSON.stringify(obj), (err) => {
             if (err) throw err;
+            console.log('Settings Saved!');
         });
     }
     load() {

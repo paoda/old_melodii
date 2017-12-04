@@ -6,6 +6,7 @@ import Settings from './Settings';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as mm from 'music-metadata';
+import fs from 'fs';
 
 import Body from '../components/Body';
 import BtnDir from '../components/Body/BtnDir';
@@ -15,6 +16,33 @@ let settings = new Settings();
 
 export default class Table { //Table Generation
 
+    create() {
+        //Check to see if Table has already been created, if so no need to generate a new one.
+        settings.wait((general) => {
+            if (general.table) { //Table already exists
+                let wrapper = document.getElementsByClassName('wrapper')[0];
+                let path;
+
+                if (settings.misc.os === 'win32') path = settings.misc.appdata + '\\melodii\\user\\table.json';
+                else path = settings.misc.appdata + '/melodii/user/table.json';
+
+                fs.readFile(path, 'utf8', (err, obj) => {
+                    if (err) throw err;
+
+                    let res, success = true;
+                    try {
+                        res = JSON.parse(obj)
+                    } catch (e) {
+                        success = false;
+                        console.error('Unable to Parse "tabe.json" Recreating...');
+                    }
+
+                    if (!success) this.generate();
+                    else ReactDOM.render(<SongTable obj={res} />, wrapper);
+                });
+            } else this.generate();
+        });
+    }
     generate() {
         let wrapper = document.getElementsByClassName('wrapper')[0];
 
@@ -34,7 +62,7 @@ export default class Table { //Table Generation
             this.getBody(table, general.songs.filepaths[0].list, 0, num, (err) => {
                 if (err) throw err; //Can Throw Error: File not found
 
-                ReactDOM.render(<SongTable json={table} />, wrapper);
+                ReactDOM.render(<SongTable obj={table} />, wrapper);
             });
         });
     }
