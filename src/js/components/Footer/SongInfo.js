@@ -20,6 +20,8 @@ export default class SongInfo extends React.Component {
     }
     check() {
         let loadedSong = mp.getLoadedSong();
+
+        //TODO: Truncate based on widest character width (Japanese Characters for now?)
         try {
             this.setState({
                 artist: loadedSong.metadata.common.artist,

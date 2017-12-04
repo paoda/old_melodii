@@ -31,7 +31,7 @@ export default class Table { //Table Generation
 
                     let res, success = true;
                     try {
-                        res = JSON.parse(obj)
+                        res = JSON.parse(obj);
                     } catch (e) {
                         success = false;
                         console.error('Unable to Parse "tabe.json" Recreating...');
