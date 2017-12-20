@@ -10,6 +10,9 @@ var settings = new Settings();
 let general;
 var musicPlayer;
 
+let active = document.createElement('tr');
+active.classList.toggle('active');
+
 settings.wait((res) => {
     general = res;
     musicPlayer = new MusicPlayer();
@@ -60,9 +63,15 @@ export default class SongTable extends React.Component {
         return temp;
     }
     handleClick(e) {
-        let filepath = e.currentTarget.dataset.filepath;
-        musicPlayer.load(new Song(filepath, true));
-        musicPlayer.play();
+        if (active !== e.currentTarget) {
+            active.classList.toggle('active');
+            e.currentTarget.classList.toggle('active');
+            active = e.currentTarget;
+        } else {
+            let filepath = e.currentTarget.dataset.filepath;
+            musicPlayer.load(new Song(filepath, true));
+            musicPlayer.play();
+        }
     }
     render() {
         this.loadTableObject(this.props.obj);

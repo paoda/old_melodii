@@ -43,7 +43,6 @@ export default class MusicPlayer {
             this.audioElement.load();
         } catch(e) {
             console.error(e);
-            alert(e);
         }
     }
     getURICompatibleString(string) {

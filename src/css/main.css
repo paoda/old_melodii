@@ -82,8 +82,8 @@ header span {
    cursor: pointer;
 }
 .active {
-    background: var(--accent-colour);
-    color: white;
+    background: var(--accent-colour) !important;
+    color: white !important;
 }
 .wrapper table thead {
     border-bottom: 2px solid #666666;

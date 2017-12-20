@@ -26,20 +26,21 @@ export default class Table { //Table Generation
                 if (settings.misc.os === 'win32') path = settings.misc.appdata + '\\melodii\\user\\table.json';
                 else path = settings.misc.appdata + '/melodii/user/table.json';
 
-                fs.readFile(path, 'utf8', (err, obj) => {
-                    if (err) throw err;
-
-                    let res, success = true;
-                    try {
-                        res = JSON.parse(obj);
-                    } catch (e) {
-                        success = false;
-                        console.error('Unable to Parse "tabe.json" Recreating...');
-                    }
-
-                    if (!success) this.generate();
-                    else ReactDOM.render(<SongTable obj={res} />, wrapper);
-                });
+                if (fs.existsSync(path)) {
+                    fs.readFile(path, 'utf8', (err, obj) => {
+                        if (err) throw err;
+                        let res, success = true;
+                        try {
+                            res = JSON.parse(obj);
+                        } catch (e) {
+                            success = false;
+                            console.warn('Unable to Parse "table.json" Recreating...');
+                        }
+    
+                        if (!success) this.generate();
+                        else ReactDOM.render(<SongTable obj={res} />, wrapper);
+                    });
+                } else this.generate();
             } else this.generate();
         });
     }
