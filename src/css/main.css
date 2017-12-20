@@ -81,12 +81,17 @@ header span {
 .wrapper table tbody:hover {
    cursor: pointer;
 }
+.active {
+    background: var(--accent-colour);
+    color: white;
+}
 .wrapper table thead {
     border-bottom: 2px solid #666666;
 }
 .wrapper table td {
-    margin: 0;
-    padding: 0;
+    /* white-space: nowrap; */
+    text-overflow: ellipsis;
+    overflow: hidden;
     text-align: center;
     vertical-align: middle;
 }
