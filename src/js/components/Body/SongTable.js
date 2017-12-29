@@ -26,6 +26,21 @@ export default class SongTable extends React.Component {
         this.parseHead.bind(this);
         this.parseBody.bind(this);
     }
+    measureText(text, font) { //https://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
+        let canvas = this.canvas || (this.canvas = document.createElement('canvas'));
+        let ctx = canvas.getContext('2d');
+        
+        ctx.font = font;
+        let metrics = ctx.measureText(text);
+        return metrics.width;
+    }
+    truncateText(text, maxWidth, font) {
+        let width = this.measureText(text, font);
+
+        if (width > maxWidth) return 'TOO LONG!';
+        else return text;
+        
+    }
     loadTableObject(obj) {
         this.headJSX = this.parseHead(obj.thead.tr);
         this.bodyJSX = this.parseBody(obj.tbody);
@@ -45,20 +60,23 @@ export default class SongTable extends React.Component {
                 console.log('Table Saved!');
     
             });
-        };
+        }
     }
     parseHead(arr) {
         return arr.map((string) => <th key={string}> {string} </th>);
     }
     parseBody(arr) {
-        let temp = arr.map( (obj) => 
-        <tr key={obj.location} data-filepath={obj.location} onClick={this.handleClick.bind(this)}>
-        <td>{obj.artist}</td>
-        <td>{obj.title}</td>
-        <td>{obj.album}</td>
-        <td>{obj.year}</td>
-        <td>{obj.genre[0]}</td>
-        <td>{obj.time}</td>
+        let maxWidth = (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) / 6);
+        console.log("<td> max-width: " + maxWidth + "px.");
+
+        let temp = arr.map( (obj) =>
+        <tr key={obj.location} data-filepath={obj.location} onClick={this.handleClick.bind(this)} onKeyDown={this.handleKeyDown.bind(this)} tabIndex="0">
+        <td>{this.truncateText(obj.artist, maxWidth, "Roboto")}</td>
+        <td>{this.truncateText(obj.title, maxWidth, "Roboto")}</td>
+        <td>{this.truncateText(obj.album, maxWidth, "Roboto")}</td>
+        <td>{this.truncateText(obj.year, maxWidth, "Roboto")}</td>
+        <td>{this.truncateText(obj.genre[0], maxWidth, "Roboto")}</td>
+        <td>{this.truncateText(obj.time, maxWidth, "Roboto")}</td>
         </tr>);
         return temp;
     }
@@ -68,6 +86,15 @@ export default class SongTable extends React.Component {
             e.currentTarget.classList.toggle('active');
             active = e.currentTarget;
         } else {
+            let filepath = e.currentTarget.dataset.filepath;
+            musicPlayer.load(new Song(filepath, true));
+            musicPlayer.play();
+        }
+    }
+    handleKeyDown(e) {
+        console.log(e.key);
+
+        if (e.key === "Enter" && e.currentTarget === active) { //Active and Presses Enter
             let filepath = e.currentTarget.dataset.filepath;
             musicPlayer.load(new Song(filepath, true));
             musicPlayer.play();
