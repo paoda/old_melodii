@@ -22,9 +22,29 @@ export default class SongTable extends React.Component {
     constructor(props) {
         super(props);
 
+        this.savedJSX = false; //Will be set to true once this.headJSX and this.bodyJSX exist.
+
         this.loadTableObject.bind(this);
         this.parseHead.bind(this);
         this.parseBody.bind(this);
+
+        let self = this;
+        (function() { //https://developer.mozilla.org/en-US/docs/Web/Events/resize
+            window.addEventListener('resize', throttler, false);
+          
+            var resizeTimeout;
+            function throttler() {
+              // ignore resize events as long as an resizeHandler execution is in the queue
+              if ( !resizeTimeout ) {
+                resizeTimeout = setTimeout(function() {
+                  resizeTimeout = null;
+                  self.forceUpdate();
+               
+                 // The resizeHandler will execute at a rate of 15fps
+                 }, 66);
+              }
+            }
+          }());
     }
     measureText(text, font) { //https://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
         let canvas = this.canvas || (this.canvas = document.createElement('canvas'));
@@ -65,24 +85,37 @@ export default class SongTable extends React.Component {
         if (width > maxWidth) {
             //text needs truncating...
             let charWidths = [];
+            let ellipsisWidth = this.measureText('...', font);
 
             //get Average width of every char in string
             for (let char in text) if (typeof char === 'string') charWidths.push(this.measureText(char, font));
-            let median = this.median(charWidths);
-            let average = this.average(charWidths);
-            let charWidth = this.mode(charWidths);
-            console.log('Mean: ' + ~~average + ' Median: '  + ~~median + ' Mode: ' + ~~charWidth + ' (' + text + ')');
-            //Find out how many of these characters fit in max Width;
-            let maxChars = maxWidth / ~~charWidth;
+            
+            // let charWidth = this.median(charWidths);
+            let charWidth = this.average(charWidths);
+            // let charWidth = this.mode(charWidths);
 
-            let truncated = text.substr(0, maxChars);
+            //Find out how many of these characters fit in max Width;
+            let maxChars = (maxWidth - ellipsisWidth) / charWidth;
+
+            let truncated = '';
+
+            try {
+                truncated = text.substr(0, maxChars);
+            } catch(e) {
+                // console.warn('\n' + e + ' ASSUMPTION: Melodii width shrunk to extremely small proportions');
+                // console.warn('Text: "' + text + '"\nMaximum Width: ' + maxWidth + 'px.\nMaximum Space for Characters: ' + maxChars + 'px.');
+            }
             return truncated + '...';
         }else return text;
     }
     loadTableObject(obj) {
         this.headJSX = this.parseHead(obj.thead.tr);
         this.bodyJSX = this.parseBody(obj.tbody);
-        this.saveTableObject(obj);
+
+        if (!this.savedJSX) {
+            this.saveTableObject(obj);
+            this.savedJSX = true;
+        }
     }
     saveTableObject(obj) {
         if (!general.table) {
