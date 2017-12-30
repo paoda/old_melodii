@@ -71,7 +71,7 @@ export default class SongTable extends React.Component {
             let median = this.median(charWidths);
             let average = this.average(charWidths);
             let charWidth = this.mode(charWidths);
-            console.log('Mean: ' + ~~average + ' Median: '  + ~~median + ' Mode: ' + ~~charWidth);
+            console.log('Mean: ' + ~~average + ' Median: '  + ~~median + ' Mode: ' + ~~charWidth + ' (' + text + ')');
             //Find out how many of these characters fit in max Width;
             let maxChars = maxWidth / ~~charWidth;
 
