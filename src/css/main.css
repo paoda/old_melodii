@@ -90,7 +90,7 @@ header span {
 }
 .wrapper table td {
     width: calc(100vw / 6);
-    text-align: center;
+    /* text-align: center; */
     vertical-align: middle;
 }
 .wrapper table tr:nth-child(even) {
@@ -100,6 +100,9 @@ header span {
 .wrapper table tr:nth-child(odd) {
     background: var(--table-bg-odd);
     color: white;
+}
+.wrapper table tr:focus {
+    outline: none;
 }
 /*CSS for the Body */
 

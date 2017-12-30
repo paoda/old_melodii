@@ -34,12 +34,50 @@ export default class SongTable extends React.Component {
         let metrics = ctx.measureText(text);
         return metrics.width;
     }
+    average(arr) {
+        let total = 0;
+        for (let i = 0; i < arr.length; i++) {
+            total += arr[i];
+        }
+        return total / arr.length;
+    }
+    median(arr) {
+        arr.sort((a, b) => {return a - b;});
+
+        let half = ~~(arr.length /2);
+
+        if (arr.length % 2) return arr[half];
+        else return (arr[half -1] + arr [half]) / 2.0;
+    }
+    mode(arr) { //https://codereview.stackexchange.com/a/68431
+        return arr.reduce(function(current, item) {
+            var val = current.numMapping[item] = (current.numMapping[item] || 0) + 1;
+            if (val > current.greatestFreq) {
+                current.greatestFreq = val;
+                current.mode = item;
+            }
+            return current;
+        }, {mode: null, greatestFreq: -Infinity, numMapping: {}}, arr).mode;
+    }
     truncateText(text, maxWidth, font) {
         let width = this.measureText(text, font);
 
-        if (width > maxWidth) return 'TOO LONG!';
-        else return text;
-        
+        if (width > maxWidth) {
+            //text needs truncating...
+            let charWidths = [];
+
+            //get Average width of every char in string
+            for (let char in text) if (typeof char === 'string') charWidths.push(this.measureText(char, font));
+            let median = this.median(charWidths);
+            let average = this.average(charWidths);
+            let charWidth = this.mode(charWidths);
+            console.log('Mean: ' + ~~average + ' Median: '  + ~~median + ' Mode: ' + ~~charWidth);
+            //Find out how many of these characters fit in max Width;
+            let maxChars = maxWidth / ~~charWidth;
+
+            let truncated = text.substr(0, maxChars);
+            return truncated + '...';
+        }else return text;
     }
     loadTableObject(obj) {
         this.headJSX = this.parseHead(obj.thead.tr);
@@ -67,16 +105,16 @@ export default class SongTable extends React.Component {
     }
     parseBody(arr) {
         let maxWidth = (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) / 6);
-        console.log("<td> max-width: " + maxWidth + "px.");
+        console.log('<td> max-width: ' + maxWidth + 'px.');
 
         let temp = arr.map( (obj) =>
-        <tr key={obj.location} data-filepath={obj.location} onClick={this.handleClick.bind(this)} onKeyDown={this.handleKeyDown.bind(this)} tabIndex="0">
-        <td>{this.truncateText(obj.artist, maxWidth, "Roboto")}</td>
-        <td>{this.truncateText(obj.title, maxWidth, "Roboto")}</td>
-        <td>{this.truncateText(obj.album, maxWidth, "Roboto")}</td>
-        <td>{this.truncateText(obj.year, maxWidth, "Roboto")}</td>
-        <td>{this.truncateText(obj.genre[0], maxWidth, "Roboto")}</td>
-        <td>{this.truncateText(obj.time, maxWidth, "Roboto")}</td>
+        <tr key={obj.location} data-filepath={obj.location} onClick={this.handleClick.bind(this)} onKeyDown={this.handleKeyDown.bind(this)} tabIndex='0'>
+        <td>{this.truncateText(obj.artist, maxWidth, 'Roboto')}</td>
+        <td>{this.truncateText(obj.title, maxWidth, 'Roboto')}</td>
+        <td>{this.truncateText(obj.album, maxWidth, 'Roboto')}</td>
+        <td>{this.truncateText(obj.year, maxWidth, 'Roboto')}</td>
+        <td>{this.truncateText(obj.genre[0], maxWidth, 'Roboto')}</td>
+        <td>{this.truncateText(obj.time, maxWidth, 'Roboto')}</td>
         </tr>);
         return temp;
     }
@@ -92,9 +130,9 @@ export default class SongTable extends React.Component {
         }
     }
     handleKeyDown(e) {
-        console.log(e.key);
+        console.log('Focus:' + e.currentTarget.dataset.filepath + ' Key: ' + e.key);
 
-        if (e.key === "Enter" && e.currentTarget === active) { //Active and Presses Enter
+        if (e.keyCode === 13 && e.currentTarget === active) { //Active and Presses Enter
             let filepath = e.currentTarget.dataset.filepath;
             musicPlayer.load(new Song(filepath, true));
             musicPlayer.play();
