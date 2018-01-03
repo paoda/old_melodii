@@ -22,7 +22,8 @@ export default class Settings {
             songs: {
                 filepaths: [] //array
             },
-            table: undefined //boolean
+            table: undefined, //boolean
+            volume: 50 //double
         };
         this.misc = {
             appdata: remote.app.getPath('appData'),

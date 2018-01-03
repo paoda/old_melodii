@@ -29,7 +29,7 @@ export default class SongInfo extends React.Component {
                 album: loadedSong.metadata.common.album
             });
         } catch (e) {
-            console.warn('Song Information not found (possibly waiting for async process)');
+            // console.warn('Song Information not found (possibly waiting for async process)');
         }
         
     }
